@@ -1,0 +1,11 @@
+[package]
+name = "rem-cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rem-utils = { git = "https://github.com/RuleBrittonica/rem-utils.git", branch = "master" }
+rem-constraint = { git = "https://github.com/RuleBrittonica/rem-constraint.git", branch = "master" }
+rem-borrower = { git = "https://github.com/RuleBrittonica/rem-borrower.git", branch = "master" }
+rem-controller = { git = "https://github.com/RuleBrittonica/rem-controller.git", branch = "master" }
+
