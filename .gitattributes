@@ -1,0 +1,2 @@
+tools/charon filter=lfs diff=lfs merge=lfs -text
+tools/charon-driver filter=lfs diff=lfs merge=lfs -text
