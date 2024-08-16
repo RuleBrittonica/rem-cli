@@ -3,10 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - main  # or any branch you want to trigger the CI
+      - main
+      - master
   pull_request:
     branches:
-      - main  # or any branch you want to trigger the CI
+      - main
+      - master
 
 jobs:
   build:
@@ -19,7 +21,7 @@ jobs:
     - name: Set up Rust
       uses: actions/setup-rust@v1
       with:
-        rust-version: '1.70.0'  # Specify the Rust version you want to use
+        rust-version: '1.70.0'
 
     - name: Build
       run: cargo build --verbose
@@ -38,4 +40,4 @@ jobs:
         cargo install cargo-tarpaulin
         cargo tarpaulin --out Xml
       env:
-        CARGO_TARPAULIN_OPTS: "--exclude-files src/main.rs"  # Adjust as needed
+        CARGO_TARPAULIN_OPTS: "--exclude-files src/main.rs"
