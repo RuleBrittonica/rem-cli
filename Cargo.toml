@@ -8,4 +8,6 @@ rem-utils = { git = "https://github.com/RuleBrittonica/rem-utils.git", branch = 
 rem-constraint = { git = "https://github.com/RuleBrittonica/rem-constraint.git", branch = "master" }
 rem-borrower = { git = "https://github.com/RuleBrittonica/rem-borrower.git", branch = "master" }
 rem-controller = { git = "https://github.com/RuleBrittonica/rem-controller.git", branch = "master" }
-
+rem-repairer = { git ="https://github.com/RuleBrittonica/rem-repairer.git"}
+clap = "4.5.16"
+log = "0.4.22"
