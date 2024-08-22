@@ -11,3 +11,4 @@ rem-controller = { git = "https://github.com/RuleBrittonica/rem-controller.git",
 rem-repairer = { git ="https://github.com/RuleBrittonica/rem-repairer.git"}
 clap = "4.5.16"
 log = "0.4.22"
+flexi_logger = "0.28.5"

@@ -14,15 +14,21 @@ Optional arguments
 
 */
 
+mod logging;
 mod messages;
 use crate::messages::{
     about::ABOUT,
     author::AUTHOR,
-    help::HELP,
     version::VERSION,
 };
 
+mod refactor;
+
 fn main() {
+    logging::init_logging();
+
+    log::info!("Application Started");
+
     let matches = Command::new("rem-cli")
         .version(VERSION)
         .author(AUTHOR)
