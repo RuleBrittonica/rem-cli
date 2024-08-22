@@ -15,6 +15,7 @@ Optional arguments
 */
 
 mod logging;
+mod refactor_config;
 mod messages;
 use crate::messages::{
     about::ABOUT,
