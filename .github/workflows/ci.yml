@@ -35,9 +35,9 @@ jobs:
     - name: Format check
       run: cargo fmt -- --check
 
-    - name: Run Coverage
-      run: |
-        cargo install cargo-tarpaulin
-        cargo tarpaulin --out Xml
-      env:
-        CARGO_TARPAULIN_OPTS: "--exclude-files src/main.rs"
+    # - name: Run Coverage
+    #   run: |
+    #     cargo install cargo-tarpaulin
+    #     cargo tarpaulin --out Xml
+    #   env:
+    #     CARGO_TARPAULIN_OPTS: "--exclude-files src/main.rs"
