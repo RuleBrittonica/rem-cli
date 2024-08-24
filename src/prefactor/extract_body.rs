@@ -1,5 +1,7 @@
 use crate::error::ExtractFnBodyError;
 
+// use crate::prefactor::lsp_call::lsp_main;
+
 /// Extracts the function body into a new function
 /// If the `file_path` and `new_file_path` are the same, the the original file
 /// will be overwritten
@@ -22,6 +24,12 @@ pub fn extract_fn_body(
     if file_path.is_empty() {
         return Err(ExtractFnBodyError::FnNotFoundError(calle_fn_name.to_string()));
     }
+
+    // let res = lsp_main();
+    // match res {
+    //     Ok(_) => println!("LSP Success"),
+    //     Err(e) => println!("LSP Errored: {}", e)
+    // }
 
     Ok(())
 }
