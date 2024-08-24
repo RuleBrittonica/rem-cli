@@ -90,7 +90,7 @@ fn main() {
         )
         .arg(
             Arg::new("type")
-                .help("The type of refactoring - see README to learn what is currently supported")
+                .help("The type of refactoring - see README to learn what is currently supported. Leaving blank will run original REM extraction")
                 .short('t')
                 .long("type")
                 .required(false),
@@ -156,5 +156,7 @@ fn main() {
     };
 
     log::info!("Refactoring completed successfully.");
+
+    return;
 
 }
