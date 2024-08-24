@@ -21,8 +21,8 @@ pub fn init_logging() {
         )
         .rotate(
             Criterion::Age(Age::Day), // Rotate Daily
-            Naming::Timestamps, // Use timestamps in the rotated log files
-            Cleanup::KeepLogFiles(30) // Keep up to 30 log files
+            Naming::Timestamps, // Use timestamps
+            Cleanup::KeepLogFiles(60)
         )
         .format_for_files(format_log_with_timestamp)
         .start()

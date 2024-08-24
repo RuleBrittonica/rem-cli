@@ -1,36 +1,62 @@
 use clap::{Arg, Command};
-
-/*
-One potential design for the CLI is to take the following arguments:
-
-file_path:  The path to the file that contains just the code that will be refactored.
-target_var: The name of the variable/function/struct/impl to be refactored
-new_name:   The new name for the variable/function/... that is being refactored
-
-Optional arguments
-- out_path: If you want a new file to be created instead of just overwriting the original file
-- type:     What is being refactored (i.e. variable/function/struct/impl/trait)
-
-
-*/
+use log::{
+    info,
+    error,
+};
 
 mod logging;
-mod refactor_config;
+mod error;
+
 mod messages;
-use crate::messages::{
+use messages::{
     about::ABOUT,
     author::AUTHOR,
     version::VERSION,
 };
 
-mod refactor;
+mod prefactor;
+use prefactor::extract_body::extract_fn_body;
 
+mod refactor;
+use refactor::refactor_main:: {
+    extract_function,
+    extract_function_generic,
+    extract_function_async,
+};
+
+mod refactor_config;
+
+/// The CLI Takes the following arguments:
+///
+/// * file_path:  The path to the file that contains just the code that will be refactored.
+///
+/// The file must be structured such that it contains $0 signs where the cursors are (i.e. what text the user has selected)
+/// E.g.
+/// ```
+/// fn foo () {
+///     let n = 1;
+///     $0 let m = n + 2;
+///     // Calculate
+///     let k = m + n;$0
+///     let g = 3;
+/// }
+/// ```
+///
+/// * new_file_path: The path to the new file (i.e where we want the refactored code to end up)
+/// * calle_fn_name: The name of the function that contains the code to be refactored
+/// * caller_fn_name: The name of the new function
+///
+/// Optional arguments
+/// * type:     What is being refactored. Currently supports:
+///     * Extracting methods
+///     * Extracting generic methods (to be implemented)
+///     * Extracting methods from asynchronous code (to be implemented)
 fn main() {
     logging::init_logging();
 
     log::info!("Application Started");
 
-    let matches = Command::new("rem-cli")
+    let args = Command::new("rem-cli")
         .version(VERSION)
         .author(AUTHOR)
         .about(ABOUT)
@@ -41,58 +67,77 @@ fn main() {
                 .index(1),
         )
         .arg(
-            Arg::new("target_var")
-                .help("The name of the variable/function/struct/impl to be refactored")
+            Arg::new("new_file_path")
+                .help("The path to the output file (where the refactored code ends up")
                 .required(true)
                 .index(2),
         )
         .arg(
-            Arg::new("new_name")
-                .help("The new name for the variable/function/... that is being refactored")
+            Arg::new("calle_fn_name")
+                .help("The name of the function that contains the code to be refactored")
                 .required(true)
                 .index(3),
         )
         .arg(
-            Arg::new("out_path")
-                .help("Optional: Path to create a new file instead of overwriting the original file")
-                .short('o')
-                .long("out"),
+            Arg::new("caller_fn_name")
+                .help("The name of the new function that is being extracted")
+                .required(true)
+                .index(4),
         )
         .arg(
             Arg::new("type")
-                .help("Optional: The type of refactoring (e.g., variable, function, struct, impl, trait)")
+                .help("The type of refactoring - see README to learn what is currently supported")
                 .short('t')
                 .long("type"),
         )
+        .arg(
+            Arg::new("dump")
+            .help("Dump method call types. Set this flag if you want to do that")
+            .short('d')
+            .long("dump")
+        )
         .get_matches();
 
-        // Retrieve values from matches
-        let file_path = matches.get_one::<String>("file_path").expect("File path is required");
-        let target_var = matches.get_one::<String>("target_var").expect("Target variable is required");
-        let new_name = matches.get_one::<String>("new_name").expect("New name is required");
-        let out_path = matches.get_one::<String>("out_path");
-        let refactor_type = matches.get_one::<String>("type");
 
-        // Example of how to use the arguments
-        println!("File path: {}", file_path);
-        println!("Target variable: {}", target_var);
-        println!("New name: {}", new_name);
+    // Parse the input data to get it into a usable form for invocation
+    let file_path = args.get_one::<String>("file_path").unwrap();
+    let new_file_path = args.get_one::<String>("new_file_path").unwrap();
+    let calle_fn_name = args.get_one::<String>("calle_fn_name").unwrap();
+    let caller_fn_name = args.get_one::<String>("caller_fn_name").unwrap();
 
-        if let Some(out_path) = out_path {
-            println!("Output path: {}", out_path);
-            // Handle file creation or modification based on out_path
-        } else {
-            println!("No output path specified, will overwrite the original file.");
-            // Handle in-place file modification
+    // Get the refactor type, default to "default" if not provided
+    let refactor_type = args.get_one::<String>("type").map(|s| s.as_str());
+
+    // Get the dump bool, if -d was specified, value is true, otherwise false
+    let dump: bool = args.get_flag("dump");
+    if dump {
+        info!("Dumping method call types");
+    }
+
+    // Extract the method into a new function, copy the code across, and infer
+    // the function signature
+    let fn_body_extraction_result: Result<(), error::ExtractFnBodyError> = extract_fn_body(file_path, new_file_path, calle_fn_name, caller_fn_name);
+    match fn_body_extraction_result {
+        Ok(_) => {},
+        Err(e) => {
+            error!("Failed to extract function body: {:?}", e);
+            return;
+        },
+    }
+
+    // Call the appropriate extraction method from refactor_main
+    // Determine which extraction method to use based on the refactor type
+    // Each of these functions handles their own logging.
+    match refactor_type {
+        Some("generic") => extract_function_generic(file_path, new_file_path, calle_fn_name, caller_fn_name) ,
+        Some("async") => extract_function_async(file_path, new_file_path, calle_fn_name, caller_fn_name),
+        None | Some("default") => extract_function(file_path, new_file_path, calle_fn_name, caller_fn_name, dump),
+        Some(other) => {
+            log::error!("Unsupported refactor type: {}", other);
+            std::process::exit(1);
         }
+    };
 
-        if let Some(refactor_type) = refactor_type {
-            println!("Refactor type: {}", refactor_type);
-            // Handle different types of refactoring
-        }
+    log::info!("Refactoring completed successfully.");
 
-        // Read and process the file
-        let content = std::fs::read_to_string(std::path::Path::new(file_path))
-            .expect(&format!("Failed to read file at path: {}", file_path));
-        println!("File content:\n{}", content);
 }

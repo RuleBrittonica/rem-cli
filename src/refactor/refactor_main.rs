@@ -11,14 +11,11 @@ use crate::refactor::{
     repair_lifetime::repair_lifetime,
 };
 
-pub fn invoke_extraction(
-
-) -> bool {
-    todo!()
-}
-
-fn extract_function(
-
+pub fn extract_function(
+    file_path: &str,
+    new_file_path: &str,
+    calle_fn_name: &str,
+    caller_fn_name: &str,
     dump: bool,
 ) -> bool {
 
@@ -85,3 +82,20 @@ fn extract_function(
     }
 }
 
+pub fn extract_function_generic(
+    file_path: &str,
+    new_file_path: &str,
+    calle_fn_name: &str,
+    caller_fn_name: &str,
+) -> bool {
+    todo!()
+}
+
+pub fn extract_function_async(
+    file_path: &str,
+    new_file_path: &str,
+    calle_fn_name: &str,
+    caller_fn_name: &str,
+) -> bool {
+    todo!()
+}
