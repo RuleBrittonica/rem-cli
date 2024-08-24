@@ -14,6 +14,12 @@ use std::{
     iter::zip,
     time::SystemTime,
     io,
+    path::Path,
+
+};
+use crate::tests::utils::{
+    cleanup_new_files,
+    list_files_in_dir,
 };
 
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
@@ -55,6 +61,9 @@ pub fn test() -> Result<(), io::Error> {
         &repair_lifetime_loosest_bound_first::Repairer {},
     ];
 
+    let current_dir = Path::new("./");
+    let initial_files = list_files_in_dir(current_dir)?;
+
     for (file_name, (fn_name, _)) in zip(file_names, function_sigs) {
         for repair_system in repair_systems.iter() {
             let new_file_name = format!("./src_tests/repairer/output/{}{}.rs", file_name, repair_system.name());
@@ -68,9 +77,11 @@ pub fn test() -> Result<(), io::Error> {
         }
         println!("------------------------------------------------------------------");
     }
+
+    cleanup_new_files(initial_files, current_dir)?;
+
     Ok(())
 }
-
 // fn print_repair_stat_project(
 //     repair_system: &&dyn RepairSystem,
 //     src_path: &str,
