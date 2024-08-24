@@ -18,13 +18,17 @@ mod prefactor;
 use prefactor::extract_body::extract_fn_body;
 
 mod refactor;
-use refactor::refactor_main:: {
+use refactor::refactor_main::{
     extract_function,
     extract_function_generic,
     extract_function_async,
 };
 
-mod refactor_config;
+mod tests;
+use tests::{
+    controller,
+    repairer,
+};
 
 /// The CLI Takes the following arguments:
 ///
@@ -63,41 +67,60 @@ fn main() {
         .arg(
             Arg::new("file_path")
                 .help("The path to the file that contains just the code that will be refactored")
-                .required(true)
+                .required(false)
                 .index(1),
         )
         .arg(
             Arg::new("new_file_path")
-                .help("The path to the output file (where the refactored code ends up")
-                .required(true)
+                .help("The path to the output file (where the refactored code ends up)")
+                .required(false)
                 .index(2),
         )
         .arg(
-            Arg::new("calle_fn_name")
+            Arg::new("caller_fn_name")
                 .help("The name of the function that contains the code to be refactored")
-                .required(true)
+                .required(false)
                 .index(3),
         )
         .arg(
-            Arg::new("caller_fn_name")
+            Arg::new("calle_fn_name")
                 .help("The name of the new function that is being extracted")
-                .required(true)
+                .required(false)
                 .index(4),
         )
         .arg(
             Arg::new("type")
                 .help("The type of refactoring - see README to learn what is currently supported")
                 .short('t')
-                .long("type"),
+                .long("type")
+                .required(false),
         )
         .arg(
-            Arg::new("dump")
-            .help("Dump method call types. Set this flag if you want to do that")
-            .short('d')
-            .long("dump")
+            Arg::new("test")
+                .help("Run the tests instead of refactoring")
+                .short('T')
+                .long("test")
+                .action(clap::ArgAction::SetTrue)
+                .required(false),
         )
         .get_matches();
 
+    if args.get_flag("test") {
+        log::info!("Running tests");
+
+        if let Err(e) = controller::test() {
+            log::error!("Controller tests failed: {:?}", e);
+            std::process::exit(1);
+        }
+
+        if let Err(e) = repairer::test() {
+            log::error!("Repairer tests failed: {:?}", e);
+            std::process::exit(1);
+        }
+
+        log::info!("All tests completed");
+        return;
+    }
 
     // Parse the input data to get it into a usable form for invocation
     let file_path = args.get_one::<String>("file_path").unwrap();
@@ -108,16 +131,10 @@ fn main() {
     // Get the refactor type, default to "default" if not provided
     let refactor_type = args.get_one::<String>("type").map(|s| s.as_str());
 
-    // Get the dump bool, if -d was specified, value is true, otherwise false
-    let dump: bool = args.get_flag("dump");
-    if dump {
-        info!("Dumping method call types");
-    }
-
     // Extract the method into a new function, copy the code across, and infer
     // the function signature
-    let fn_body_extraction_result: Result<(), error::ExtractFnBodyError> = extract_fn_body(file_path, new_file_path, calle_fn_name, caller_fn_name);
-    match fn_body_extraction_result {
+    let fn_body_extraction_res: Result<(), error::ExtractFnBodyError> = extract_fn_body(file_path, new_file_path, calle_fn_name, caller_fn_name);
+    match fn_body_extraction_res {
         Ok(_) => {},
         Err(e) => {
             error!("Failed to extract function body: {:?}", e);
@@ -131,7 +148,7 @@ fn main() {
     match refactor_type {
         Some("generic") => extract_function_generic(file_path, new_file_path, calle_fn_name, caller_fn_name) ,
         Some("async") => extract_function_async(file_path, new_file_path, calle_fn_name, caller_fn_name),
-        None | Some("default") => extract_function(file_path, new_file_path, calle_fn_name, caller_fn_name, dump),
+        None | Some("default") => extract_function(file_path, new_file_path, calle_fn_name, caller_fn_name),
         Some(other) => {
             log::error!("Unsupported refactor type: {}", other);
             std::process::exit(1);

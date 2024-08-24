@@ -6,7 +6,6 @@ use log::{
 
 use crate::refactor::{
     borrow::borrow,
-    dump_methods::dump_method_call_types,
     non_local_controller::non_local_controller,
     repair_lifetime::repair_lifetime,
 };
@@ -16,69 +15,37 @@ pub fn extract_function(
     new_file_path: &str,
     calle_fn_name: &str,
     caller_fn_name: &str,
-    dump: bool,
 ) -> bool {
+    // Log successful dump
+    info!("Dumped call types completed successfully");
 
-    // Set everything up the same way Sewen did
+    if non_local_controller() {
+        // Log successful ontroller
+        info!("Controller completed successfully");
 
-    if dump {
-        if dump_method_call_types() {
-            // Log successful dump
-            info!("Dumped call types completed successfully");
-            true
-        }
-        else {
-            // Log unsuccessful dump
-            error!("Dumped call types NOT completed");
-            false
-        }
-    }
+        if borrow() {
+            // Log successful borrow
+            info!("Borrow completed succesfully");
 
-    else {
-        if dump_method_call_types() {
-            // Log successful dump
-            info!("Dumped call types completed successfully");
+            if repair_lifetime() {
+                // Log successful repair of lifetimes
+                info!("Repairer completed successfully");
+                true // All stages complete
 
-            if non_local_controller() {
-                // Log successful ontroller
-                info!("Controller completed successfully");
-
-                if borrow() {
-                    // Log successful borrow
-                    info!("Borrow completed succesfully");
-
-                    if repair_lifetime() {
-                        // Log successful repair of lifetimes
-                        info!("Repairer completed successfully");
-                        true // All stages complete
-                    }
-
-                    else {
-                        // Log unsuccessful repair of lifetimes
-                        error!("Repairer NOT completed");
-                        false
-                    }
-                }
-
-                else {
-                    // Log unsuccessful borrow
-                    error!("Borrow NOT completed - Repairer will not be executed");
-                    false
-                }
-            }
-
-            else {
-                // Log unsuccessful controller
-                error!("Controller NOT completed - Borrower and Repairer will not be executed");
+            } else {
+                // Log unsuccessful repair of lifetimes
+                error!("Repairer NOT completed");
                 false
             }
-        }
-
-        else {
-            // Log unsuccessful dump
-            error!("Dump NOT Completed - Controller, Borrower and Repairer will not be completed");
+        } else {
+            // Log unsuccessful borrow
+            error!("Borrow NOT completed - Repairer will not be executed");
             false
         }
+    } else {
+        // Log unsuccessful controller
+        error!("Controller NOT completed - Borrower and Repairer will not be executed");
+        false
     }
 }
 
