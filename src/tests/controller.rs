@@ -2,12 +2,21 @@ use rem_utils::compile_file;
 use rem_controller::non_local_controller;
 use std::{
     fs,
+    path::Path,
     time::SystemTime,
 };
 use colored::Colorize;
 use std::io;
+use crate::tests::utils::{
+    list_files_in_dir,
+    cleanup_new_files,
+};
 
 pub fn test() -> Result<(), io::Error> {
+    // Capture initial state
+    let current_dir: &Path = Path::new("./");
+    let initial_files: Vec<String> = list_files_in_dir(current_dir)?;
+
     for file in fs::read_dir("./src_tests/controller/input")? {
         let file = file?;
         let test_name = file.file_name().to_owned();
@@ -38,5 +47,9 @@ pub fn test() -> Result<(), io::Error> {
         );
         println!("------------------------------------------------------------------\n");
     }
+
+    let _ = cleanup_new_files(initial_files, current_dir);
+
     Ok(())
 }
+
