@@ -1,15 +1,17 @@
+use rem_borrower::borrow;
 use rem_utils::compile_file;
-use rem_controller::non_local_controller;
+
+use colored::Colorize;
 use std::{
+    time::SystemTime,
     fs,
     path::Path,
-    time::SystemTime,
+    io,
 };
-use colored::Colorize;
-use std::io;
+
 use crate::tests::utils::{
-    list_files_in_dir,
     cleanup_new_files,
+    list_files_in_dir,
 };
 
 pub fn test() -> Result<(), io::Error> {
@@ -17,27 +19,34 @@ pub fn test() -> Result<(), io::Error> {
     let current_dir: &Path = Path::new("./");
     let initial_files: Vec<String> = list_files_in_dir(current_dir)?;
 
-    for file in fs::read_dir("./src_tests/controller/input")? {
-        let file = file?;
-        let test_name = file.file_name().to_owned();
-        let file_name = format!("./src_tests/controller/input/{}", test_name.to_str().unwrap());
-        let new_file_name = format!("./src_tests/controller/output/{}", test_name.to_str().unwrap());
+    for file in fs::read_dir("./src_tests/borrower/input").unwrap() {
+        let test_name = file.unwrap().file_name().to_owned();
+        if test_name.to_str().unwrap() == "borrow.rs" {
+            continue;
+        }
+        let file_name = format!("./src_tests/borrower/input/{}", test_name.to_str().unwrap());
+        let new_file_name = format!("./src_tests/borrower/output/{}", test_name.to_str().unwrap());
+        let mut_method_call_expr_file =
+            format!("./src_tests/borrower/method_call_mut/{}", test_name.to_str().unwrap());
+        let pre_extract_file_name = format!("./src_tests/borrower/pre_extract/{}", test_name.to_str().unwrap());
         let callee_fn_name = "bar";
         let caller_fn_name = "new_foo";
         let now = SystemTime::now();
-        let success = non_local_controller::make_controls(
+        borrow::make_borrows(
             file_name.as_str(),
             new_file_name.as_str(),
+            mut_method_call_expr_file.as_str(),
             callee_fn_name,
             caller_fn_name,
+            pre_extract_file_name.as_str(),
         );
         let time_elapsed = now.elapsed().unwrap();
         let args = vec![];
         let mut compile_cmd = compile_file(new_file_name.as_str(), &args);
-        let out = compile_cmd.output()?;
+        let out = compile_cmd.output().unwrap();
         println!(
             "{}: {} in {:#?}",
-            (if out.status.success() && success {
+            (if out.status.success() {
                 format!("PASSED").green()
             } else {
                 format!("FAILED").red()
