@@ -1,6 +1,6 @@
 # rem-cli
-CLI for the REM Toolchain. Implemented in the REM-VSCode extension available at
-
+CLI for the REM Toolchain. Implemented in the VSCode extension for REM available at
+[REM VSCode](https://marketplace.visualstudio.com/items?itemName=MatthewBritton.remvscode&ssr=false#overview)
 
 
 ## Tests
