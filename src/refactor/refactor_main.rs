@@ -21,16 +21,17 @@ use crate::refactor::{
 /// # Returns
 /// * bool - True if extraction was successful.
 pub fn extract_function(
-    file_path: &str,
-    new_file_path: &str,
+    file_path:      &str,
+    new_file_path:  &str,
     callee_fn_name: &str,
     caller_fn_name: &str,
+    backup:         &str,
 ) -> bool {
     // Log successful dump
     info!("Dumped call types completed successfully");
 
     // Attempt to run the controller
-    if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name) {
+    if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name, backup) {
         error!("Controller NOT completed - Borrower and Repairer will not be executed");
         return false;
     }
@@ -39,7 +40,7 @@ pub fn extract_function(
     info!("Controller completed successfully");
 
     // Attempt to run the borrower
-    if !borrow(new_file_path, callee_fn_name, caller_fn_name) {
+    if !borrow(new_file_path, callee_fn_name, caller_fn_name, backup) {
         error!("Borrow NOT completed - Repairer will not be executed");
         return false;
     }
@@ -48,7 +49,7 @@ pub fn extract_function(
     info!("Borrow completed successfully");
 
     // Attempt to run the repairer
-    if !repair_lifetime(new_file_path, callee_fn_name, caller_fn_name) {
+    if !repair_lifetime(new_file_path, callee_fn_name, caller_fn_name, backup) {
         error!("Repairer NOT completed");
         return false;
     }
@@ -60,19 +61,21 @@ pub fn extract_function(
 }
 
 pub fn extract_function_generic(
-    file_path: &str,
-    new_file_path: &str,
-    calle_fn_name: &str,
+    file_path:      &str,
+    new_file_path:  &str,
+    callee_fn_name: &str,
     caller_fn_name: &str,
+    backup:         &str,
 ) -> bool {
     todo!()
 }
 
 pub fn extract_function_async(
-    file_path: &str,
-    new_file_path: &str,
-    calle_fn_name: &str,
+    file_path:      &str,
+    new_file_path:  &str,
+    callee_fn_name: &str,
     caller_fn_name: &str,
+    backup:         &str,
 ) -> bool {
     todo!()
 }

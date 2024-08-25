@@ -1,11 +1,6 @@
 use rem_controller::non_local_controller;
-use core::error;
 use std::{
-    time::{
-        Duration,
-        Instant,
-    },
-    path::Path,
+    time::Instant,
     fs,
 };
 use log::{
@@ -15,17 +10,13 @@ use log::{
 
 
 pub fn non_local_controller(
-    file_path: &str,
-    new_file_path: &str,
+    file_path:      &str,
+    new_file_path:  &str,
     callee_fn_name: &str,
     caller_fn_name: &str,
+    backup:         &str,
 ) -> bool {
-    // Backup the original file
-    let backup: String = format!("/tmp/{}-rs-extract.bk", file_path);
-    if let Err(e) = fs::copy(file_path, &backup) {
-        error!("Failed to created backup: {:?}", e);
-        return false;
-    }
+
 
     let begin: Instant = Instant::now();
 
@@ -39,11 +30,18 @@ pub fn non_local_controller(
 
     // Handle a controller failure
     if !success {
-        info!("Bad exit value, restoring file");
+        info!("Bad exit value, restoring file in nlc");
         if let Err(e) = fs::copy(&backup, file_path) {
-            error!("Failed to restore file: {:?}", e);
+            error!("Failed to restore file in nlc: {:?}", e);
         }
     }
+
+    let success_string: &str = if success { "was successful" } else { "failed" };
+
+    info!("Controller {}, elapsed time in milliseconds: {:?}",
+        success_string,
+        begin.elapsed().as_millis()
+    );
 
     success
 }
