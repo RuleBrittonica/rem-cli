@@ -27,6 +27,7 @@ use refactor::refactor_main::{
 mod tests;
 use tests::{
     controller,
+    borrower,
     repairer,
 };
 
@@ -58,7 +59,7 @@ use tests::{
 fn main() {
     logging::init_logging();
 
-    log::info!("Application Started");
+    info!("Application Started");
 
     let args = Command::new("rem-cli")
         .version(VERSION)
@@ -106,19 +107,24 @@ fn main() {
         .get_matches();
 
     if args.get_flag("test") {
-        log::info!("Running tests");
+        info!("Running tests");
 
         if let Err(e) = controller::test() {
-            log::error!("Controller tests failed: {:?}", e);
+            error!("Controller tests failed: {:?}", e);
+            std::process::exit(1);
+        }
+
+        if let Err(e) = borrower::test() {
+            error!("Borrower tests failed: {:?}", e);
             std::process::exit(1);
         }
 
         if let Err(e) = repairer::test() {
-            log::error!("Repairer tests failed: {:?}", e);
+            error!("Repairer tests failed: {:?}", e);
             std::process::exit(1);
         }
 
-        log::info!("All tests completed");
+        info!("All tests completed");
         return;
     }
 
@@ -155,7 +161,7 @@ fn main() {
         }
     };
 
-    log::info!("Refactoring completed successfully.");
+    info!("Refactoring completed successfully.");
 
     return;
 
