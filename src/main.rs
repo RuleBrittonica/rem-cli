@@ -48,7 +48,7 @@ use tests::{
 /// ```
 ///
 /// * new_file_path: The path to the new file (i.e where we want the refactored code to end up)
-/// * calle_fn_name: The name of the function that contains the code to be refactored
+/// * callee_fn_name: The name of the function that contains the code to be refactored
 /// * caller_fn_name: The name of the new function
 ///
 /// Optional arguments
@@ -84,7 +84,7 @@ fn main() {
                 .index(3),
         )
         .arg(
-            Arg::new("calle_fn_name")
+            Arg::new("callee_fn_name")
                 .help("The name of the new function that is being extracted")
                 .required(false)
                 .index(4),
@@ -131,7 +131,7 @@ fn main() {
     // Parse the input data to get it into a usable form for invocation
     let file_path = args.get_one::<String>("file_path").unwrap();
     let new_file_path = args.get_one::<String>("new_file_path").unwrap();
-    let calle_fn_name = args.get_one::<String>("calle_fn_name").unwrap();
+    let callee_fn_name = args.get_one::<String>("callee_fn_name").unwrap();
     let caller_fn_name = args.get_one::<String>("caller_fn_name").unwrap();
 
     // Get the refactor type, default to "default" if not provided
@@ -139,7 +139,7 @@ fn main() {
 
     // Extract the method into a new function, copy the code across, and infer
     // the function signature
-    let fn_body_extraction_res: Result<(), error::ExtractFnBodyError> = extract_fn_body(file_path, new_file_path, calle_fn_name, caller_fn_name);
+    let fn_body_extraction_res: Result<(), error::ExtractFnBodyError> = extract_fn_body(file_path, new_file_path, callee_fn_name, caller_fn_name);
     match fn_body_extraction_res {
         Ok(_) => {},
         Err(e) => {
@@ -152,9 +152,9 @@ fn main() {
     // Determine which extraction method to use based on the refactor type
     // Each of these functions handles their own logging.
     match refactor_type {
-        Some("generic") => extract_function_generic(file_path, new_file_path, calle_fn_name, caller_fn_name) ,
-        Some("async") => extract_function_async(file_path, new_file_path, calle_fn_name, caller_fn_name),
-        None | Some("default") => extract_function(file_path, new_file_path, calle_fn_name, caller_fn_name),
+        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name) ,
+        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name),
+        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name),
         Some(other) => {
             log::error!("Unsupported refactor type: {}", other);
             std::process::exit(1);

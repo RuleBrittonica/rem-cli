@@ -23,43 +23,40 @@ use crate::refactor::{
 pub fn extract_function(
     file_path: &str,
     new_file_path: &str,
-    calle_fn_name: &str,
+    callee_fn_name: &str,
     caller_fn_name: &str,
 ) -> bool {
     // Log successful dump
     info!("Dumped call types completed successfully");
 
-    if non_local_controller(file_path, new_file_path, calle_fn_name, caller_fn_name) {
-        // Log successful controller
-        info!("Controller completed successfully");
-
-        // Borrower only takes the new file path, NLC has done the handling and
-        // writing to the new file already
-        if borrow(new_file_path, calle_fn_name, caller_fn_name) {
-            // Log successful borrow
-            info!("Borrow completed succesfully");
-
-            // Similarly Repairer only takes the new file path.
-            if repair_lifetime(new_file_path, calle_fn_name, caller_fn_name) {
-                // Log successful repair of lifetimes
-                info!("Repairer completed successfully");
-                true // All stages complete
-
-            } else {
-                // Log unsuccessful repair of lifetimes
-                error!("Repairer NOT completed");
-                false
-            }
-        } else {
-            // Log unsuccessful borrow
-            error!("Borrow NOT completed - Repairer will not be executed");
-            false
-        }
-    } else {
-        // Log unsuccessful controller
+    // Attempt to run the controller
+    if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name) {
         error!("Controller NOT completed - Borrower and Repairer will not be executed");
-        false
+        return false;
     }
+
+    // Log successful controller
+    info!("Controller completed successfully");
+
+    // Attempt to run the borrower
+    if !borrow(new_file_path, callee_fn_name, caller_fn_name) {
+        error!("Borrow NOT completed - Repairer will not be executed");
+        return false;
+    }
+
+    // Log successful borrow
+    info!("Borrow completed successfully");
+
+    // Attempt to run the repairer
+    if !repair_lifetime(new_file_path, callee_fn_name, caller_fn_name) {
+        error!("Repairer NOT completed");
+        return false;
+    }
+
+    // Log successful repair of lifetimes
+    info!("Repairer completed successfully");
+
+    return true;
 }
 
 pub fn extract_function_generic(
