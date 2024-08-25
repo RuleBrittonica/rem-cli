@@ -1,12 +1,6 @@
 use rem_borrower::borrow;
-use std::{
-    fs,
-    time::Instant,
-};
-use log::{
-    info,
-    error,
-};
+use std::time::Instant;
+use log::info;
 
 /// Only takes a file path as the non_local_controller has already setup the
 /// final output filepath.
