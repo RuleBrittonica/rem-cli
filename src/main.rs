@@ -1,7 +1,10 @@
+use std::fs;
+
 use clap::{Arg, Command};
 use log::{
-    info,
     error,
+    info,
+    warn,
 };
 
 mod logging;
@@ -148,20 +151,43 @@ fn main() {
         },
     }
 
+    // Backup the input file, incase the extraction fails.
+    let backup: String = format!("/tmp/{}-cli-extract.bk", file_path);
+    if let Err(e) = fs::copy(file_path, &backup) {
+        error!("Failed to create backup in main: {:?}", e);
+        warn!("Returning early, extraction will not proceed");
+        return;
+    }
+
     // Call the appropriate extraction method from refactor_main
     // Determine which extraction method to use based on the refactor type
     // Each of these functions handles their own logging.
-    match refactor_type {
-        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name) ,
-        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name),
-        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name),
+    let success: bool = match refactor_type {
+        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup),
+        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup),
+        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup),
         Some(other) => {
             log::error!("Unsupported refactor type: {}", other);
             std::process::exit(1);
         }
     };
 
-    info!("Refactoring completed successfully.");
+    if success {
+        info!("Refactoring completed successfully.");
+    } else {
+        warn!("Refactoring failed for some reason. Check logs to work it out!");
+
+        // If we fail the extraction for any reason, the original file and new
+        // files are overwritten with the backup.
+        if let Err(e) = fs::copy(&backup, file_path) {
+            error!("Failed to restore backup file in main: {:?}", e);
+        }
+        if let Err(e) = fs::copy(&backup, new_file_path) {
+            error!("Failed to overwrite new file with backup after failed extraction: {:?}", e);
+        }
+        warn!("Input file path has been overwritten with the input file");
+        warn!("Output file path has been overwritten with the input file");
+    }
 
     return;
 
