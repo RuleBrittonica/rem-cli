@@ -17,12 +17,12 @@ use crate::error::ExtractFnBodyError;
 pub fn extract_fn_body(
     file_path: &str,
     new_file_path: &str,
-    calle_fn_name: &str,
+    callee_fn_name: &str,
     caller_fn_name: &str,
 ) -> Result<(), ExtractFnBodyError> {
 
     if file_path.is_empty() {
-        return Err(ExtractFnBodyError::FnNotFoundError(calle_fn_name.to_string()));
+        return Err(ExtractFnBodyError::FnNotFoundError(callee_fn_name.to_string()));
     }
 
     // let res = lsp_main();

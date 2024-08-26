@@ -157,21 +157,31 @@ fn main() {
         info!("All tests completed");
         return;
     }
-
-    let mut opt: ProgramOptions = ProgramOptions::All;
+    
+    let mut options: Vec<ProgramOptions> = vec![];
     {
-        // Locally scoping program options
         use ProgramOptions::*;
-        if args.get_flag("controller") { opt = Controller };
-        if args.get_flag("borrower") { opt = Borrower };
-        if args.get_flag("repairer") { opt = Repairer };
 
-        match opt {
-            Controller => info!("Running to controller"),
-            Borrower => info!("Running to borrower"),
-            Repairer => info!("Running to repairer"),
-            All => info!("ProgramOptions Not Set - running full program"),
-        };
+        // Check for each flag and add to the options vector
+        if args.get_flag("controller") { options.push(Controller); }
+        if args.get_flag("borrower") { options.push(Borrower); }
+        if args.get_flag("repairer") { options.push(Repairer); }
+
+        // If no specific options are set, run all components by default
+        if options.is_empty() {
+            options.push(Controller);
+            options.push(Borrower);
+            options.push(Repairer);
+        }
+
+        // Log which options will be run
+        for opt in options.iter() {
+            match opt {
+                Controller => info!("Scheduled: Running Controller"),
+                Borrower => info!("Scheduled: Running Borrower"),
+                Repairer => info!("Scheduled: Running Repairer"),
+            };
+        }
     }
 
     // Parse the input data to get it into a usable form for invocation
@@ -185,6 +195,8 @@ fn main() {
 
     // Extract the method into a new function, copy the code across, and infer
     // the function signature
+    // TODO: Decide if this will be done by Rust calling rust-analyzer or by the
+    // TODO  VSCode extension
     let fn_body_extraction_res: Result<(), error::ExtractFnBodyError> = extract_fn_body(file_path, new_file_path, callee_fn_name, caller_fn_name);
     match fn_body_extraction_res {
         Ok(_) => {},
@@ -206,9 +218,9 @@ fn main() {
     // Determine which extraction method to use based on the refactor type
     // Each of these functions handles their own logging.
     let success: bool = match refactor_type {
-        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, opt),
-        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, opt),
-        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, opt),
+        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, options),
+        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, options),
+        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, options),
         Some(other) => {
             log::error!("Unsupported refactor type: {}", other);
             std::process::exit(1);
