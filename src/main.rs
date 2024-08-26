@@ -34,6 +34,12 @@ use tests::{
     repairer,
 };
 
+mod utils;
+use utils::{
+    strip_extension,
+    ProgramOptions,
+};
+
 /// The CLI Takes the following arguments:
 ///
 /// * file_path:  The path to the file that contains just the code that will be refactored.
@@ -107,6 +113,27 @@ fn main() {
                 .action(clap::ArgAction::SetTrue)
                 .required(false),
         )
+        .arg(
+            Arg::new("controller")
+                .short('c')
+                .long("controller")
+                .action(clap::ArgAction::SetTrue)
+                .required(false),
+        )
+        .arg(
+            Arg::new("borrower")
+                .short('b')
+                .long("borrower")
+                .action(clap::ArgAction::SetTrue)
+                .required(false),
+        )
+        .arg(
+            Arg::new("repairer")
+                .short('r')
+                .long("repairer")
+                .action(clap::ArgAction::SetTrue)
+                .required(false)
+        )
         .get_matches();
 
     if args.get_flag("test") {
@@ -131,14 +158,30 @@ fn main() {
         return;
     }
 
+    let mut opt: ProgramOptions = ProgramOptions::All;
+    {
+        // Locally scoping program options
+        use ProgramOptions::*;
+        if args.get_flag("controller") { opt = Controller };
+        if args.get_flag("borrower") { opt = Borrower };
+        if args.get_flag("repairer") { opt = Repairer };
+
+        match opt {
+            Controller => info!("Running to controller"),
+            Borrower => info!("Running to borrower"),
+            Repairer => info!("Running to repairer"),
+            All => info!("ProgramOptions Not Set - running full program"),
+        };
+    }
+
     // Parse the input data to get it into a usable form for invocation
-    let file_path = args.get_one::<String>("file_path").unwrap();
-    let new_file_path = args.get_one::<String>("new_file_path").unwrap();
-    let callee_fn_name = args.get_one::<String>("callee_fn_name").unwrap();
-    let caller_fn_name = args.get_one::<String>("caller_fn_name").unwrap();
+    let file_path: &String = args.get_one::<String>("file_path").unwrap();
+    let new_file_path: &String = args.get_one::<String>("new_file_path").unwrap();
+    let callee_fn_name: &String = args.get_one::<String>("callee_fn_name").unwrap();
+    let caller_fn_name: &String = args.get_one::<String>("caller_fn_name").unwrap();
 
     // Get the refactor type, default to "default" if not provided
-    let refactor_type = args.get_one::<String>("type").map(|s| s.as_str());
+    let refactor_type: Option<&str> = args.get_one::<String>("type").map(|s: &String| s.as_str());
 
     // Extract the method into a new function, copy the code across, and infer
     // the function signature
@@ -152,7 +195,7 @@ fn main() {
     }
 
     // Backup the input file, incase the extraction fails.
-    let backup: String = format!("/tmp/{}-cli-extract.bk", file_path);
+    let backup: String = format!("/tmp/{}-cli-extract.bk", strip_extension(file_path));
     if let Err(e) = fs::copy(file_path, &backup) {
         error!("Failed to create backup in main: {:?}", e);
         warn!("Returning early, extraction will not proceed");
@@ -163,9 +206,9 @@ fn main() {
     // Determine which extraction method to use based on the refactor type
     // Each of these functions handles their own logging.
     let success: bool = match refactor_type {
-        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup),
-        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup),
-        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup),
+        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, opt),
+        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, opt),
+        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, opt),
         Some(other) => {
             log::error!("Unsupported refactor type: {}", other);
             std::process::exit(1);
