@@ -1,0 +1,5 @@
+2024-08-26 19:33:24 [INFO] - Application Started
+2024-08-26 19:33:24 [INFO] - Scheduled: Running Controller
+2024-08-26 19:33:24 [INFO] - Scheduled: Running Borrower
+2024-08-26 19:33:24 [INFO] - Controller was successful, elapsed time in milliseconds: 84
+2024-08-26 19:33:24 [INFO] - Controller completed successfully

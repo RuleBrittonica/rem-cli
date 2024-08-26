@@ -34,21 +34,21 @@ pub fn extract_function(
     for opt in options {
         match opt {
             ProgramOptions::Controller => {
-                if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name, backup) {
+                if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name) {
                     error!("Controller NOT completed - halting further execution");
                     return false;
                 }
                 info!("Controller completed successfully");
             }
             ProgramOptions::Borrower => {
-                if !borrow(new_file_path, callee_fn_name, caller_fn_name, backup) {
+                if !borrow(file_path, new_file_path, callee_fn_name, caller_fn_name, backup) {
                     error!("Borrow NOT completed - halting further execution");
                     return false;
                 }
                 info!("Borrow completed successfully");
             }
             ProgramOptions::Repairer => {
-                if !repair_lifetime(new_file_path, callee_fn_name, caller_fn_name, backup) {
+                if !repair_lifetime(file_path, new_file_path, callee_fn_name, caller_fn_name) {
                     error!("Repairer NOT completed - halting further execution");
                     return false;
                 }
