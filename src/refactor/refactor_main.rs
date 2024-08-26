@@ -29,62 +29,35 @@ pub fn extract_function(
     callee_fn_name: &str,
     caller_fn_name: &str,
     backup:         &str,
-    opt:            ProgramOptions,
+    options:        Vec<ProgramOptions>,
 ) -> bool {
-    match opt {
-        ProgramOptions::All => {
-            // Run the controller
-            if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name, backup) {
-                error!("Controller NOT completed - Borrower and Repairer will not be executed");
-                return false;
+    for opt in options {
+        match opt {
+            ProgramOptions::Controller => {
+                if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name, backup) {
+                    error!("Controller NOT completed - halting further execution");
+                    return false;
+                }
+                info!("Controller completed successfully");
             }
-            info!("Controller completed successfully");
-
-            // Run the borrower
-            if !borrow(new_file_path, callee_fn_name, caller_fn_name, backup) {
-                error!("Borrow NOT completed - Repairer will not be executed");
-                return false;
+            ProgramOptions::Borrower => {
+                if !borrow(new_file_path, callee_fn_name, caller_fn_name, backup) {
+                    error!("Borrow NOT completed - halting further execution");
+                    return false;
+                }
+                info!("Borrow completed successfully");
             }
-            info!("Borrow completed successfully");
-
-            // Run the repairer
-            if !repair_lifetime(new_file_path, callee_fn_name, caller_fn_name, backup) {
-                error!("Repairer NOT completed");
-                return false;
+            ProgramOptions::Repairer => {
+                if !repair_lifetime(new_file_path, callee_fn_name, caller_fn_name, backup) {
+                    error!("Repairer NOT completed - halting further execution");
+                    return false;
+                }
+                info!("Repairer completed successfully");
             }
-            info!("Repairer completed successfully");
-        }
-
-        ProgramOptions::Controller => {
-            // Run only the controller
-            if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name, backup) {
-                error!("Controller NOT completed");
-                return false;
-            }
-            info!("Controller completed successfully");
-        }
-
-        ProgramOptions::Borrower => {
-            // Run only the borrower
-            if !borrow(new_file_path, callee_fn_name, caller_fn_name, backup) {
-                error!("Borrow NOT completed");
-                return false;
-            }
-            info!("Borrow completed successfully");
-        }
-
-        ProgramOptions::Repairer => {
-            // Run only the repairer
-            if !repair_lifetime(new_file_path, callee_fn_name, caller_fn_name, backup) {
-                error!("Repairer NOT completed");
-                return false;
-            }
-            info!("Repairer completed successfully");
         }
     }
 
-    // If everything runs successfully or the specified part completes, return true
-    true
+    return true;
 }
 
 pub fn extract_function_generic(
@@ -93,7 +66,7 @@ pub fn extract_function_generic(
     callee_fn_name: &str,
     caller_fn_name: &str,
     backup:         &str,
-    opt:            ProgramOptions,
+    options:        Vec<ProgramOptions>,
 ) -> bool {
     todo!()
 }
@@ -104,7 +77,7 @@ pub fn extract_function_async(
     callee_fn_name: &str,
     caller_fn_name: &str,
     backup:         &str,
-    opt:            ProgramOptions,
+    options:        Vec<ProgramOptions>,
 ) -> bool {
     todo!()
 }

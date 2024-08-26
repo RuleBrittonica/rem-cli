@@ -34,5 +34,4 @@ pub enum ProgramOptions {
     Controller,
     Borrower,
     Repairer,
-    All,
 }
