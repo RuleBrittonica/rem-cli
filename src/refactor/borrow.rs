@@ -1,11 +1,15 @@
 use rem_borrower::borrow;
 use std::time::Instant;
-use log::info;
+use log::{
+    info,
+    error
+};
 
 /// Only takes a file path as the non_local_controller has already setup the
 /// final output filepath.
 pub fn borrow(
     file_path:      &str,
+    new_file_path:  &str,
     callee_fn_name: &str,
     caller_fn_name: &str,
     backup:         &str,
@@ -18,12 +22,17 @@ pub fn borrow(
     // Run the borrower
     let success: bool = borrow::make_borrows(
         file_path,
-        file_path,
+        new_file_path,
         dump_file_name,
         callee_fn_name,
         caller_fn_name,
         pre_extract_file_name
     );
+
+    // Handle a failure
+    if !success {
+        error!("Bad exit value, file will be restored");
+    }
 
     let success_string: &str = if success { "was successful " } else { "failed" };
 

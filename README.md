@@ -29,10 +29,43 @@ rem-cli [OPTIONS] [file_path] [new_file_path] [caller_fn_name] [callee_fn_name]
 
 ```bash
 -t, --type <type>  The type of refactoring - see README to learn what is currently supported. Leaving blank will run original REM extraction
--T, --test         Run the tests instead of refactoring
+-T, --test         Run the tests instead of refactoring. Ignores all other arguments
+-c, --controller   Run the Controller on the input. Can be chained with borrower and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r
+-b, --borrower     Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r
+-r, --repairer     Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Not specifying a flag is equivalent to -c -b -r
 -h, --help         Print help
 -V, --version      Print version
+```
 
+## Examples
+
+**Running everything**
+
+```bash
+cargo run ./examples/input/full_1.rs ./examples/output/full_1.rs new_foo bar
+```
+
+**Running just the controller**
+
+```bash
+cargo run ./examples/input/controller_1.rs ./examples/output/controller_1.rs new_foo bar -c
+```
+
+**Running just the borrower**
+
+```bash
+cargo run ./examples/input/borrower_1.rs ./examples/output/borrwer_1.rs new_foo bar -b
+```
+
+**Running just the repairer**
+
+```bash
+cargo run ./examples/input/repairer_1.rs ./examples/output/repairer_1 -r
+```
+
+**Chaining multiple segments together**
+```bash
+cargo run ./examples/input/controller_1.rs ./examples/output/controller_borrower_1.rs new_foo bar -c -r
 ```
 
 ## Tests

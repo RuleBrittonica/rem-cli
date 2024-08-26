@@ -1,0 +1,4 @@
+2024-08-26 19:34:16 [INFO] - Application Started
+2024-08-26 19:34:16 [INFO] - Scheduled: Running Borrower
+2024-08-26 19:34:16 [ERROR] - Failed to create backup in main: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+2024-08-26 19:34:16 [WARN] - Returning early, extraction will not proceed

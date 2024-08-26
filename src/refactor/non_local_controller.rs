@@ -14,7 +14,6 @@ pub fn non_local_controller(
     new_file_path:  &str,
     callee_fn_name: &str,
     caller_fn_name: &str,
-    backup:         &str,
 ) -> bool {
 
 
@@ -28,12 +27,9 @@ pub fn non_local_controller(
         caller_fn_name
     );
 
-    // Handle a controller failure
+    // Handle a failure
     if !success {
-        info!("Bad exit value, restoring file in nlc");
-        if let Err(e) = fs::copy(&backup, file_path) {
-            error!("Failed to restore file in nlc: {:?}", e);
-        }
+        error!("Bad exit value, file will be restored");
     }
 
     let success_string: &str = if success { "was successful" } else { "failed" };

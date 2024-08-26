@@ -107,7 +107,7 @@ fn main() {
         )
         .arg(
             Arg::new("test")
-                .help("Run the tests instead of refactoring")
+                .help("Run the tests instead of refactoring. Ignores all other arguments")
                 .short('T')
                 .long("test")
                 .action(clap::ArgAction::SetTrue)
@@ -115,6 +115,7 @@ fn main() {
         )
         .arg(
             Arg::new("controller")
+                .help("Run the Controller on the input. Can be chained with borrower and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r")
                 .short('c')
                 .long("controller")
                 .action(clap::ArgAction::SetTrue)
@@ -122,6 +123,7 @@ fn main() {
         )
         .arg(
             Arg::new("borrower")
+                .help("Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r")
                 .short('b')
                 .long("borrower")
                 .action(clap::ArgAction::SetTrue)
@@ -129,6 +131,7 @@ fn main() {
         )
         .arg(
             Arg::new("repairer")
+                .help("Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Not specifying a flag is equivalent to -c -b -r")
                 .short('r')
                 .long("repairer")
                 .action(clap::ArgAction::SetTrue)
@@ -157,7 +160,7 @@ fn main() {
         info!("All tests completed");
         return;
     }
-    
+
     let mut options: Vec<ProgramOptions> = vec![];
     {
         use ProgramOptions::*;
