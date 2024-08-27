@@ -1,6 +1,11 @@
 use std::time::Instant;
 use log::info;
-use rem_repairer::common::RepairSystem;
+use rem_repairer::{
+    common::{
+        RepairSystem,
+        RepairResult,
+    },
+};
 
 pub fn repair_lifetime(
     file_path:  &str,

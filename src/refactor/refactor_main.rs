@@ -81,6 +81,12 @@ pub fn extract_function_generic(
     borrower_values: (String, String),
     repair_system:   Option<&dyn RepairSystem>,
 ) -> bool {
+    for opt in options {
+        // match opt {
+
+        // }
+    }
+
     todo!()
 }
 
@@ -93,5 +99,10 @@ pub fn extract_function_async(
     borrower_values: (String, String),
     repair_system:   Option<&dyn RepairSystem>,
 ) -> bool {
+    for opt in options {
+        // match opt {
+        
+        // }
+    }
     todo!()
 }

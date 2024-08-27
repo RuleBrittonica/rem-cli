@@ -15,7 +15,7 @@ pub fn borrow(
     borrower_values: &(String, String),
 ) -> bool {
     let pre_extract_file_name: &str = &borrower_values.0;
-    let dump_file_name: &str = &borrower_values.1;
+    let mut_method_call_expr_file: &str = &borrower_values.1;
 
     let begin: Instant = Instant::now();
 
@@ -23,7 +23,7 @@ pub fn borrow(
     let success: bool = borrow::make_borrows(
         file_path,
         new_file_path,
-        dump_file_name,
+        mut_method_call_expr_file,
         callee_fn_name,
         caller_fn_name,
         pre_extract_file_name
