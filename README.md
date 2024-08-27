@@ -9,6 +9,23 @@ CLI for the REM Toolchain. Implemented in the VSCode extension for REM available
 - rem-repairer: git= [rem-repairer](https://github.com/RuleBrittonica/rem-repairer)
 - rem-utils: git= [rem-utils](https://github.com/RuleBrittonica/rem-utils)
 
+## Getting Started
+
+Make sure that you have the developer tools for rustc installed on your system.
+Run the following command if you are unsure
+
+```bash
+rustup component add rust-src rustc-dev llvm-tools-preview
+```
+
+Additionally, at some point in the future this CLI may also be dependent on
+`rust-analyzer`. Probably best to double check it as I'm sure I'll forget to
+update this when it becomes dependent on RLS. 
+
+```bash
+rustup component add rust-analyzer
+```
+
 ## Usage
 
 Call the CLI using the following syntax
