@@ -21,9 +21,6 @@ pub fn test() -> Result<(), io::Error> {
 
     for file in fs::read_dir("./src_tests/borrower/input").unwrap() {
         let test_name = file.unwrap().file_name().to_owned();
-        if test_name.to_str().unwrap() == "borrow.rs" {
-            continue;
-        }
         let file_name = format!("./src_tests/borrower/input/{}", test_name.to_str().unwrap());
         let new_file_name = format!("./src_tests/borrower/output/{}", test_name.to_str().unwrap());
         let mut_method_call_expr_file =

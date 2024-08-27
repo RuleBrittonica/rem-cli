@@ -35,3 +35,10 @@ pub enum ProgramOptions {
     Borrower,
     Repairer,
 }
+
+pub enum RepairType {
+    Simple,
+    RustFix,
+    TightestBoundsFirst,
+    LoosestBoundsFirst
+}

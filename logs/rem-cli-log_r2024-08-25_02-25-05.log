@@ -1,3 +1,0 @@
-2024-08-25 02:25:05 [INFO] - Application Started
-2024-08-25 02:25:05 [INFO] - Running tests
-2024-08-25 02:25:05 [ERROR] - Controller tests failed: Os { code: 2, kind: NotFound, message: "No such file or directory" }
