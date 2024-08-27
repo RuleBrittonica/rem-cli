@@ -20,10 +20,10 @@ pub fn new_foo() {
     helper(x);
 }
 fn bar(x: &i32) {
-    let y = *x;
+    let y = (*x);
     println!("x={}", x);
-    helper(*x);
+    helper((*x));
     let z = y;
-    let _n = z + *x;
+    let _n = z + (*x);
 }
 fn main() {}
