@@ -99,14 +99,32 @@ single command.
 
 Running either the following:
 
-* cargo run -- -T
-* cargo run -- --test
+```bash
+cargo run -- -T
+cargo run -- --test
+```
 
 Will result in running all of the tests for Controller, Borrower and Repairer.
-At this stage, not all of the tests pass. This is more of a developer function,
+At this stage, **not all of the tests pass**. This is more of a developer function,
 however, the goal is that the user will also be able to run the test suite from
 inside the extension in the event that they want to verify their environment.
 
 Note that the testing framework will create a large number of temporary files
 within the current directory. These will all be cleaned up at the end of each
 testing phase.
+
+## TODO
+  * Work out why I keep getting a panic whenever the tests get halfway through
+    running the borrower. At this stage a workable solution is just to comment
+    out the running of the borrower tests to verify that the repairer works as expected
+   ```bash
+   thread 'main' panicked at /home/matt/.cargo/git/checkouts/rem-borrower-c9dc79a7e6c71e4e/d760805/src/borrow.rs:1104:10:
+   called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+   note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+   ```
+  * Verify that all aspects of the CLI work as expected
+  * Fix up the issues with running rem-cli directly
+  ```bash
+  target/debug/rem-cli: error while loading shared libraries: librustc_driver-6c98eb7349a51df2.so: cannot open shared object file: No such file or directory
+  ```
+  * **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
