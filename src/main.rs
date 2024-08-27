@@ -260,6 +260,7 @@ fn main() {
     // Get the refactor type, default to "default" if not provided
     let refactor_type: Option<&str> = args.get_one::<String>("type").map(|s: &String| s.as_str());
 
+
     // Extract the method into a new function, copy the code across, and infer
     // the function signature
     // TODO: Decide if this will be done by Rust calling rust-analyzer or by the
