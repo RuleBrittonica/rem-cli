@@ -8,14 +8,14 @@ use log::{
 /// Only takes a file path as the non_local_controller has already setup the
 /// final output filepath.
 pub fn borrow(
-    file_path:      &str,
-    new_file_path:  &str,
-    callee_fn_name: &str,
-    caller_fn_name: &str,
-    backup:         &str,
+    file_path:       &str,
+    new_file_path:   &str,
+    callee_fn_name:  &str,
+    caller_fn_name:  &str,
+    borrower_values: &(String, String),
 ) -> bool {
-    let pre_extract_file_name: &str = backup;
-    let dump_file_name: &str = "/tmp/method_call_mutability.txt";
+    let pre_extract_file_name: &str = &borrower_values.0;
+    let dump_file_name: &str = &borrower_values.1;
 
     let begin: Instant = Instant::now();
 

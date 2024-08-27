@@ -2,12 +2,12 @@
 CLI for the REM Toolchain. Implemented in the VSCode extension for REM available at
 [REM VSCode](https://marketplace.visualstudio.com/items?itemName=MatthewBritton.remvscode&ssr=false#overview)
 
-Utilizes:
+**Utilizes**:
 
 - rem-controller: git= [rem-controller](https://github.com/RuleBrittonica/rem-controller)
-- rem-borrower:   git= [rem-borrower](https://github.com/RuleBrittonica/rem-borrower)
-- rem-repairer:   git= [rem-repairer](https://github.com/RuleBrittonica/rem-repairer)
-- rem-utils:      git= [rem-utils](https://github.com/RuleBrittonica/rem-utils)
+- rem-borrower: git= [rem-borrower](https://github.com/RuleBrittonica/rem-borrower)
+- rem-repairer: git= [rem-repairer](https://github.com/RuleBrittonica/rem-repairer)
+- rem-utils: git= [rem-utils](https://github.com/RuleBrittonica/rem-utils)
 
 ## Usage
 
@@ -28,13 +28,16 @@ rem-cli [OPTIONS] [file_path] [new_file_path] [caller_fn_name] [callee_fn_name]
 ### Options
 
 ```bash
--t, --type <type>  The type of refactoring - see README to learn what is currently supported. Leaving blank will run original REM extraction
--T, --test         Run the tests instead of refactoring. Ignores all other arguments
--c, --controller   Run the Controller on the input. Can be chained with borrower and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r
--b, --borrower     Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r
--r, --repairer     Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Not specifying a flag is equivalent to -c -b -r
--h, --help         Print help
--V, --version      Print version
+  -t, --type <type>                     The type of refactoring - see README to learn what is currently supported. Leaving blank will run original REM extraction
+  -T, --test                            Run the tests instead of refactoring. Ignores all other arguments
+  -c, --controller                      Run the Controller on the input. Can be chained with borrower and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r
+  -b, --borrower <borrower> <borrower>  Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Requires two additional arguments: `pre_extract_file_path` and `method_call_mut_file_path`.
+  -r, --repairer <repairer>             Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Requires the additional argument `repair_system`.
+                                                 1 => repair_lifetime_simple
+                                                 2 => tightest_bound_first
+                                                 3 => loosest_bound_first
+  -h, --help                            Print help
+  -V, --version                         Print version
 ```
 
 ## Examples
@@ -54,7 +57,7 @@ cargo run ./examples/input/controller_1.rs ./examples/output/controller_1.rs new
 **Running just the borrower**
 
 ```bash
-cargo run ./examples/input/borrower_1.rs ./examples/output/borrwer_1.rs new_foo bar -b
+cargo run ./src_tests/borrower/input/borrow_read_use_after.rs ./src_tests/borrower/output/borrow_read_use_after.rs new_foo bar -b src_tests/borrower/method_call_mut/borrow_read_use_after.rs src_tests/borrower/pre_extract/borrow_read_use_after.rs
 ```
 
 **Running just the repairer**
@@ -64,8 +67,29 @@ cargo run ./examples/input/repairer_1.rs ./examples/output/repairer_1 -r
 ```
 
 **Chaining multiple segments together**
+
 ```bash
 cargo run ./examples/input/controller_1.rs ./examples/output/controller_borrower_1.rs new_foo bar -c -r
+```
+
+**Alternatively**
+
+The program can be called using `./rem-cli`
+
+```bash
+./rem-cli ./examples/input/full_1.rs ./examples/output/full_1.rs new_foo bar
+```
+
+**Viewing help / version information**
+
+Run these if you wish to see the above information on Options and Arguments
+displayed in the terminal.
+
+```bash
+cargo run -- -h
+cargo run -- -help
+cargo run -- -V
+cargo run -- --version
 ```
 
 ## Tests

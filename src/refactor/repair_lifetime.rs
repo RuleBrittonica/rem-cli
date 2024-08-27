@@ -1,11 +1,13 @@
 use std::time::Instant;
 use log::info;
+use rem_repairer::common::RepairSystem;
 
 pub fn repair_lifetime(
     file_path:  &str,
-    callee_fn_name: &str,
-    caller_fn_name: &str,
-    backup:         &str,
+    new_file_path: &str,
+    fn_name:    &str,
+    repairer_type: &&dyn RepairSystem,
+
 ) -> bool {
     todo!()
 }

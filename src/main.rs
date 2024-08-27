@@ -2,9 +2,10 @@ use std::fs;
 
 use clap::{Arg, Command};
 use log::{
+    debug,
     error,
     info,
-    warn,
+    warn
 };
 
 mod logging;
@@ -36,8 +37,18 @@ use tests::{
 
 mod utils;
 use utils::{
-    strip_extension,
+    // strip_extension,
     ProgramOptions,
+};
+
+use rem_repairer::{
+    common::{
+        RepairSystem,
+        DebugRepairSystem,
+    },
+    repair_lifetime_loosest_bound_first,
+    repair_lifetime_simple,
+    repair_lifetime_tightest_bound_first
 };
 
 /// The CLI Takes the following arguments:
@@ -66,6 +77,7 @@ use utils::{
 ///     * Extracting generic methods (to be implemented)
 ///     * Extracting methods from asynchronous code (to be implemented)
 fn main() {
+
     logging::init_logging();
 
     info!("Application Started");
@@ -123,18 +135,20 @@ fn main() {
         )
         .arg(
             Arg::new("borrower")
-                .help("Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r")
+                .help("Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Requires two additional arguments: `pre_extract_file_path` and `method_call_mut_file_path`.")
                 .short('b')
                 .long("borrower")
-                .action(clap::ArgAction::SetTrue)
+                .action(clap::ArgAction::Set)
+                .num_args(2)
                 .required(false),
         )
         .arg(
             Arg::new("repairer")
-                .help("Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Not specifying a flag is equivalent to -c -b -r")
+                .help("Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Requires the additional argument `repair_system`. \n\t 1 => repair_lifetime_simple \n\t 2 => tightest_bound_first \n\t 3 => loosest_bound_first")
                 .short('r')
                 .long("repairer")
-                .action(clap::ArgAction::SetTrue)
+                .action(clap::ArgAction::Set)
+                .num_args(1)
                 .required(false)
         )
         .get_matches();
@@ -161,14 +175,58 @@ fn main() {
         return;
     }
 
+    let mut borrower_values: (String, String) = ("".to_string(), "".to_string());
+    let mut repair_system: Option<&dyn RepairSystem> = None;
+
+    // Handle -c -b -f flags for Program Control Flow options
     let mut options: Vec<ProgramOptions> = vec![];
     {
         use ProgramOptions::*;
 
         // Check for each flag and add to the options vector
-        if args.get_flag("controller") { options.push(Controller); }
-        if args.get_flag("borrower") { options.push(Borrower); }
-        if args.get_flag("repairer") { options.push(Repairer); }
+        if args.get_flag("controller") {
+            options.push(Controller);
+        }
+
+        if args.get_flag("borrower") {
+            options.push(Borrower);
+
+            // Parse the next two values for it.
+            if let Some(values) = args.get_many::<String>("borrower") {
+                // Ensure there are exactly two values
+                let values_vec: Vec<String> = values.map(|v| v.to_string()).collect();
+                if values_vec.len() == 2 {
+                    borrower_values = (values_vec[0].clone(), values_vec[1].clone());
+                } else {
+                    error!("Expected exactly two values for borrower but got {}", values_vec.len());
+                    std::process::exit(1);
+                }
+            }
+
+            // Log borrower values
+            debug!("Borrower Value 1: {}", borrower_values.0);
+            debug!("Borrower Value 2: {}", borrower_values.1);
+        }
+        if args.get_flag("repairer") {
+            options.push(Repairer);
+
+            // Parse the digit into a repair type
+            if let Some(repair_system_value) = args.get_one::<String>("repairer") {
+                match repair_system_value.as_str() {
+                    "1" => repair_system = Some(&repair_lifetime_simple::Repairer {}),
+                    "2" => repair_system = Some(&repair_lifetime_tightest_bound_first::Repairer {}),
+                    "3" => repair_system = Some(&repair_lifetime_loosest_bound_first::Repairer {}),
+                    _   => {
+                        error!("Invalid repair system type provided: {}", repair_system_value);
+                        std::process::exit(1);
+                    }
+                }
+            }
+
+            if let Some(system) = repair_system {
+                debug!("Repair System Chosen: {:?}", DebugRepairSystem(system));
+            }
+        }
 
         // If no specific options are set, run all components by default
         if options.is_empty() {
@@ -190,8 +248,14 @@ fn main() {
     // Parse the input data to get it into a usable form for invocation
     let file_path: &String = args.get_one::<String>("file_path").unwrap();
     let new_file_path: &String = args.get_one::<String>("new_file_path").unwrap();
-    let callee_fn_name: &String = args.get_one::<String>("callee_fn_name").unwrap();
     let caller_fn_name: &String = args.get_one::<String>("caller_fn_name").unwrap();
+    let callee_fn_name: &String = args.get_one::<String>("callee_fn_name").unwrap();
+
+    // Log the input parameters to the program, just in case
+    debug!("file_path input is: {}", file_path);
+    debug!("new_file_path input is: {}", new_file_path);
+    debug!("caller_fn_name input is: {}", caller_fn_name);
+    debug!("callee_fn_name input is: {}", callee_fn_name);
 
     // Get the refactor type, default to "default" if not provided
     let refactor_type: Option<&str> = args.get_one::<String>("type").map(|s: &String| s.as_str());
@@ -200,6 +264,7 @@ fn main() {
     // the function signature
     // TODO: Decide if this will be done by Rust calling rust-analyzer or by the
     // TODO  VSCode extension
+    // !Currently doesn't do anything.
     let fn_body_extraction_res: Result<(), error::ExtractFnBodyError> = extract_fn_body(file_path, new_file_path, callee_fn_name, caller_fn_name);
     match fn_body_extraction_res {
         Ok(_) => {},
@@ -210,7 +275,8 @@ fn main() {
     }
 
     // Backup the input file, incase the extraction fails.
-    let backup: String = format!("/tmp/{}-cli-extract.bk", strip_extension(file_path));
+    info!("Beginning backup. Will backup file to /tmp/{}-cli-extract.bk", file_path);
+    let backup: String = format!("/tmp/{}-cli-extract.bk", file_path);
     if let Err(e) = fs::copy(file_path, &backup) {
         error!("Failed to create backup in main: {:?}", e);
         warn!("Returning early, extraction will not proceed");
@@ -221,9 +287,9 @@ fn main() {
     // Determine which extraction method to use based on the refactor type
     // Each of these functions handles their own logging.
     let success: bool = match refactor_type {
-        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, options),
-        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, options),
-        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name, &backup, options),
+        Some("generic") => extract_function_generic(file_path, new_file_path, callee_fn_name, caller_fn_name, options, borrower_values, repair_system),
+        Some("async") => extract_function_async(file_path, new_file_path, callee_fn_name, caller_fn_name, options, borrower_values, repair_system),
+        None | Some("default") => extract_function(file_path, new_file_path, callee_fn_name, caller_fn_name, options, borrower_values, repair_system),
         Some(other) => {
             log::error!("Unsupported refactor type: {}", other);
             std::process::exit(1);

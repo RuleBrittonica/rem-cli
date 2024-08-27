@@ -8,5 +8,4 @@ fn bar_extracted(z: &i32, y: &mut i32) -> &i32 {
     &*y
 }
 
-
 fn main() {}

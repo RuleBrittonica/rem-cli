@@ -3,6 +3,8 @@ use log::{
     error
 };
 
+use rem_repairer::common::RepairSystem;
+
 use crate::refactor::{
     borrow::borrow,
     non_local_controller::non_local_controller,
@@ -24,12 +26,14 @@ use crate::utils::ProgramOptions;
 /// # Returns
 /// * bool - True if extraction was successful.
 pub fn extract_function(
-    file_path:      &str,
-    new_file_path:  &str,
-    callee_fn_name: &str,
-    caller_fn_name: &str,
-    backup:         &str,
-    options:        Vec<ProgramOptions>,
+    file_path:       &str,
+    new_file_path:   &str,
+    callee_fn_name:  &str,
+    caller_fn_name:  &str,
+    options:         Vec<ProgramOptions>,
+    borrower_values: (String, String),
+    repair_system:   Option<&dyn RepairSystem>,
+
 ) -> bool {
     for opt in options {
         match opt {
@@ -41,18 +45,26 @@ pub fn extract_function(
                 info!("Controller completed successfully");
             }
             ProgramOptions::Borrower => {
-                if !borrow(file_path, new_file_path, callee_fn_name, caller_fn_name, backup) {
+                if !borrow(file_path, new_file_path, callee_fn_name, caller_fn_name, &borrower_values) {
                     error!("Borrow NOT completed - halting further execution");
                     return false;
                 }
                 info!("Borrow completed successfully");
             }
             ProgramOptions::Repairer => {
-                if !repair_lifetime(file_path, new_file_path, callee_fn_name, caller_fn_name) {
-                    error!("Repairer NOT completed - halting further execution");
+                let fn_name: &str = callee_fn_name; // or `caller_fn_name` based on your logic
+
+                // Ensure that `repair_system` is not None
+                if let Some(repairer_type) = repair_system {
+                    if !repair_lifetime(file_path, new_file_path, fn_name, &repairer_type) {
+                        error!("Repairer NOT completed - halting further execution");
+                        return false;
+                    }
+                    info!("Repairer completed successfully");
+                } else {
+                    error!("No repair system provided - halting further execution");
                     return false;
                 }
-                info!("Repairer completed successfully");
             }
         }
     }
@@ -61,23 +73,25 @@ pub fn extract_function(
 }
 
 pub fn extract_function_generic(
-    file_path:      &str,
-    new_file_path:  &str,
-    callee_fn_name: &str,
-    caller_fn_name: &str,
-    backup:         &str,
-    options:        Vec<ProgramOptions>,
+    file_path:       &str,
+    new_file_path:   &str,
+    callee_fn_name:  &str,
+    caller_fn_name:  &str,
+    options:         Vec<ProgramOptions>,
+    borrower_values: (String, String),
+    repair_system:   Option<&dyn RepairSystem>,
 ) -> bool {
     todo!()
 }
 
 pub fn extract_function_async(
-    file_path:      &str,
-    new_file_path:  &str,
-    callee_fn_name: &str,
-    caller_fn_name: &str,
-    backup:         &str,
-    options:        Vec<ProgramOptions>,
+    file_path:       &str,
+    new_file_path:   &str,
+    callee_fn_name:  &str,
+    caller_fn_name:  &str,
+    options:         Vec<ProgramOptions>,
+    borrower_values: (String, String),
+    repair_system:   Option<&dyn RepairSystem>,
 ) -> bool {
     todo!()
 }

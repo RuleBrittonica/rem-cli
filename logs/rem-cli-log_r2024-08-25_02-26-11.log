@@ -1,4 +1,0 @@
-2024-08-25 02:26:11 [INFO] - Application Started
-2024-08-25 02:26:11 [INFO] - Running tests
-2024-08-25 02:26:11 [INFO] - Current working directory: /home/matt/rem-matt/rem-cli
-2024-08-25 02:26:11 [ERROR] - Controller tests failed: Os { code: 2, kind: NotFound, message: "No such file or directory" }
