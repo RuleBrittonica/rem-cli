@@ -2,6 +2,10 @@
 name = "rem-cli"
 version = "0.1.0"
 edition = "2021"
+authors = ["Matthew Britton <matt.britton@anu.edu.au>"]
+licence = "GPL 3.0"
+description = "CLI interface for the REM toolchain. Built to be implemented into the VSCode extension for Rem"
+repository = "https://github.com/RuleBrittonica/rem-cli"
 
 [dependencies]
 rem-borrower = { git = "https://github.com/RuleBrittonica/rem-borrower.git", branch = "master" }
@@ -10,7 +14,7 @@ rem-repairer = { git ="https://github.com/RuleBrittonica/rem-repairer.git", bran
 rem-utils = { git = "https://github.com/RuleBrittonica/rem-utils.git", branch = "master" }
 clap = "4.5.16"
 log = "0.4.22"
-flexi_logger = "0.28.5"
+flexi_logger = "0.29.0"
 lsp-server = "0.7.6"
 lsp-types = "0.97.0"
 serde_json = "1.0.127"
