@@ -1,4 +1,5 @@
 # rem-cli
+
 CLI for the REM Toolchain. Implemented in the VSCode extension for REM available at
 [REM VSCode](https://marketplace.visualstudio.com/items?itemName=MatthewBritton.remvscode&ssr=false#overview)
 
@@ -20,7 +21,7 @@ rustup component add rust-src rustc-dev llvm-tools-preview
 
 Additionally, at some point in the future this CLI may also be dependent on
 `rust-analyzer`. Probably best to double check it as I'm sure I'll forget to
-update this when it becomes dependent on RLS. 
+update this when it becomes dependent on RLS.
 
 ```bash
 rustup component add rust-analyzer
@@ -35,6 +36,7 @@ rem-cli [OPTIONS] [file_path] [new_file_path] [caller_fn_name] [callee_fn_name]
 ```
 
 ### Arguments
+
 ```bash
 [file_path]       The path to the file that contains just the code that will be refactored
 [new_file_path]   The path to the output file (where the refactored code ends up)
@@ -79,11 +81,25 @@ cargo run ./src_tests/borrower/input/borrow_read_use_after.rs ./src_tests/borrow
 
 **Running just the repairer**
 
+For the repairer, only the callee_fn_name is used, however, both must still be
+provided to get the CLI to accept the argument.
+
 ```bash
-cargo run ./examples/input/repairer_1.rs ./examples/output/repairer_1 -r
+cargo run ./src_tests/repairer/input/in_out_lifetimes.rs ./src_tests/repairer/output/in_out_lifetimes.rs bar_extracted bar_extracted -r 1
+# 1 signifies the mode that we are running the repairer in - see above documentation for different repairer modes.
+```
+
+By default the repairer will run in mode 1 (repair_lifetime_simple). To specify
+which version of the repairer to run when running in general, refer to the
+following:
+
+```bash
+
 ```
 
 **Chaining multiple segments together**
+
+This is currently very buggy and not recommended to do.
 
 ```bash
 cargo run ./examples/input/controller_1.rs ./examples/output/controller_borrower_1.rs new_foo bar -c -r
@@ -91,7 +107,7 @@ cargo run ./examples/input/controller_1.rs ./examples/output/controller_borrower
 
 **Alternatively**
 
-The program can be called using `./rem-cli`
+The program can be called using `./rem-cli``
 
 ```bash
 ./rem-cli ./examples/input/full_1.rs ./examples/output/full_1.rs new_foo bar
@@ -131,17 +147,26 @@ within the current directory. These will all be cleaned up at the end of each
 testing phase.
 
 ## TODO
-  * Work out why I keep getting a panic whenever the tests get halfway through
-    running the borrower. At this stage a workable solution is just to comment
-    out the running of the borrower tests to verify that the repairer works as expected
-   ```bash
+
+* Work out why I keep getting a panic whenever the tests get halfway through
+  running the borrower. At this stage a workable solution is just to comment
+  out the running of the borrower tests to verify that the repairer works as expected
+
+```bash
    thread 'main' panicked at /home/matt/.cargo/git/checkouts/rem-borrower-c9dc79a7e6c71e4e/d760805/src/borrow.rs:1104:10:
    called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-   ```
-  * Verify that all aspects of the CLI work as expected
-  * Fix up the issues with running rem-cli directly
-  ```bash
+```
+
+* Verify that all aspects of the CLI work as expected
+* Fix up the issues with running rem-cli directly
+
+```bash
   target/debug/rem-cli: error while loading shared libraries: librustc_driver-6c98eb7349a51df2.so: cannot open shared object file: No such file or directory
-  ```
-  * **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
+```
+
+* **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
+
+* Update all package references to use crates instead of github, once I have the
+  access from Sewen. Start with rem-utils, then link everything into that
+  instead. This should hopefully fix the `./rem-cli` issues I am having.
