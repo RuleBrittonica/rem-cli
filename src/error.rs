@@ -1,4 +1,3 @@
-
 use std::fmt;
 use std::error::Error;
 
@@ -30,6 +29,33 @@ impl Error for ExtractFnBodyError {
             ExtractFnBodyError::FileWriteError(err) => Some(err),
             ExtractFnBodyError::FileExistsError(err) => Some(err),
             _ => None,
+        }
+    }
+}
+
+#[derive(Debug)]
+pub enum TestFailed {
+    ControllerFailed(std::io::Error),
+    BorrowerFailed(std::io::Error),
+    RepairerFailed(std::io::Error),
+}
+
+impl fmt::Display for TestFailed {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            TestFailed::ControllerFailed(err) => write!(f, "Controller test failed: {}", err),
+            TestFailed::BorrowerFailed(err) => write!(f, "Borrower test failed: {}", err),
+            TestFailed::RepairerFailed(err) => write!(f, "Repairer test failed: {}", err),
+        }
+    }
+}
+
+impl Error for TestFailed {
+    fn source(&self) -> Option<&(dyn Error + 'static)> {
+        match self {
+            TestFailed::ControllerFailed(err) => Some(err),
+            TestFailed::BorrowerFailed(err) => Some(err),
+            TestFailed::RepairerFailed(err) => Some(err),
         }
     }
 }
