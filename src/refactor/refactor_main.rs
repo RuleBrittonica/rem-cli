@@ -30,39 +30,7 @@ pub fn extract_function(
     caller_fn_name:  &str,
 
 ) -> bool {
-    // for opt in options {
-    //     match opt {
-    //         ProgramOptions::Controller => {
-    //             if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name) {
-    //                 error!("Controller NOT completed - halting further execution");
-    //                 return false;
-    //             }
-    //             info!("Controller completed successfully");
-    //         }
-    //         ProgramOptions::Borrower => {
-    //             if !borrow(file_path, new_file_path, callee_fn_name, caller_fn_name, &borrower_values) {
-    //                 error!("Borrow NOT completed - halting further execution");
-    //                 return false;
-    //             }
-    //             info!("Borrow completed successfully");
-    //         }
-    //         ProgramOptions::Repairer => {
-    //             let fn_name: &str = callee_fn_name; // or `caller_fn_name` based on your logic
-
-    //             // Ensure that `repair_system` is not None
-    //             if let Some(repairer_type) = repair_system {
-    //                 if !repair_lifetime(file_path, new_file_path, fn_name, &repairer_type) {
-    //                     error!("Repairer NOT completed - halting further execution");
-    //                     return false;
-    //                 }
-    //                 info!("Repairer completed successfully");
-    //             } else {
-    //                 error!("No repair system provided - halting further execution");
-    //                 return false;
-    //             }
-    //         }
-    //     }
-    // }
+    // Change this to return a result. 
     return true;
 }
 
