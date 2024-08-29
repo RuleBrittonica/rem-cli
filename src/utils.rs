@@ -4,6 +4,7 @@ use std::{
     io,
     fs,
     error::Error,
+    process::exit,
 };
 use git2::Repository;
 
@@ -11,6 +12,11 @@ use crate::tests::{
     controller,
     borrower,
     repairer,
+};
+
+use log::{
+    info,
+    error,
 };
 
 
@@ -25,6 +31,10 @@ pub fn parse_repair_type ( num: u8 ) -> RepairType {
         1 => RepairType::Simple,
         2 => RepairType::LoosestBoundsFirst,
         3 => RepairType::TightestBoundsFirst,
+        _ => {
+            error!("Invalid Repair Type Specified, program terminating");
+            exit(1);
+        }
     }
 }
 
@@ -48,7 +58,7 @@ pub fn delete_repo(path: PathBuf) -> Result<(), Box<dyn Error>> {
     } else {
         // Return an error if the path is not a directory
         let err_msg = format!("The specified path is not a directory: {:?}", path);
-        error!("{}" err_msg)
+        error!("{}" err_msg);
         return Err(Box::new(std::io::Error::new(std::io::ErrorKind::NotFound, err_msg)));
     }
 
@@ -56,27 +66,48 @@ pub fn delete_repo(path: PathBuf) -> Result<(), Box<dyn Error>> {
 }
 
 /// Runs tests given a path to the test files.
-pub fn run_tests(path: std::path::PathBuf) -> Result<(), TestFailed> {
+/// # Returns
+/// * `u8` The number of tests that failed. Returning 0 is ideal!
+pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
     info!("Running tests from path: {:?}", path);
 
-    if let Err(e) = controller::test() {
-        error!("Controller tests failed: {:?}", e);
-        return Err(TestFailed::ControllerFailed(e));
-    }
+    // Initialize the total number of failed tests
+    let mut total_failed_tests = 0;
 
-    // TODO: Uncomment and fix this once the Borrower tests are stabilized
-    // if let Err(e) = borrower::test() {
-    //     error!("Borrower tests failed: {:?}", e);
-    //     return Err(TestFailed::BorrowerFailed(e));
-    // }
+    // Run controller tests
+    let controller_failed = match controller::test(path) {
+        Ok(failed) => failed,
+        Err(e) => {
+            error!("Controller tests failed: {:?}", e);
+            return Err(TestFailed::ControllerFailed(e));
+        }
+    };
+    total_failed_tests += controller_failed;
 
-    if let Err(e) = repairer::test() {
-        error!("Repairer tests failed: {:?}", e);
-        return Err(TestFailed::RepairerFailed(e));
-    }
+    // Uncomment and fix this once the Borrower tests are stabilized
+    /*
+    let borrower_failed = match borrower::test(path) {
+        Ok(failed) => failed,
+        Err(e) => {
+            error!("Borrower tests failed: {:?}", e);
+            return Err(TestFailed::BorrowerFailed(e));
+        }
+    };
+    total_failed_tests += borrower_failed;
+    */
 
-    info!("All tests completed successfully");
-    Ok(())
+    // Run repairer tests
+    let repairer_failed = match repairer::test(path) {
+        Ok(failed) => failed,
+        Err(e) => {
+            error!("Repairer tests failed: {:?}", e);
+            return Err(TestFailed::RepairerFailed(e));
+        }
+    };
+    total_failed_tests += repairer_failed;
+
+    info!("All tests completed. Total failed tests: {}", total_failed_tests);
+    Ok(total_failed_tests)
 }
 
 /// Deletes a backup file or directory at the given path.
@@ -109,7 +140,7 @@ pub fn delete_backup(backup_path: PathBuf) -> Result<(), io::Error> {
         // If the path is neither a file nor a directory, return an error
         let err_msg = format!("The specified backup path is neither a file nor a directory: {:?}", backup_path);
         error!("{}", err_msg); // Output to logs and std err.
-        eprntln!("{}", err_msg);
+        eprintln!("{}", err_msg);
         Err(io::Error::new(io::ErrorKind::InvalidInput, err_msg))
     }
 }
