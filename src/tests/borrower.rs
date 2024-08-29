@@ -1,5 +1,9 @@
 use rem_borrower::borrow;
 use rem_utils::compile_file;
+use log::{
+    info,
+    error,
+};
 
 use colored::Colorize;
 use std::{

@@ -21,6 +21,11 @@ use std::{
 
 };
 
+use log::{
+    info,
+    error,
+};
+
 use crate::tests::utils::{
     cleanup_new_files,
     list_files_in_dir,

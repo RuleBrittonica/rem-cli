@@ -16,7 +16,7 @@ use crate::messages::{
 #[command(
     author = AUTHOR,
     version = VERSION,
-    about =  VERSION
+    about = ABOUT
 )]
 pub struct REMArgs {
     #[command(subcommand)]
@@ -143,7 +143,7 @@ pub enum REMCommands {
         repo: String,
 
         /// NOT YET IMPLEMENTED.
-        /// 
+        ///
         /// CURRENTLY THE OUTPUT IS THE VERBOSE OUTPUT
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,

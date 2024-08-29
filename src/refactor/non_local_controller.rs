@@ -1,8 +1,5 @@
 use rem_controller::non_local_controller;
-use std::{
-    time::Instant,
-    fs,
-};
+use std::time::Instant;
 use log::{
     info,
     error,
