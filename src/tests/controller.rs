@@ -1,8 +1,12 @@
+use log::info;
 use rem_utils::compile_file;
 use rem_controller::non_local_controller;
 use std::{
     fs,
-    path::Path,
+    path::{
+        Path,
+        PathBuf,
+    },
     time::SystemTime,
 };
 use colored::Colorize;
@@ -12,16 +16,34 @@ use crate::tests::utils::{
     cleanup_new_files,
 };
 
-pub fn test() -> Result<(), io::Error> {
+pub fn test(path: PathBuf) -> Result<u8, io::Error> {
+
+    let folder_path: String = match path.to_str() {
+        Some(path_str) => path_str.to_string(),
+        None => {
+            error!("Failed to conver path to string {:?}", path);
+            return Err(io::Error::new(io::ErrorKind::InvalidInput, "Invalid Path"));
+        }
+    };
+
+    if !path.is_dir() {
+        error!("The path provided is not a directory: {}", folder_path);
+        return Err(io::Error::new(io::ErrorKind::NotFound, "Path is not a directory"));
+    }
+
+    info!("Running tests from directory {}/{}", folder_path, "controller");
+
     // Capture initial state
     let current_dir: &Path = Path::new("./");
     let initial_files: Vec<String> = list_files_in_dir(current_dir)?;
 
-    for file in fs::read_dir("./src_tests/controller/input")? {
+    let mut total_failed_tests: u8 = 0;
+
+    for file in fs::read_dir(format!("{}/controller/input", folder_path))? {
         let file = file?;
         let test_name = file.file_name().to_owned();
-        let file_name = format!("./src_tests/controller/input/{}", test_name.to_str().unwrap());
-        let new_file_name = format!("./src_tests/controller/output/{}", test_name.to_str().unwrap());
+        let file_name = format!("{}controller/input/{}", folder_path, test_name.to_str().unwrap());
+        let new_file_name = format!("{}/controller/output/{}", folder_path, test_name.to_str().unwrap());
         let callee_fn_name = "bar";
         let caller_fn_name = "new_foo";
         let now = SystemTime::now();
@@ -46,9 +68,12 @@ pub fn test() -> Result<(), io::Error> {
             time_elapsed
         );
         println!("------------------------------------------------------------------\n");
+
+        // Update the number of failed tests.
+        total_failed_tests += if !out.status.success() || !success { 1 } else { 0 };
     }
 
     let _ = cleanup_new_files(initial_files, current_dir);
 
-    Ok(())
+    Ok(total_failed_tests)
 }

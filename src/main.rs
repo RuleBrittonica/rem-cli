@@ -41,16 +41,6 @@ use rem_args::{
     REMCommands,
 };
 
-use rem_repairer::{
-    common::{
-        RepairSystem,
-        DebugRepairSystem,
-    },
-    repair_lifetime_loosest_bound_first,
-    repair_lifetime_simple,
-    repair_lifetime_tightest_bound_first
-};
-
 /// The CLI Takes the following arguments:
 ///
 /// * file_path:  The path to the file that contains just the code that will be refactored.
@@ -122,7 +112,7 @@ fn main() {
             repairer,
             verbose
         } => {
-            let repair_type: RepairType = parse_repair_type(repairer);
+            let repair_type: RepairType = parse_repair_type(*repairer);
 
         }
 
@@ -133,7 +123,7 @@ fn main() {
             repairer,
             verbose
         } => {
-            let repair_type: RepairType = parse_repair_type(repairer);
+            let repair_type: RepairType = parse_repair_type(*repairer);
         }
 
         REMCommands::Test {
@@ -192,15 +182,22 @@ fn main() {
     }
 
     // Attempt to delete the backup
-    if let Err(e) = delete_backup(backup_path) {
-        error!("Failed to delete backup: {:?}", e);
-        std::process::exit(1);
+    if let Some(backup_path_real) = backup_path {
+        if let Err(e) = delete_backup(backup_path_real) {
+            error!("Failed to delete backup: {:?}", e);
+            exit(1);
+        } else {
+            info!("Backup deleted successfully");
+        }
+    } else {
+        // Handle backup path being none
+        //! How tf did we end up here
+        error!("Backup path was never provided / saved, HOW DID WE GET HERE?");
+        exit(1);
     }
+
 
     // If we have gotten this far then we know that all previous activities have
     // been successful. Delete the backup and exit successfully if that works
     info!("Refactoring completed successfully")
-
-
-
 }
