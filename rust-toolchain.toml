@@ -1,8 +1,17 @@
 [toolchain]
-channel = "nightly-2024-07-04"
+channel = "nightly-2024-08-28"
 components = [
     "rustc-src",
     "rustc-dev",
     "llvm-tools-preview",
     "rust-analyzer-preview",
+    "clippy",
+    "rustfmt",
+    "miri",
+    "rls-preview",
+    "rust-docs"
 ]
+profile = "minimal"
+
+# [target.'cfg(windows)']
+# rustflags = ["-Ctarget-feature=+crt-static"] # Static linking on windows

@@ -1,0 +1,7 @@
+2024-08-29 12:06:18 [INFO] - Application Started
+2024-08-29 12:06:18 [INFO] - Scheduled: Running Controller
+2024-08-29 12:06:18 [INFO] - Scheduled: Running Borrower
+2024-08-29 12:06:18 [INFO] - Scheduled: Running Repairer
+2024-08-29 12:06:18 [INFO] - Beginning backup. Will backup file to /tmp/./examples/input/controller_1.rs-cli-extract.bk
+2024-08-29 12:06:18 [ERROR] - Failed to create backup in main: Os { code: 3, kind: NotFound, message: "The system cannot find the path specified." }
+2024-08-29 12:06:18 [WARN] - Returning early, extraction will not proceed

@@ -16,7 +16,7 @@ Make sure that you have the developer tools for rustc installed on your system.
 Run the following command if you are unsure
 
 ```bash
-rustup component add rust-src rustc-dev llvm-tools-preview
+rustup component add --toolchain nightly rust-src rustc-dev llvm-tools-preview
 ```
 
 Additionally, at some point in the future this CLI may also be dependent on
@@ -107,7 +107,7 @@ cargo run ./examples/input/controller_1.rs ./examples/output/controller_borrower
 
 **Alternatively**
 
-The program can be called using `./rem-cli``
+The program can be called using `./rem-cli`
 
 ```bash
 ./rem-cli ./examples/input/full_1.rs ./examples/output/full_1.rs new_foo bar
@@ -166,7 +166,6 @@ testing phase.
 ```
 
 * **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
-
 * Update all package references to use crates instead of github, once I have the
   access from Sewen. Start with rem-utils, then link everything into that
   instead. This should hopefully fix the `./rem-cli` issues I am having.
