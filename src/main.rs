@@ -1,4 +1,7 @@
-use std::fs;
+use std::{
+    process::exit,
+    path::PathBuf,
+};
 
 use clap::{
     Arg,
@@ -15,28 +18,19 @@ use log::{
 
 mod logging;
 mod error;
-
 mod prefactor;
-use prefactor::extract_body::extract_fn_body;
-
 mod refactor;
-use refactor::refactor_main::{
-    extract_function,
-    extract_function_generic,
-    extract_function_async,
-};
-
 mod tests;
-use tests::{
-    controller,
-    borrower,
-    repairer,
-};
+
 
 mod utils;
 use utils::{
-    // strip_extension,
-    ProgramOptions,
+    RepairType,
+    parse_repair_type,
+    get_from_git,
+    run_tests,
+    delete_backup,
+    delete_repo,
 };
 
 mod messages;
@@ -89,6 +83,7 @@ fn main() {
     info!("Application Started");
 
     let args: REMArgs = REMArgs::parse();
+    let mut backup_path: Option<PathBuf> = None;
 
     match &args.command {
         REMCommands::Run {
@@ -127,6 +122,7 @@ fn main() {
             repairer,
             verbose
         } => {
+            let repair_type: RepairType = parse_repair_type(repairer);
 
         }
 
@@ -137,21 +133,74 @@ fn main() {
             repairer,
             verbose
         } => {
-
+            let repair_type: RepairType = parse_repair_type(repairer);
         }
 
         REMCommands::Test {
             folder,
-            verbose
+            verbose //! NYI
         } => {
+            if verbose {
+                info!("Running tests in verbose mode");
+            } else {
+                info!("Running tests");
+            }
 
+            match run_tests(folder) {
+                Ok(x) => info!("Test running finished, {} tests failed", x),
+                Err(e) => {
+                    error!("Test running failed: {:?}", e);
+                    exit(1);
+                }
+            }
         }
 
         REMCommands::TestGithub {
             repo,
-            verbose
+            verbose //! NYI
         } => {
+            if verbose {
+                info!("Running tests in verbose mode from GitHub repo: {}", repo);
+            } else {
+                info!("Running tests from GitHub repo: {}", repo);
+            }
 
+            let path: PathBuf = match get_from_git(repo) {
+                Ok(p) => p,
+                Err(e) => {
+                    error!("Failed to fetch from GitHub: {}", e);
+                    exit(1);
+                }
+            };
+
+            match run_tests(path.clone()) {
+                Ok(failed_tests) => info!("Test running finished, {} tests failed", failed_tests),
+                Err(e) => {
+                    error!("Test running failed: {:?}", e);
+                    exit(1);
+                }
+            }
+
+            match delete_repo(path) {
+                Ok(_) => info!("Successfully deleted folder downloaded from Git"),
+                Err(e) => {
+                    error!("Unable to delete downloaded folder: {}", e);
+                    exit(1);
+                }
+            }
         }
     }
+
+    // Attempt to delete the backup
+    if let Err(e) = delete_backup(backup_path) {
+        error!("Failed to delete backup: {:?}", e);
+        std::process::exit(1);
+    }
+
+    // If we have gotten this far then we know that all previous activities have
+    // been successful. Delete the backup and exit successfully if that works
+    info!("Refactoring completed successfully")
+
+
+
 }
