@@ -1,4 +1,0 @@
-2024-08-26 19:49:41 [INFO] - Application Started
-2024-08-26 19:49:41 [INFO] - Scheduled: Running Controller
-2024-08-26 19:49:41 [ERROR] - Failed to create backup in main: Os { code: 2, kind: NotFound, message: "No such file or directory" }
-2024-08-26 19:49:41 [WARN] - Returning early, extraction will not proceed
