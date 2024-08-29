@@ -13,10 +13,11 @@ CLI for the REM Toolchain. Implemented in the VSCode extension for REM available
 ## Getting Started
 
 Make sure that you have the developer tools for rustc installed on your system.
-Run the following command if you are unsure
+Run the following command if you are unsure. This toolchain is built for
+**nightly-2024-08-28**. Others may work but are not tested.
 
 ```bash
-rustup component add --toolchain nightly rust-src rustc-dev llvm-tools-preview
+rustup component add --toolchain nightly-2024-08-28 rust-src rustc-dev llvm-tools-preview
 ```
 
 Additionally, at some point in the future this CLI may also be dependent on
@@ -26,6 +27,9 @@ update this when it becomes dependent on RLS.
 ```bash
 rustup component add rust-analyzer
 ```
+
+From there, `rust-toolchain.toml` should be able to do the rest of the heavy
+lifting. Refer to its components list if you are unsure.
 
 ## Usage
 
@@ -53,8 +57,8 @@ rem-cli [OPTIONS] [file_path] [new_file_path] [caller_fn_name] [callee_fn_name]
   -b, --borrower <borrower> <borrower>  Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Requires two additional arguments: `pre_extract_file_path` and `method_call_mut_file_path`.
   -r, --repairer <repairer>             Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Requires the additional argument `repair_system`.
                                                  1 => repair_lifetime_simple
-                                                 2 => tightest_bound_first
-                                                 3 => loosest_bound_first
+                                                 2 => loosest_bound_first
+                                                 3 => tightest_bound_first
   -h, --help                            Print help
   -V, --version                         Print version
 ```
@@ -148,7 +152,7 @@ testing phase.
 
 ## TODO
 
-* Work out why I keep getting a panic whenever the tests get halfway through
+- Work out why I keep getting a panic whenever the tests get halfway through
   running the borrower. At this stage a workable solution is just to comment
   out the running of the borrower tests to verify that the repairer works as expected
 
@@ -158,14 +162,23 @@ testing phase.
    note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
 
-* Verify that all aspects of the CLI work as expected
-* Fix up the issues with running rem-cli directly
+- Verify that all aspects of the CLI work as expected
+- Fix up the issues with running rem-cli directly
 
 ```bash
   target/debug/rem-cli: error while loading shared libraries: librustc_driver-6c98eb7349a51df2.so: cannot open shared object file: No such file or directory
 ```
 
-* **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
-* Update all package references to use crates instead of github, once I have the
+- **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
+
+- Update all package references to use crates instead of github, once I have the
   access from Sewen. Start with rem-utils, then link everything into that
   instead. This should hopefully fix the `./rem-cli` issues I am having.
+
+- Implement the controller, borrower and repairer. Both the CLI end, and the
+  actual functions, need to be implemented
+
+- Implement the complete refactoring toolchain (i.e. give file and context, and
+  refactoring happens from there)
+
+- Update the documentation.
