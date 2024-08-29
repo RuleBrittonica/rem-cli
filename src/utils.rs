@@ -1,4 +1,3 @@
-use error::TestFailed;
 use std::{
     path::PathBuf,
     io,
@@ -8,17 +7,18 @@ use std::{
 };
 use git2::Repository;
 
+use log::{
+    info,
+    error,
+};
+
 use crate::tests::{
     controller,
     borrower,
     repairer,
 };
 
-use log::{
-    info,
-    error,
-};
-
+use crate::error::TestFailed;
 
 pub enum RepairType {
     Simple,
@@ -58,7 +58,7 @@ pub fn delete_repo(path: PathBuf) -> Result<(), Box<dyn Error>> {
     } else {
         // Return an error if the path is not a directory
         let err_msg = format!("The specified path is not a directory: {:?}", path);
-        error!("{}" err_msg);
+        error!("{}", err_msg);
         return Err(Box::new(std::io::Error::new(std::io::ErrorKind::NotFound, err_msg)));
     }
 
@@ -75,7 +75,7 @@ pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
     let mut total_failed_tests = 0;
 
     // Run controller tests
-    let controller_failed = match controller::test(path) {
+    let controller_failed = match controller::test(path.clone()) {
         Ok(failed) => failed,
         Err(e) => {
             error!("Controller tests failed: {:?}", e);
@@ -86,7 +86,7 @@ pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
 
     // Uncomment and fix this once the Borrower tests are stabilized
     /*
-    let borrower_failed = match borrower::test(path) {
+    let borrower_failed = match borrower::test(path.clone()) {
         Ok(failed) => failed,
         Err(e) => {
             error!("Borrower tests failed: {:?}", e);
@@ -97,7 +97,7 @@ pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
     */
 
     // Run repairer tests
-    let repairer_failed = match repairer::test(path) {
+    let repairer_failed = match repairer::test(path.clone()) {
         Ok(failed) => failed,
         Err(e) => {
             error!("Repairer tests failed: {:?}", e);

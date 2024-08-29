@@ -1,4 +1,3 @@
-use log::info;
 use rem_utils::compile_file;
 use rem_controller::non_local_controller;
 use std::{
@@ -9,6 +8,12 @@ use std::{
     },
     time::SystemTime,
 };
+
+use log::{
+    info,
+    error,
+};
+
 use colored::Colorize;
 use std::io;
 use crate::tests::utils::{

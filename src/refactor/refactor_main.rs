@@ -11,8 +11,6 @@ use crate::refactor::{
     repair_lifetime::repair_lifetime,
 };
 
-use crate::utils::ProgramOptions;
-
 /// Calls out to rem-controller, then rem-borrower, then rem-repairer to fix up
 /// the extracted method.
 ///
@@ -30,45 +28,41 @@ pub fn extract_function(
     new_file_path:   &str,
     callee_fn_name:  &str,
     caller_fn_name:  &str,
-    options:         Vec<ProgramOptions>,
-    borrower_values: (String, String),
-    repair_system:   Option<&dyn RepairSystem>,
 
 ) -> bool {
-    for opt in options {
-        match opt {
-            ProgramOptions::Controller => {
-                if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name) {
-                    error!("Controller NOT completed - halting further execution");
-                    return false;
-                }
-                info!("Controller completed successfully");
-            }
-            ProgramOptions::Borrower => {
-                if !borrow(file_path, new_file_path, callee_fn_name, caller_fn_name, &borrower_values) {
-                    error!("Borrow NOT completed - halting further execution");
-                    return false;
-                }
-                info!("Borrow completed successfully");
-            }
-            ProgramOptions::Repairer => {
-                let fn_name: &str = callee_fn_name; // or `caller_fn_name` based on your logic
+    // for opt in options {
+    //     match opt {
+    //         ProgramOptions::Controller => {
+    //             if !non_local_controller(file_path, new_file_path, callee_fn_name, caller_fn_name) {
+    //                 error!("Controller NOT completed - halting further execution");
+    //                 return false;
+    //             }
+    //             info!("Controller completed successfully");
+    //         }
+    //         ProgramOptions::Borrower => {
+    //             if !borrow(file_path, new_file_path, callee_fn_name, caller_fn_name, &borrower_values) {
+    //                 error!("Borrow NOT completed - halting further execution");
+    //                 return false;
+    //             }
+    //             info!("Borrow completed successfully");
+    //         }
+    //         ProgramOptions::Repairer => {
+    //             let fn_name: &str = callee_fn_name; // or `caller_fn_name` based on your logic
 
-                // Ensure that `repair_system` is not None
-                if let Some(repairer_type) = repair_system {
-                    if !repair_lifetime(file_path, new_file_path, fn_name, &repairer_type) {
-                        error!("Repairer NOT completed - halting further execution");
-                        return false;
-                    }
-                    info!("Repairer completed successfully");
-                } else {
-                    error!("No repair system provided - halting further execution");
-                    return false;
-                }
-            }
-        }
-    }
-
+    //             // Ensure that `repair_system` is not None
+    //             if let Some(repairer_type) = repair_system {
+    //                 if !repair_lifetime(file_path, new_file_path, fn_name, &repairer_type) {
+    //                     error!("Repairer NOT completed - halting further execution");
+    //                     return false;
+    //                 }
+    //                 info!("Repairer completed successfully");
+    //             } else {
+    //                 error!("No repair system provided - halting further execution");
+    //                 return false;
+    //             }
+    //         }
+    //     }
+    // }
     return true;
 }
 
@@ -77,16 +71,7 @@ pub fn extract_function_generic(
     new_file_path:   &str,
     callee_fn_name:  &str,
     caller_fn_name:  &str,
-    options:         Vec<ProgramOptions>,
-    borrower_values: (String, String),
-    repair_system:   Option<&dyn RepairSystem>,
 ) -> bool {
-    for opt in options {
-        // match opt {
-
-        // }
-    }
-
     todo!()
 }
 
@@ -95,14 +80,6 @@ pub fn extract_function_async(
     new_file_path:   &str,
     callee_fn_name:  &str,
     caller_fn_name:  &str,
-    options:         Vec<ProgramOptions>,
-    borrower_values: (String, String),
-    repair_system:   Option<&dyn RepairSystem>,
 ) -> bool {
-    for opt in options {
-        // match opt {
-        
-        // }
-    }
     todo!()
 }

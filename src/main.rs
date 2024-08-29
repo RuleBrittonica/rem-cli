@@ -3,17 +3,11 @@ use std::{
     path::PathBuf,
 };
 
-use clap::{
-    Arg,
-    Command,
-    Parser,
-};
+use clap::Parser;
 
 use log::{
-    debug,
     error,
     info,
-    warn
 };
 
 mod logging;
@@ -83,7 +77,7 @@ fn main() {
             callee_fn_name
         } => {
 
-        }
+        },
 
         REMCommands::Controller {
             file_path,
@@ -92,7 +86,7 @@ fn main() {
             callee_fn_name
         } => {
 
-        }
+        },
 
         REMCommands::Borrower {
             file_path,
@@ -103,7 +97,7 @@ fn main() {
             pre_extract_file_path
         } => {
 
-        }
+        },
 
         REMCommands::Repairer {
             file_path,
@@ -114,7 +108,7 @@ fn main() {
         } => {
             let repair_type: RepairType = parse_repair_type(*repairer);
 
-        }
+        },
 
         REMCommands::RepairerCargo {
             src_path,
@@ -124,38 +118,38 @@ fn main() {
             verbose
         } => {
             let repair_type: RepairType = parse_repair_type(*repairer);
-        }
+        },
 
         REMCommands::Test {
             folder,
-            verbose //! NYI
+            verbose // NYI
         } => {
-            if verbose {
+            if *verbose {
                 info!("Running tests in verbose mode");
             } else {
                 info!("Running tests");
             }
 
-            match run_tests(folder) {
+            match run_tests(folder.clone()) {
                 Ok(x) => info!("Test running finished, {} tests failed", x),
                 Err(e) => {
                     error!("Test running failed: {:?}", e);
                     exit(1);
                 }
             }
-        }
+        },
 
         REMCommands::TestGithub {
             repo,
-            verbose //! NYI
+            verbose, // NYI
         } => {
-            if verbose {
-                info!("Running tests in verbose mode from GitHub repo: {}", repo);
+            if *verbose {
+                info!("Running tests in verbose mode from GitHub repo: {}", repo.clone());
             } else {
-                info!("Running tests from GitHub repo: {}", repo);
+                info!("Running tests from GitHub repo: {}", repo.clone());
             }
 
-            let path: PathBuf = match get_from_git(repo) {
+            let path: PathBuf = match get_from_git(repo.clone()) {
                 Ok(p) => p,
                 Err(e) => {
                     error!("Failed to fetch from GitHub: {}", e);
@@ -178,7 +172,7 @@ fn main() {
                     exit(1);
                 }
             }
-        }
+        },
     }
 
     // Attempt to delete the backup
@@ -191,7 +185,7 @@ fn main() {
         }
     } else {
         // Handle backup path being none
-        //! How tf did we end up here
+        // How tf did we end up here
         error!("Backup path was never provided / saved, HOW DID WE GET HERE?");
         exit(1);
     }
