@@ -1,0 +1,6 @@
+2024-09-03 17:13:51 [INFO] - Application Started
+2024-09-03 17:13:51 [INFO] - Running tests from GitHub repo: https://github.com/RuleBrittonica/rem-testfiles
+2024-09-03 17:13:52 [INFO] - Running tests from path: "tmp_test_src"
+2024-09-03 17:13:52 [INFO] - Running tests from directory tmp_test_src/controller
+2024-09-03 17:13:52 [ERROR] - Controller tests failed: Os { code: 3, kind: NotFound, message: "The system cannot find the path specified." }
+2024-09-03 17:13:52 [ERROR] - Test running failed: ControllerFailed(Os { code: 3, kind: NotFound, message: "The system cannot find the path specified." })
