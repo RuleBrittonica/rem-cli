@@ -1,5 +1,5 @@
 use rem_borrower::borrow;
-use rem_utils::compile_file;
+use crate::tests::utils::compile_file;
 use log::{
     info,
     error,

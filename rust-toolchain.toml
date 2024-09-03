@@ -5,13 +5,6 @@ components = [
     "rustc-dev",
     "llvm-tools-preview",
     "rust-analyzer-preview",
-    "clippy",
-    "rustfmt",
-    "miri",
-    "rls-preview",
-    "rust-docs"
 ]
-profile = "minimal"
 
-# [target.'cfg(windows)']
-# rustflags = ["-Ctarget-feature=+crt-static"] # Static linking on windows
+profile = "minimal"
