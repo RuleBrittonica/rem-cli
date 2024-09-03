@@ -1,7 +1,5 @@
 use std::{
-    io,
-    path::Path,
-    fs,
+    fs, io, path::Path, process::Command
 };
 
 pub fn list_files_in_dir(dir: &Path) -> io::Result<Vec<String>> {
@@ -31,4 +29,13 @@ pub fn cleanup_new_files(initial_files: Vec<String>, current_dir: &Path) -> io::
     }
 
     Ok(())
+}
+
+pub fn compile_file(file_name: &str, args: &Vec<&str>) -> Command {
+    let mut compile = Command::new("rustc");
+    for arg in args {
+        compile.arg(arg);
+    }
+    compile.arg(file_name);
+    compile
 }

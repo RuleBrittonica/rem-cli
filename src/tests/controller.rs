@@ -1,4 +1,4 @@
-use rem_utils::compile_file;
+use crate::tests::utils::compile_file;
 use rem_controller::non_local_controller;
 use std::{
     fs,
