@@ -123,7 +123,8 @@ pub enum REMCommands {
         /// * 2 => Loosest Bounds First
         /// * 3 => Tightest Bounds First
         ///
-        /// Any other repairer selection will result in an error.
+        /// Any other repairer selection will result in the program
+        /// terminating.
         #[arg(help = "Repairer option (1=Simple, 2=Loosest Bounds First, 3=Tightest Bounds First)", index = 4)]
         repairer: u8,
 

@@ -19,11 +19,6 @@ mod refactor;
 use refactor::{
     non_local_controller::non_local_controller,
     borrow::borrow,
-    repair_lifetime::{
-        repair_lifetime,
-        repair_lifetime_rustc,
-        repair_lifetime_cargo,
-    },
 };
 
 use rem_repairer::{
@@ -284,7 +279,6 @@ fn main() {
         error!("Backup path was never provided / saved, HOW DID WE GET HERE?");
         exit(1);
     }
-
 
     // If we have gotten this far then we know that all previous activities have
     // been successful. Delete the backup and exit successfully if that works

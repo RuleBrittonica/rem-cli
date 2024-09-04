@@ -1,0 +1,7 @@
+2024-09-04 22:29:51 [INFO] - Application Started
+2024-09-04 22:29:51 [INFO] - Successfully backed up file from "examples/input/controller_1.rs" to "examples/input\\controller_1_backup_1725452991.rs"
+2024-09-04 22:29:51 [INFO] - Controller was successful, elapsed time in milliseconds: 69
+2024-09-04 22:29:51 [INFO] - Program Controller was successful.
+2024-09-04 22:29:51 [INFO] - Backup file deleted successfully: "examples/input\\controller_1_backup_1725452991.rs"
+2024-09-04 22:29:51 [INFO] - Backup deleted successfully
+2024-09-04 22:29:51 [INFO] - Refactoring completed successfully
