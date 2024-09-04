@@ -1,4 +1,4 @@
-use rem_controller::non_local_controller;
+    use rem_controller::non_local_controller;
 use std::time::Instant;
 use log::{
     info,

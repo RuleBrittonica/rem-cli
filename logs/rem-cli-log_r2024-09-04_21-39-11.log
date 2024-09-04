@@ -1,0 +1,205 @@
+2024-09-04 21:36:59 [INFO] - Application Started
+2024-09-04 21:36:59 [INFO] - Running tests
+2024-09-04 21:36:59 [INFO] - Running tests from path: "src_tests/"
+2024-09-04 21:36:59 [INFO] - Running tests from directory src_tests/controller
+2024-09-04 21:37:01 [INFO] - Controller tests successful, 2 tests failed
+2024-09-04 21:37:01 [INFO] - Running tests from directory src_tests/borrower
+2024-09-04 21:37:04 [INFO] - Borrower tests successful, 5 tests failed
+2024-09-04 21:37:04 [INFO] - Running tests from directory src_tests/repairer
+2024-09-04 21:37:04 [INFO] - Processing file: borrow
+2024-09-04 21:37:04 [INFO] - Function name: 
+2024-09-04 21:37:04 [INFO] - Using repair system: _simple_repairer
+2024-09-04 21:37:04 [INFO] - Input file name: src_tests//repairer/input/borrow.rs
+2024-09-04 21:37:04 [INFO] - Output file name: src_tests//repairer/output/borrow__simple_repairer.rs
+2024-09-04 21:37:04 [INFO] - repair count: 1
+2024-09-04 21:37:04 [INFO] - status: true
+2024-09-04 21:37:04 [INFO] - Repair operation success: true
+2024-09-04 21:37:04 [INFO] - Using repair system: _rustfix_repairer
+2024-09-04 21:37:04 [INFO] - Input file name: src_tests//repairer/input/borrow.rs
+2024-09-04 21:37:04 [INFO] - Output file name: src_tests//repairer/output/borrow__rustfix_repairer.rs
+2024-09-04 21:37:04 [INFO] - repair count: 1
+2024-09-04 21:37:04 [INFO] - status: true
+2024-09-04 21:37:04 [INFO] - Repair operation success: true
+2024-09-04 21:37:04 [INFO] - Using repair system: _tightest_bounds_first_repairer
+2024-09-04 21:37:04 [INFO] - Input file name: src_tests//repairer/input/borrow.rs
+2024-09-04 21:37:04 [INFO] - Output file name: src_tests//repairer/output/borrow__tightest_bounds_first_repairer.rs
+2024-09-04 21:37:04 [INFO] - repair count: 1
+2024-09-04 21:37:04 [INFO] - status: false
+2024-09-04 21:37:04 [INFO] - Repair operation success: false
+2024-09-04 21:37:04 [INFO] - Total failed tests incremented: 1
+2024-09-04 21:37:04 [INFO] - Using repair system: _loosest_bounds_first_repairer
+2024-09-04 21:37:04 [INFO] - Input file name: src_tests//repairer/input/borrow.rs
+2024-09-04 21:37:04 [INFO] - Output file name: src_tests//repairer/output/borrow__loosest_bounds_first_repairer.rs
+2024-09-04 21:37:05 [INFO] - repair count: 1
+2024-09-04 21:37:05 [INFO] - status: false
+2024-09-04 21:37:05 [INFO] - Repair operation success: false
+2024-09-04 21:37:05 [INFO] - Total failed tests incremented: 2
+2024-09-04 21:37:05 [INFO] - Processing file: in_out_lifetimes
+2024-09-04 21:37:05 [INFO] - Function name: bar_extracted
+2024-09-04 21:37:05 [INFO] - Using repair system: _simple_repairer
+2024-09-04 21:37:05 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes.rs
+2024-09-04 21:37:05 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes__simple_repairer.rs
+2024-09-04 21:37:05 [INFO] - repair count: 1
+2024-09-04 21:37:05 [INFO] - status: true
+2024-09-04 21:37:05 [INFO] - Repair operation success: true
+2024-09-04 21:37:05 [INFO] - Using repair system: _rustfix_repairer
+2024-09-04 21:37:05 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes.rs
+2024-09-04 21:37:05 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes__rustfix_repairer.rs
+2024-09-04 21:37:05 [INFO] - repair count: 1
+2024-09-04 21:37:05 [INFO] - status: true
+2024-09-04 21:37:05 [INFO] - Repair operation success: true
+2024-09-04 21:37:05 [INFO] - Using repair system: _tightest_bounds_first_repairer
+2024-09-04 21:37:05 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes.rs
+2024-09-04 21:37:05 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes__tightest_bounds_first_repairer.rs
+2024-09-04 21:37:05 [INFO] - repair count: 0
+2024-09-04 21:37:05 [INFO] - status: true
+2024-09-04 21:37:05 [INFO] - Repair operation success: true
+2024-09-04 21:37:05 [INFO] - Using repair system: _loosest_bounds_first_repairer
+2024-09-04 21:37:05 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes.rs
+2024-09-04 21:37:05 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes__loosest_bounds_first_repairer.rs
+2024-09-04 21:37:06 [INFO] - repair count: 1
+2024-09-04 21:37:06 [INFO] - status: true
+2024-09-04 21:37:06 [INFO] - Repair operation success: true
+2024-09-04 21:37:06 [INFO] - Processing file: lifetime_bounds
+2024-09-04 21:37:06 [INFO] - Function name: bar_extracted
+2024-09-04 21:37:06 [INFO] - Using repair system: _simple_repairer
+2024-09-04 21:37:06 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds.rs
+2024-09-04 21:37:06 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds__simple_repairer.rs
+2024-09-04 21:37:06 [INFO] - repair count: 1
+2024-09-04 21:37:06 [INFO] - status: true
+2024-09-04 21:37:06 [INFO] - Repair operation success: true
+2024-09-04 21:37:06 [INFO] - Using repair system: _rustfix_repairer
+2024-09-04 21:37:06 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds.rs
+2024-09-04 21:37:06 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds__rustfix_repairer.rs
+2024-09-04 21:37:06 [INFO] - repair count: 1
+2024-09-04 21:37:06 [INFO] - status: true
+2024-09-04 21:37:06 [INFO] - Repair operation success: true
+2024-09-04 21:37:06 [INFO] - Using repair system: _tightest_bounds_first_repairer
+2024-09-04 21:37:06 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds.rs
+2024-09-04 21:37:06 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds__tightest_bounds_first_repairer.rs
+2024-09-04 21:37:07 [INFO] - repair count: 1
+2024-09-04 21:37:07 [INFO] - status: true
+2024-09-04 21:37:07 [INFO] - Repair operation success: true
+2024-09-04 21:37:07 [INFO] - Using repair system: _loosest_bounds_first_repairer
+2024-09-04 21:37:07 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds.rs
+2024-09-04 21:37:07 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds__loosest_bounds_first_repairer.rs
+2024-09-04 21:37:07 [INFO] - repair count: 1
+2024-09-04 21:37:07 [INFO] - status: true
+2024-09-04 21:37:07 [INFO] - Repair operation success: true
+2024-09-04 21:37:07 [INFO] - Processing file: in_out_lifetimes_original_extract
+2024-09-04 21:37:07 [INFO] - Function name: 
+2024-09-04 21:37:07 [INFO] - Using repair system: _simple_repairer
+2024-09-04 21:37:07 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_original_extract.rs
+2024-09-04 21:37:07 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_original_extract__simple_repairer.rs
+2024-09-04 21:37:08 [INFO] - repair count: 2
+2024-09-04 21:37:08 [INFO] - status: false
+2024-09-04 21:37:08 [INFO] - Repair operation success: false
+2024-09-04 21:37:08 [INFO] - Total failed tests incremented: 3
+2024-09-04 21:37:08 [INFO] - Using repair system: _rustfix_repairer
+2024-09-04 21:37:08 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_original_extract.rs
+2024-09-04 21:37:08 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_original_extract__rustfix_repairer.rs
+2024-09-04 21:37:08 [INFO] - repair count: 2
+2024-09-04 21:37:08 [INFO] - status: false
+2024-09-04 21:37:08 [INFO] - Repair operation success: false
+2024-09-04 21:37:08 [INFO] - Total failed tests incremented: 4
+2024-09-04 21:37:08 [INFO] - Using repair system: _tightest_bounds_first_repairer
+2024-09-04 21:37:08 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_original_extract.rs
+2024-09-04 21:37:08 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_original_extract__tightest_bounds_first_repairer.rs
+2024-09-04 21:37:08 [INFO] - repair count: 1
+2024-09-04 21:37:08 [INFO] - status: false
+2024-09-04 21:37:08 [INFO] - Repair operation success: false
+2024-09-04 21:37:08 [INFO] - Total failed tests incremented: 5
+2024-09-04 21:37:08 [INFO] - Using repair system: _loosest_bounds_first_repairer
+2024-09-04 21:37:08 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_original_extract.rs
+2024-09-04 21:37:08 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_original_extract__loosest_bounds_first_repairer.rs
+2024-09-04 21:37:08 [INFO] - repair count: 1
+2024-09-04 21:37:08 [INFO] - status: false
+2024-09-04 21:37:08 [INFO] - Repair operation success: false
+2024-09-04 21:37:08 [INFO] - Total failed tests incremented: 6
+2024-09-04 21:37:08 [INFO] - Processing file: lifetime_bounds_not_enough_annotations
+2024-09-04 21:37:08 [INFO] - Function name: 
+2024-09-04 21:37:08 [INFO] - Using repair system: _simple_repairer
+2024-09-04 21:37:08 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds_not_enough_annotations.rs
+2024-09-04 21:37:08 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds_not_enough_annotations__simple_repairer.rs
+2024-09-04 21:37:08 [INFO] - repair count: 1
+2024-09-04 21:37:08 [INFO] - status: false
+2024-09-04 21:37:08 [INFO] - Repair operation success: false
+2024-09-04 21:37:08 [INFO] - Total failed tests incremented: 7
+2024-09-04 21:37:08 [INFO] - Using repair system: _rustfix_repairer
+2024-09-04 21:37:08 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds_not_enough_annotations.rs
+2024-09-04 21:37:08 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds_not_enough_annotations__rustfix_repairer.rs
+2024-09-04 21:37:08 [INFO] - repair count: 1
+2024-09-04 21:37:08 [INFO] - status: false
+2024-09-04 21:37:08 [INFO] - Repair operation success: false
+2024-09-04 21:37:08 [INFO] - Total failed tests incremented: 8
+2024-09-04 21:37:08 [INFO] - Using repair system: _tightest_bounds_first_repairer
+2024-09-04 21:37:08 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds_not_enough_annotations.rs
+2024-09-04 21:37:08 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds_not_enough_annotations__tightest_bounds_first_repairer.rs
+2024-09-04 21:37:08 [INFO] - repair count: 1
+2024-09-04 21:37:08 [INFO] - status: false
+2024-09-04 21:37:08 [INFO] - Repair operation success: false
+2024-09-04 21:37:08 [INFO] - Total failed tests incremented: 9
+2024-09-04 21:37:08 [INFO] - Using repair system: _loosest_bounds_first_repairer
+2024-09-04 21:37:08 [INFO] - Input file name: src_tests//repairer/input/lifetime_bounds_not_enough_annotations.rs
+2024-09-04 21:37:08 [INFO] - Output file name: src_tests//repairer/output/lifetime_bounds_not_enough_annotations__loosest_bounds_first_repairer.rs
+2024-09-04 21:37:09 [INFO] - repair count: 1
+2024-09-04 21:37:09 [INFO] - status: false
+2024-09-04 21:37:09 [INFO] - Repair operation success: false
+2024-09-04 21:37:09 [INFO] - Total failed tests incremented: 10
+2024-09-04 21:37:09 [INFO] - Processing file: in_out_lifetimes_wide_bounds
+2024-09-04 21:37:09 [INFO] - Function name: bar_extracted
+2024-09-04 21:37:09 [INFO] - Using repair system: _simple_repairer
+2024-09-04 21:37:09 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_wide_bounds.rs
+2024-09-04 21:37:09 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_wide_bounds__simple_repairer.rs
+2024-09-04 21:37:09 [INFO] - repair count: 1
+2024-09-04 21:37:09 [INFO] - status: true
+2024-09-04 21:37:09 [INFO] - Repair operation success: true
+2024-09-04 21:37:09 [INFO] - Using repair system: _rustfix_repairer
+2024-09-04 21:37:09 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_wide_bounds.rs
+2024-09-04 21:37:09 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_wide_bounds__rustfix_repairer.rs
+2024-09-04 21:37:09 [INFO] - repair count: 1
+2024-09-04 21:37:09 [INFO] - status: false
+2024-09-04 21:37:09 [INFO] - Repair operation success: false
+2024-09-04 21:37:09 [INFO] - Total failed tests incremented: 11
+2024-09-04 21:37:09 [INFO] - Using repair system: _tightest_bounds_first_repairer
+2024-09-04 21:37:09 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_wide_bounds.rs
+2024-09-04 21:37:09 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_wide_bounds__tightest_bounds_first_repairer.rs
+2024-09-04 21:37:10 [INFO] - repair count: 1
+2024-09-04 21:37:10 [INFO] - status: true
+2024-09-04 21:37:10 [INFO] - Repair operation success: true
+2024-09-04 21:37:10 [INFO] - Using repair system: _loosest_bounds_first_repairer
+2024-09-04 21:37:10 [INFO] - Input file name: src_tests//repairer/input/in_out_lifetimes_wide_bounds.rs
+2024-09-04 21:37:10 [INFO] - Output file name: src_tests//repairer/output/in_out_lifetimes_wide_bounds__loosest_bounds_first_repairer.rs
+2024-09-04 21:37:10 [INFO] - repair count: 1
+2024-09-04 21:37:10 [INFO] - status: true
+2024-09-04 21:37:10 [INFO] - Repair operation success: true
+2024-09-04 21:37:10 [INFO] - Processing file: bounds_elider
+2024-09-04 21:37:10 [INFO] - Function name: bar
+2024-09-04 21:37:10 [INFO] - Using repair system: _simple_repairer
+2024-09-04 21:37:10 [INFO] - Input file name: src_tests//repairer/input/bounds_elider.rs
+2024-09-04 21:37:10 [INFO] - Output file name: src_tests//repairer/output/bounds_elider__simple_repairer.rs
+2024-09-04 21:37:10 [INFO] - repair count: 0
+2024-09-04 21:37:10 [INFO] - status: true
+2024-09-04 21:37:10 [INFO] - Repair operation success: true
+2024-09-04 21:37:10 [INFO] - Using repair system: _rustfix_repairer
+2024-09-04 21:37:10 [INFO] - Input file name: src_tests//repairer/input/bounds_elider.rs
+2024-09-04 21:37:10 [INFO] - Output file name: src_tests//repairer/output/bounds_elider__rustfix_repairer.rs
+2024-09-04 21:37:10 [INFO] - repair count: 0
+2024-09-04 21:37:10 [INFO] - status: true
+2024-09-04 21:37:10 [INFO] - Repair operation success: true
+2024-09-04 21:37:10 [INFO] - Using repair system: _tightest_bounds_first_repairer
+2024-09-04 21:37:10 [INFO] - Input file name: src_tests//repairer/input/bounds_elider.rs
+2024-09-04 21:37:10 [INFO] - Output file name: src_tests//repairer/output/bounds_elider__tightest_bounds_first_repairer.rs
+2024-09-04 21:37:11 [INFO] - repair count: 0
+2024-09-04 21:37:11 [INFO] - status: true
+2024-09-04 21:37:11 [INFO] - Repair operation success: true
+2024-09-04 21:37:11 [INFO] - Using repair system: _loosest_bounds_first_repairer
+2024-09-04 21:37:11 [INFO] - Input file name: src_tests//repairer/input/bounds_elider.rs
+2024-09-04 21:37:11 [INFO] - Output file name: src_tests//repairer/output/bounds_elider__loosest_bounds_first_repairer.rs
+2024-09-04 21:37:11 [INFO] - repair count: 0
+2024-09-04 21:37:11 [INFO] - status: true
+2024-09-04 21:37:11 [INFO] - Repair operation success: true
+2024-09-04 21:37:11 [INFO] - Repairer tests succesful, 11 tests failed
+2024-09-04 21:37:11 [INFO] - All tests completed. Total failed tests: 18
+2024-09-04 21:37:11 [INFO] - Test running finished, 18 tests failed
+2024-09-04 21:37:11 [ERROR] - Backup path was never provided / saved, HOW DID WE GET HERE?

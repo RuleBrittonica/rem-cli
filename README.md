@@ -8,7 +8,6 @@ CLI for the REM Toolchain. Implemented in the VSCode extension for REM available
 - rem-controller: git= [rem-controller](https://github.com/RuleBrittonica/rem-controller)
 - rem-borrower: git= [rem-borrower](https://github.com/RuleBrittonica/rem-borrower)
 - rem-repairer: git= [rem-repairer](https://github.com/RuleBrittonica/rem-repairer)
-- rem-utils: git= [rem-utils](https://github.com/RuleBrittonica/rem-utils)
 
 ## Getting Started
 
@@ -36,29 +35,149 @@ lifting. Refer to its components list if you are unsure.
 Call the CLI using the following syntax
 
 ```bash
-rem-cli [OPTIONS] [file_path] [new_file_path] [caller_fn_name] [callee_fn_name]
+cargo run <COMMAND>
 ```
 
-### Arguments
+or
 
 ```bash
-[file_path]       The path to the file that contains just the code that will be refactored
-[new_file_path]   The path to the output file (where the refactored code ends up)
-[caller_fn_name]  The name of the function that contains the code to be refactored
-[callee_fn_name]  The name of the new function that is being extracted
+./rem-cli-lsp <COMMNAD>
+```
+
+## Commands
+
+**Currently implemented commands are**
+
+- controller
+- borrower
+- repairer
+- test
+- test-github
+
+**run**
+
+Arguments:
+
+```bash
+<FILE_PATH>       The path to the file that contains just the code that will be refactored
+<NEW_FILE_PATH>   The path to the output file (where the refactored code ends up)
+<CALLER_FN_NAME>  The name of the function that contains the code to be refactored
+<CALLEE_FN_NAME>  The name of the new function that is being extracted
+```
+
+Running:
+
+```bash
+
+```
+
+**controller**
+
+Arguments:
+
+```bash
+<FILE_PATH>       The path to the file that contains just the code that will be refactored
+<NEW_FILE_PATH>   The path to the output file (where the refactored code ends up)
+<CALLER_FN_NAME>  The name of the function that contains the code to be refactored
+<CALLEE_FN_NAME>  The name of the new function that is being extracted
+```
+
+Running:
+
+```bash
+cargo run controller examples\input\controller_1.rs examples\output\controller_1.rs new_foo bar
+```
+
+**borrower**
+
+Arguments:
+
+```bash
+<FILE_PATH>       The path to the file that contains just the code that will be refactored
+<NEW_FILE_PATH>   The path to the output file (where the refactored code ends up)
+<CALLER_FN_NAME>  The name of the function that contains the code to be refactored
+<CALLEE_FN_NAME>  The name of the new function that is being extracted
+```
+
+Running:
+
+```bash
+cargo run repairer
+```
+
+**repairer**
+
+Arguments:
+
+```bash
+<FILE_PATH>      The path to the file that contains just the code that will be refactored
+<NEW_FILE_PATH>  The path to the output file (where the refactored code ends up)
+<FN_NAME>        The name of the function to be repaired
+<REPAIRER>       Repairer option (1=Simple, 2=Loosest Bounds First, 3=Tightest Bounds First)
+```
+
+Running:
+
+```bash
+
+```
+
+**repairer-cargo**
+
+Arguments:
+
+```bash
+<SRC_PATH>
+<MANIFEST_PATH>
+<FN_NAME>
+<REPAIRER>       Repairer option (1=Simple, 2=Loosest Bounds First, 3=Tightest Bounds First)
+```
+
+Running:
+
+```bash
+
+```
+
+**test**
+
+Runs the test suite, against the specified filepath. The test suite must contain
+the following subdirs
+
+- borrower
+- controller
+- repairer
+
+Arguments:
+
+```bash
+<Folder> Folder path containing test files
+```
+
+Running:
+
+```bash
+cargo run test src_tests/
+```
+
+**test-github**
+
+This command is the same as running test, however, you specify a link to a
+github repo that contains the files you want to test on,
+
+Arguments:
+
+```bash
+<REPO>  Folder path containing test files
+```
+
+```bash
+cargo run test-github https://github.com/RuleBrittonica/rem-testfiles
 ```
 
 ### Options
 
 ```bash
-  -t, --type <type>                     The type of refactoring - see README to learn what is currently supported. Leaving blank will run original REM extraction
-  -T, --test                            Run the tests instead of refactoring. Ignores all other arguments
-  -c, --controller                      Run the Controller on the input. Can be chained with borrower and repairer by adding their flags. Not specifying a flag is equivalent to -c -b -r
-  -b, --borrower <borrower> <borrower>  Run the borrower on the input. Can be chaned with controller and repairer by adding their flags. Requires two additional arguments: `pre_extract_file_path` and `method_call_mut_file_path`.
-  -r, --repairer <repairer>             Run the repairer on the input. Can be chained with controller and borrower by adding their flags. Requires the additional argument `repair_system`.
-                                                 1 => repair_lifetime_simple
-                                                 2 => loosest_bound_first
-                                                 3 => tightest_bound_first
   -h, --help                            Print help
   -V, --version                         Print version
 ```
@@ -68,19 +187,19 @@ rem-cli [OPTIONS] [file_path] [new_file_path] [caller_fn_name] [callee_fn_name]
 **Running everything**
 
 ```bash
-cargo run ./examples/input/full_1.rs ./examples/output/full_1.rs new_foo bar
+cargo run run ./examples/input/full_1.rs ./examples/output/full_1.rs new_foo bar
 ```
 
 **Running just the controller**
 
 ```bash
-cargo run ./examples/input/controller_1.rs ./examples/output/controller_1.rs new_foo bar -c
+cargo run controller ./examples/input/controller_1.rs ./examples/output/controller_1.rs new_foo bar
 ```
 
 **Running just the borrower**
 
 ```bash
-cargo run ./src_tests/borrower/input/borrow_read_use_after.rs ./src_tests/borrower/output/borrow_read_use_after.rs new_foo bar -b src_tests/borrower/method_call_mut/borrow_read_use_after.rs src_tests/borrower/pre_extract/borrow_read_use_after.rs
+
 ```
 
 **Running just the repairer**
@@ -89,7 +208,6 @@ For the repairer, only the callee_fn_name is used, however, both must still be
 provided to get the CLI to accept the argument.
 
 ```bash
-cargo run ./src_tests/repairer/input/in_out_lifetimes.rs ./src_tests/repairer/output/in_out_lifetimes.rs bar_extracted bar_extracted -r 1
 # 1 signifies the mode that we are running the repairer in - see above documentation for different repairer modes.
 ```
 
@@ -106,7 +224,7 @@ following:
 This is currently very buggy and not recommended to do.
 
 ```bash
-cargo run ./examples/input/controller_1.rs ./examples/output/controller_borrower_1.rs new_foo bar -c -r
+
 ```
 
 **Alternatively**
@@ -114,7 +232,7 @@ cargo run ./examples/input/controller_1.rs ./examples/output/controller_borrower
 The program can be called using `./rem-cli`
 
 ```bash
-./rem-cli ./examples/input/full_1.rs ./examples/output/full_1.rs new_foo bar
+
 ```
 
 **Viewing help / version information**
@@ -170,15 +288,11 @@ testing phase.
 ```
 
 - **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
-
 - Update all package references to use crates instead of github, once I have the
   access from Sewen. Start with rem-utils, then link everything into that
   instead. This should hopefully fix the `./rem-cli` issues I am having.
-
 - Implement the controller, borrower and repairer. Both the CLI end, and the
   actual functions, need to be implemented
-
 - Implement the complete refactoring toolchain (i.e. give file and context, and
   refactoring happens from there)
-
 - Update the documentation.

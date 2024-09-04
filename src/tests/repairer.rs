@@ -1,4 +1,3 @@
-use clap::ValueEnum;
 use rem_repairer::{
     common::{
         RepairResult,
@@ -31,13 +30,6 @@ use crate::tests::utils::{
     list_files_in_dir,
 };
 
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
-enum RepairerType {
-    Simple,
-    LoosestBoundsFirst,
-    TightestBoundsFirst,
-}
-
 pub fn test(path: PathBuf) -> Result<u8, io::Error> {
 
     let folder_path: String = match path.to_str() {
@@ -54,7 +46,7 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
         return Err(io::Error::new(io::ErrorKind::NotFound, "Path is not a directory"));
     }
 
-    info!("Running tests from directory {}/{}", folder_path, "repairer");
+    info!("Running tests from directory {}{}", folder_path, "repairer");
 
     let file_names: Vec<&str> = vec![
         "borrow",
@@ -97,14 +89,21 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
 
     for (file_name, (fn_name, _)) in zip(file_names, function_sigs) {
         for repair_system in repair_systems.iter() {
-            let file_name = format!("{}/repairer/input/{}.rs", folder_path, file_name);
-            let new_file_name = format!("{}/repairer/output/{}{}.rs", folder_path, file_name, repair_system.name());
+
+            // Format input file name correctly
+            let input_file_name = format!("{}/repairer/input/{}.rs", folder_path, file_name);
+
+            // Format output file name correctly
+            let output_file_name = format!("{}/repairer/output/{}_{}.rs", folder_path, file_name, repair_system.name());
+
+            // Perform the repair operation
             let success = print_repair_stat(
                 repair_system,
-                file_name.as_str(),
-                new_file_name.as_str(),
+                input_file_name.as_str(),
+                output_file_name.as_str(),
                 fn_name,
             )?;
+
             if !success {
                 total_failed_tests += 1;
             }

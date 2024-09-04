@@ -8,14 +8,13 @@ use log::{
 /// Only takes a file path as the non_local_controller has already setup the
 /// final output filepath.
 pub fn borrow(
-    file_path:       &str,
-    new_file_path:   &str,
-    callee_fn_name:  &str,
-    caller_fn_name:  &str,
-    borrower_values: &(String, String),
+    file_path:             &str,
+    new_file_path:         &str,
+    callee_fn_name:        &str,
+    caller_fn_name:        &str,
+    mut_method_file_path:  &str,
+    pre_extract_file_path: &str,
 ) -> bool {
-    let pre_extract_file_name: &str = &borrower_values.0;
-    let mut_method_call_expr_file: &str = &borrower_values.1;
 
     let begin: Instant = Instant::now();
 
@@ -23,10 +22,10 @@ pub fn borrow(
     let success: bool = borrow::make_borrows(
         file_path,
         new_file_path,
-        mut_method_call_expr_file,
+        mut_method_file_path,
         callee_fn_name,
         caller_fn_name,
-        pre_extract_file_name
+        pre_extract_file_path,
     );
 
     // Handle a failure

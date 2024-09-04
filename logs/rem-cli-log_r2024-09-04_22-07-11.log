@@ -1,0 +1,68 @@
+2024-09-04 22:03:22 [INFO] - Application Started
+2024-09-04 22:03:22 [INFO] - Running tests
+2024-09-04 22:03:22 [INFO] - Running tests from path: "src_tests/"
+2024-09-04 22:03:22 [INFO] - Running tests from directory src_tests/controller
+2024-09-04 22:03:25 [INFO] - Controller tests successful, 2 tests failed
+2024-09-04 22:03:25 [INFO] - Running tests from directory src_tests/borrower
+2024-09-04 22:03:28 [INFO] - Borrower tests successful, 5 tests failed
+2024-09-04 22:03:28 [INFO] - Running tests from directory src_tests/repairer
+2024-09-04 22:03:28 [INFO] - repair count: 1
+2024-09-04 22:03:28 [INFO] - status: true
+2024-09-04 22:03:28 [INFO] - repair count: 1
+2024-09-04 22:03:28 [INFO] - status: true
+2024-09-04 22:03:28 [INFO] - repair count: 1
+2024-09-04 22:03:28 [INFO] - status: false
+2024-09-04 22:03:28 [INFO] - repair count: 1
+2024-09-04 22:03:28 [INFO] - status: false
+2024-09-04 22:03:29 [INFO] - repair count: 1
+2024-09-04 22:03:29 [INFO] - status: true
+2024-09-04 22:03:29 [INFO] - repair count: 1
+2024-09-04 22:03:29 [INFO] - status: true
+2024-09-04 22:03:29 [INFO] - repair count: 0
+2024-09-04 22:03:29 [INFO] - status: true
+2024-09-04 22:03:29 [INFO] - repair count: 1
+2024-09-04 22:03:29 [INFO] - status: true
+2024-09-04 22:03:30 [INFO] - repair count: 1
+2024-09-04 22:03:30 [INFO] - status: true
+2024-09-04 22:03:30 [INFO] - repair count: 1
+2024-09-04 22:03:30 [INFO] - status: true
+2024-09-04 22:03:30 [INFO] - repair count: 1
+2024-09-04 22:03:30 [INFO] - status: true
+2024-09-04 22:03:31 [INFO] - repair count: 1
+2024-09-04 22:03:31 [INFO] - status: true
+2024-09-04 22:03:31 [INFO] - repair count: 2
+2024-09-04 22:03:31 [INFO] - status: false
+2024-09-04 22:03:31 [INFO] - repair count: 2
+2024-09-04 22:03:31 [INFO] - status: false
+2024-09-04 22:03:31 [INFO] - repair count: 1
+2024-09-04 22:03:31 [INFO] - status: false
+2024-09-04 22:03:32 [INFO] - repair count: 1
+2024-09-04 22:03:32 [INFO] - status: false
+2024-09-04 22:03:32 [INFO] - repair count: 1
+2024-09-04 22:03:32 [INFO] - status: false
+2024-09-04 22:03:32 [INFO] - repair count: 1
+2024-09-04 22:03:32 [INFO] - status: false
+2024-09-04 22:03:32 [INFO] - repair count: 1
+2024-09-04 22:03:32 [INFO] - status: false
+2024-09-04 22:03:32 [INFO] - repair count: 1
+2024-09-04 22:03:32 [INFO] - status: false
+2024-09-04 22:03:32 [INFO] - repair count: 1
+2024-09-04 22:03:32 [INFO] - status: true
+2024-09-04 22:03:32 [INFO] - repair count: 1
+2024-09-04 22:03:32 [INFO] - status: false
+2024-09-04 22:03:33 [INFO] - repair count: 1
+2024-09-04 22:03:33 [INFO] - status: true
+2024-09-04 22:03:33 [INFO] - repair count: 1
+2024-09-04 22:03:33 [INFO] - status: true
+2024-09-04 22:03:34 [INFO] - repair count: 0
+2024-09-04 22:03:34 [INFO] - status: true
+2024-09-04 22:03:34 [INFO] - repair count: 0
+2024-09-04 22:03:34 [INFO] - status: true
+2024-09-04 22:03:34 [INFO] - repair count: 0
+2024-09-04 22:03:34 [INFO] - status: true
+2024-09-04 22:03:34 [INFO] - repair count: 0
+2024-09-04 22:03:34 [INFO] - status: true
+2024-09-04 22:03:34 [INFO] - Repairer tests succesful, 11 tests failed
+2024-09-04 22:03:34 [INFO] - All tests completed. Total failed tests: 18
+2024-09-04 22:03:34 [INFO] - Test running finished, 18 tests failed
+2024-09-04 22:03:34 [ERROR] - Backup path was never provided / saved, HOW DID WE GET HERE?
