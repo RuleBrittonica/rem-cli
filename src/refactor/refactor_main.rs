@@ -1,17 +1,4 @@
-use log::{
-    info,
-    error
-};
 
-use crate::refactor::{
-    non_local_controller::non_local_controller,
-    borrow::borrow,
-    repair_lifetime::{
-        repair_lifetime,
-        repair_lifetime_cargo,
-        repair_lifetime_rustc,
-    },
-};
 
 /// Calls out to rem-controller, then rem-borrower, then rem-repairer to fix up
 /// the extracted method.
