@@ -1,0 +1,6 @@
+2024-09-04 22:48:30 [INFO] - Application Started
+2024-09-04 22:48:30 [INFO] - Running tests from GitHub repo: https://github.com/RuleBrittonica/rem-testfiles
+2024-09-04 22:48:31 [INFO] - Running tests from path: "tmp_test_src/"
+2024-09-04 22:48:31 [INFO] - Running tests from directory tmp_test_src/controller
+2024-09-04 22:48:33 [INFO] - Controller tests successful, 2 tests failed
+2024-09-04 22:48:33 [INFO] - Running tests from directory tmp_test_src/borrower

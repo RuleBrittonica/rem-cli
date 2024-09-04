@@ -12,8 +12,6 @@ pub fn non_local_controller(
     callee_fn_name: &str,
     caller_fn_name: &str,
 ) -> bool {
-
-
     let begin: Instant = Instant::now();
 
     // Run the controller
