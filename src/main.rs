@@ -285,7 +285,6 @@ fn main() {
         exit(1);
     }
 
-
     // If we have gotten this far then we know that all previous activities have
     // been successful. Delete the backup and exit successfully if that works
     info!("Refactoring completed successfully")
