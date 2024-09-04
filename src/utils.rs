@@ -89,7 +89,6 @@ pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
     info!("Repairer tests succesful, {} tests failed", repairer_failed);
     total_failed_tests += repairer_failed;
 
-    info!("All tests completed. Total failed tests: {}", total_failed_tests);
     Ok(total_failed_tests)
 }
 

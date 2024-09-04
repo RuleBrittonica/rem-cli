@@ -22,6 +22,7 @@ Run the following command if you are unsure. This toolchain is built for
 **nightly-2024-08-28**. Others may work but are not tested.
 
 ```bash
+rustup toolchain install nightly-2024-08-28
 rustup component add --toolchain nightly-2024-08-28 rust-src rustc-dev llvm-tools-preview
 ```
 
@@ -196,6 +197,35 @@ cargo run test-github https://github.com/RuleBrittonica/rem-testfiles
 ```bash
   -h, --help                            Print help
   -V, --version                         Print version
+```
+
+## Getting started with fresh linux install
+
+First install rust, proceeding with the standard options:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Then install the nescessary toolchain components:
+
+```bash
+rustup toolchain install nightly-2024-08-28
+rustup component add --toolchain nightly-2024-08-28 rust-src rustc-dev llvm-tools-preview
+rustup component add rust-analyzer
+```
+
+Then install the nescessary build components
+
+```bash
+sudo apt update
+sudo apt install build-essential
+```
+
+Finally install the openssl dependencies
+
+```bash
+sudo apt install pkg-config libssl-dev
 ```
 
 ## TODO
