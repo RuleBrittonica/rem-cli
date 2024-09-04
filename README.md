@@ -5,9 +5,15 @@ CLI for the REM Toolchain. Implemented in the VSCode extension for REM available
 
 **Utilizes**:
 
-- rem-controller: git= [rem-controller](https://github.com/RuleBrittonica/rem-controller)
-- rem-borrower: git= [rem-borrower](https://github.com/RuleBrittonica/rem-borrower)
-- rem-repairer: git= [rem-repairer](https://github.com/RuleBrittonica/rem-repairer)
+- rem-controller:
+  - git = [rem-controller](https://github.com/RuleBrittonica/rem-controller)
+  - crates = [rem-controller](https://crates.io/crates/rem-controller)
+- rem-borrower:
+  - git = [rem-borrower](https://github.com/RuleBrittonica/rem-borrower)
+  - crates = [rem-borrower](https://crates.io/crates/rem-borrower)
+- rem-repairer:
+  - git = [rem-repairer](https://github.com/RuleBrittonica/rem-repairer)
+  - crates = [rem-repairer](https://crates.io/crates/rem-repairer)
 
 ## Getting Started
 
@@ -54,7 +60,7 @@ or
 - test
 - test-github
 
-**run**
+**run** (NYI)
 
 Arguments:
 
@@ -93,10 +99,12 @@ cargo run controller examples\input\controller_1.rs examples\output\controller_1
 Arguments:
 
 ```bash
-<FILE_PATH>       The path to the file that contains just the code that will be refactored
-<NEW_FILE_PATH>   The path to the output file (where the refactored code ends up)
-<CALLER_FN_NAME>  The name of the function that contains the code to be refactored
-<CALLEE_FN_NAME>  The name of the new function that is being extracted
+<FILE_PATH>              The path to the file that contains just the code that will be refactored
+<NEW_FILE_PATH>          The path to the output file (where the refactored code ends up)
+<CALLER_FN_NAME>         The name of the function that contains the code to be refactored
+<CALLEE_FN_NAME>         The name of the new function that is being extracted
+<MUT_METHOD_FILE_PATH>   The path to the file where the mutated method will be dumped
+<PRE_EXTRACT_FILE_PATH>  The path to the original file
 ```
 
 Running:
@@ -270,27 +278,7 @@ testing phase.
 
 ## TODO
 
-- Work out why I keep getting a panic whenever the tests get halfway through
-  running the borrower. At this stage a workable solution is just to comment
-  out the running of the borrower tests to verify that the repairer works as expected
-
-```bash
-   thread 'main' panicked at /home/matt/.cargo/git/checkouts/rem-borrower-c9dc79a7e6c71e4e/d760805/src/borrow.rs:1104:10:
-   called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
-   note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
-```
-
-- Verify that all aspects of the CLI work as expected
-- Fix up the issues with running rem-cli directly
-
-```bash
-  target/debug/rem-cli: error while loading shared libraries: librustc_driver-6c98eb7349a51df2.so: cannot open shared object file: No such file or directory
-```
-
 - **The big one** Add integration to RLS (or do it on the VSCode side potentially?)
-- Update all package references to use crates instead of github, once I have the
-  access from Sewen. Start with rem-utils, then link everything into that
-  instead. This should hopefully fix the `./rem-cli` issues I am having.
 - Implement the controller, borrower and repairer. Both the CLI end, and the
   actual functions, need to be implemented
 - Implement the complete refactoring toolchain (i.e. give file and context, and
