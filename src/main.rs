@@ -30,10 +30,7 @@ use rem_repairer::{
     common::{
         RepairResult,
         RepairSystem,
-    },
-    repair_lifetime_simple,
-    repair_lifetime_loosest_bound_first,
-    repair_lifetime_tightest_bound_first,
+    }, repair_lifetime_loosest_bound_first, repair_lifetime_simple, repair_lifetime_tightest_bound_first, repair_rustfix
 };
 
 mod utils;
@@ -42,9 +39,7 @@ use utils::{
     delete_repo,
     get_from_git,
     handle_result,
-    parse_repair_type,
     run_tests,
-    RepairType,
     backup_file,
 };
 
@@ -176,11 +171,15 @@ fn main() {
 
             let file_path: &str = file_path.to_str().expect("Path is not valid UTF-8");
             let new_file_path: &str = new_file_path.to_str().expect("Path is not valid UTF-8");
-            let repair_type: RepairType = parse_repair_type(*repairer);
-            let repair_system: &dyn RepairSystem = match repair_type {
-                RepairType::Simple => &repair_lifetime_simple::Repairer {},
-                RepairType::LoosestBoundsFirst => &repair_lifetime_loosest_bound_first::Repairer {},
-                RepairType::TightestBoundsFirst => &repair_lifetime_tightest_bound_first::Repairer {},
+            let repair_system: &dyn RepairSystem = match repairer {
+                1 => &repair_lifetime_simple::Repairer {},
+                2 => &repair_lifetime_loosest_bound_first::Repairer {},
+                3 => &repair_lifetime_tightest_bound_first::Repairer {},
+                4 => &repair_rustfix::Repairer {},
+                _ => {
+                    error!("{} is not a valid option for the repair system", *repairer);
+                    exit(1)
+                },
             };
 
             let RepairResult { success, .. } = repair_system.repair_function(
@@ -210,7 +209,6 @@ fn main() {
         } => {
             prog_run = ProgramOptions::CargoRepairing;
 
-            let repair_type: RepairType = parse_repair_type(*repairer);
         },
 
         REMCommands::Test {
@@ -280,7 +278,7 @@ fn main() {
         } else {
             info!("Backup deleted successfully");
         }
-    } else if prog_run != ProgramOptions::Refactoring {
+    } else if prog_run == ProgramOptions::Refactoring {
         // Handle backup path being none -
         // How tf did we end up here
         error!("Backup path was never provided / saved, HOW DID WE GET HERE?");

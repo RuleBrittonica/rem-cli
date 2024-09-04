@@ -93,9 +93,10 @@ pub enum REMCommands {
         /// * 1 => Simple
         /// * 2 => Loosest Bounds First
         /// * 3 => Tightest Bounds First
+        /// * 4 => Rustfix
         ///
         /// Any other repairer selection will result in an error.
-        #[arg(help = "Repairer option (1=Simple, 2=Loosest Bounds First, 3=Tightest Bounds First)", index = 4)]
+        #[arg(help = "Repairer option (1=Simple, 2=Loosest Bounds First, 3=Tightest Bounds First, 4=Rustfix)", index = 4)]
         repairer: u8,
 
         /// The repair method to be used:
