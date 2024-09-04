@@ -1,0 +1,4 @@
+2024-09-04 21:07:38 [INFO] - Application Started
+2024-09-04 21:07:38 [INFO] - Controller was successful, elapsed time in milliseconds: 97
+2024-09-04 21:07:38 [INFO] - Program Controller was successful.
+2024-09-04 21:07:38 [ERROR] - Backup path was never provided / saved, HOW DID WE GET HERE?

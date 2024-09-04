@@ -4,16 +4,15 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Matthew Britton <matt.britton@anu.edu.au>"]
 license = "GPL 3.0"
-description = "CLI interface for the REM toolchain. Built to be implemented into the VSCode extension for Rem"
+description = "CLI and potential LSP interface for the REM toolchain. Built to be implemented into the VSCode extension for REM"
 repository = "https://github.com/RuleBrittonica/rem-cli"
 categories = ["command-line-utilities", "development-tools"]
 readme = "README.md"
 
 [dependencies]
-rem-borrower = { git = "https://github.com/RuleBrittonica/rem-borrower.git", branch = "master" }
-rem-controller = { git = "https://github.com/RuleBrittonica/rem-controller.git", branch = "master" }
-rem-repairer = { git ="https://github.com/RuleBrittonica/rem-repairer.git", branch = "master" }
-rem-utils = { git = "https://github.com/RuleBrittonica/rem-utils.git", branch = "master" }
+rem-controller = "0.1.2"
+rem-borrower   = "0.1.2"
+rem-repairer   = "0.1.2"
 clap = { version = "4.5.16", features = ["derive"] }
 log = "0.4.22"
 flexi_logger = "0.29.0"
@@ -21,9 +20,6 @@ lsp-server = "0.7.6"
 lsp-types = "0.97.0"
 serde_json = "1.0.127"
 serde = { version = "1.0.209", features = ["derive"] }
-tokio = { version = "1.39.3", features = ["full"] }
-tower-lsp = "0.20.0"
-futures = "0.3.30"
 colored = "2.1.0"
 git2 = "0.19.0"
 

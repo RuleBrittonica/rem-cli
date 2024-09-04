@@ -13,18 +13,34 @@ use log::{
 mod logging;
 mod error;
 mod prefactor;
-mod refactor;
 mod tests;
 
+mod refactor;
+use refactor::{
+    non_local_controller::non_local_controller,
+    borrow::borrow,
+    repair_lifetime::{
+        repair_lifetime,
+        repair_lifetime_rustc,
+        repair_lifetime_cargo,
+    },
+};
+
+use rem_repairer::{
+    common::{
+        RepairResult,
+        RepairSystem,
+    }, repair_lifetime_loosest_bound_first, repair_lifetime_simple, repair_lifetime_tightest_bound_first, repair_rustfix
+};
 
 mod utils;
 use utils::{
-    RepairType,
-    parse_repair_type,
-    get_from_git,
-    run_tests,
     delete_backup,
     delete_repo,
+    get_from_git,
+    handle_result,
+    run_tests,
+    backup_file,
 };
 
 mod messages;
@@ -35,31 +51,14 @@ use rem_args::{
     REMCommands,
 };
 
+#[derive(Debug, PartialEq, Eq)]
+enum ProgramOptions{
+    Refactoring,
+    Testing,
+    CargoRepairing,
+}
+
 /// The CLI Takes the following arguments:
-///
-/// * file_path:  The path to the file that contains just the code that will be refactored.
-///
-/// The file must be structured such that it contains $0 signs where the cursors are (i.e. what text the user has selected)
-/// E.g.
-/// ```
-/// fn foo () {
-///     let n = 1;
-///     $0 let m = n + 2;
-///     // Calculate
-///     let k = m + n;$0
-///     let g = 3;
-/// }
-/// ```
-///
-/// * new_file_path: The path to the new file (i.e where we want the refactored code to end up)
-/// * callee_fn_name: The name of the function that contains the code to be refactored
-/// * caller_fn_name: The name of the new function
-///
-/// Optional arguments
-/// * type:     What is being refactored. Currently supports:
-///     * Extracting methods
-///     * Extracting generic methods (to be implemented)
-///     * Extracting methods from asynchronous code (to be implemented)
 fn main() {
 
     logging::init_logging();
@@ -69,6 +68,10 @@ fn main() {
     let args: REMArgs = REMArgs::parse();
     let mut backup_path: Option<PathBuf> = None;
 
+    // Set to refactoring by default. This will be changed by the rest of the
+    // CLI if a non-refactoring program is run.
+    let mut prog_run: ProgramOptions = ProgramOptions::Refactoring;
+
     match &args.command {
         REMCommands::Run {
             file_path,
@@ -76,7 +79,11 @@ fn main() {
             caller_fn_name,
             callee_fn_name
         } => {
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
 
+            let file_path = file_path.to_str().expect("Path is not valid UTF-8");
+            let new_file_path = new_file_path.to_str().expect("Path is not valid UTF-8");
         },
 
         REMCommands::Controller {
@@ -85,6 +92,30 @@ fn main() {
             caller_fn_name,
             callee_fn_name
         } => {
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
+
+            let file_path = file_path.to_str().expect("Path is not valid UTF-8");
+            let new_file_path = new_file_path.to_str().expect("Path is not valid UTF-8");
+
+            let success: bool = non_local_controller(
+                file_path,
+                new_file_path,
+                callee_fn_name,
+                caller_fn_name,
+            );
+
+            handle_result(
+                success,
+                "Controller",
+                &format!(
+                    "Controller was run on its own with file_path: {} | new_file_path: {} | caller_fn_name: {} | callee_fn_name: {}",
+                    file_path,
+                    new_file_path,
+                    caller_fn_name,
+                    callee_fn_name,
+                    ),
+            )
 
         },
 
@@ -96,6 +127,35 @@ fn main() {
             mut_method_file_path,
             pre_extract_file_path
         } => {
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
+
+            let file_path: &str = file_path.to_str().expect("Path is not valid UTF-8");
+            let new_file_path: &str = new_file_path.to_str().expect("Path is not valid UTF-8");
+            let mut_method_file_path: &str = mut_method_file_path.to_str().expect("Path is not valid UTF-8");
+            let pre_extract_file_path: &str = pre_extract_file_path.to_str().expect("Path is not valid UTF-8");
+
+            let success: bool = borrow(
+                file_path,
+                new_file_path,
+                callee_fn_name,
+                caller_fn_name,
+                mut_method_file_path,
+                pre_extract_file_path,
+            );
+
+            handle_result(success,
+                "Borrower",
+                &format!(
+                    "Borrower was run on its own with file_path: {} | new_file_path: {} | caller_fn_name: {} | callee_fn_name: {} | mut_method_file_path: {} | pre_extract_file_path: {}",
+                    file_path,
+                    new_file_path,
+                    caller_fn_name,
+                    callee_fn_name,
+                    mut_method_file_path,
+                    pre_extract_file_path,
+                ),
+            )
 
         },
 
@@ -104,10 +164,40 @@ fn main() {
             new_file_path,
             fn_name,
             repairer,
-            verbose
+            verbose, // TODO Implement this
         } => {
-            let repair_type: RepairType = parse_repair_type(*repairer);
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
 
+            let file_path: &str = file_path.to_str().expect("Path is not valid UTF-8");
+            let new_file_path: &str = new_file_path.to_str().expect("Path is not valid UTF-8");
+            let repair_system: &dyn RepairSystem = match repairer {
+                1 => &repair_lifetime_simple::Repairer {},
+                2 => &repair_lifetime_loosest_bound_first::Repairer {},
+                3 => &repair_lifetime_tightest_bound_first::Repairer {},
+                4 => &repair_rustfix::Repairer {},
+                _ => {
+                    error!("{} is not a valid option for the repair system", *repairer);
+                    exit(1)
+                },
+            };
+
+            let RepairResult { success, .. } = repair_system.repair_function(
+                file_path,
+                new_file_path,
+                fn_name
+                );
+
+            handle_result(success,
+                "Repairer",
+                &format!(
+                    "Repairer was run on its own with file_path: {} | new_file_path: {} | fn_name: {} | repair_system: {}",
+                    file_path,
+                    new_file_path,
+                    fn_name,
+                    repair_system.name(),
+                ),
+            )
         },
 
         REMCommands::RepairerCargo {
@@ -117,13 +207,16 @@ fn main() {
             repairer,
             verbose
         } => {
-            let repair_type: RepairType = parse_repair_type(*repairer);
+            prog_run = ProgramOptions::CargoRepairing;
+
         },
 
         REMCommands::Test {
             folder,
             verbose // NYI
         } => {
+            prog_run = ProgramOptions::Testing;
+
             if *verbose {
                 info!("Running tests in verbose mode");
             } else {
@@ -143,6 +236,8 @@ fn main() {
             repo,
             verbose, // NYI
         } => {
+            prog_run = ProgramOptions::Testing;
+
             if *verbose {
                 info!("Running tests in verbose mode from GitHub repo: {}", repo.clone());
             } else {
@@ -183,8 +278,8 @@ fn main() {
         } else {
             info!("Backup deleted successfully");
         }
-    } else {
-        // Handle backup path being none
+    } else if prog_run == ProgramOptions::Refactoring {
+        // Handle backup path being none -
         // How tf did we end up here
         error!("Backup path was never provided / saved, HOW DID WE GET HERE?");
         exit(1);

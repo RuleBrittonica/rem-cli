@@ -1,8 +1,8 @@
 use rem_borrower::borrow;
-use rem_utils::compile_file;
+use crate::tests::utils::compile_file;
 use log::{
-    info,
     error,
+    info,
 };
 
 use colored::Colorize;
@@ -36,7 +36,7 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
         return Err(io::Error::new(io::ErrorKind::NotFound, "Path is not a directory"));
     }
 
-    info!("Running tests from directory {}/{}", folder_path, "borrower");
+    info!("Running tests from directory {}{}", folder_path, "borrower");
 
     // Capture initial state
     let current_dir: &Path = Path::new("./");
@@ -45,7 +45,8 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
     let mut total_failed_tests: u8 = 0;
 
     for file in fs::read_dir(format!("{}/borrower/input", folder_path)).unwrap() {
-        let test_name = file.unwrap().file_name().to_owned();
+        let file = file?;
+        let test_name = file.file_name().to_owned();
         let file_name = format!("{}/borrower/input/{}", folder_path, test_name.to_str().unwrap());
         let new_file_name = format!("{}/borrower/output/{}", folder_path, test_name.to_str().unwrap());
         let mut_method_call_expr_file =

@@ -1,4 +1,4 @@
-use rem_utils::compile_file;
+use crate::tests::utils::compile_file;
 use rem_controller::non_local_controller;
 use std::{
     fs,
@@ -36,7 +36,7 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
         return Err(io::Error::new(io::ErrorKind::NotFound, "Path is not a directory"));
     }
 
-    info!("Running tests from directory {}/{}", folder_path, "controller");
+    info!("Running tests from directory {}{}", folder_path, "controller");
 
     // Capture initial state
     let current_dir: &Path = Path::new("./");

@@ -1,0 +1,204 @@
+2024-09-04 21:28:06 [INFO] - Application Started
+2024-09-04 21:28:06 [INFO] - Running tests
+2024-09-04 21:28:06 [INFO] - Running tests from path: "src_tests/"
+2024-09-04 21:28:06 [INFO] - Running tests from directory src_tests/controller
+2024-09-04 21:28:09 [INFO] - Controller tests successful, 2 tests failed
+2024-09-04 21:28:09 [INFO] - Running tests from directory src_tests/borrower
+2024-09-04 21:28:09 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\borrow.rs")
+2024-09-04 21:28:09 [INFO] - Test name: "borrow.rs"
+2024-09-04 21:28:09 [INFO] - Input file name: src_tests//borrower/input/borrow.rs
+2024-09-04 21:28:09 [INFO] - Output file name: src_tests//borrower/output/borrow.rs
+2024-09-04 21:28:09 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/borrow.rs
+2024-09-04 21:28:09 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/borrow.rs
+2024-09-04 21:28:09 [INFO] - Callee function name: bar
+2024-09-04 21:28:09 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:09 [INFO] - Start time captured: SystemTime { intervals: 133699228894968116 }
+2024-09-04 21:28:09 [INFO] - Borrowing process completed with success: false
+2024-09-04 21:28:09 [INFO] - Time elapsed: 5.367ms
+2024-09-04 21:28:09 [INFO] - Compilation arguments: []
+2024-09-04 21:28:09 [INFO] - Compile command created
+2024-09-04 21:28:09 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(1)), stdout: "", stderr: "error[E0308]: mismatched types\n  --> src_tests//borrower/output/borrow.rs:43:9\n   |\n42 | fn extract_write_no_use_after_bar(x: &mut i32) {\n   |                                      -------- expected due to this parameter type\n43 |     x = 5;\n   |         ^ expected `&mut i32`, found integer\n   |\nhelp: consider dereferencing here to assign to the mutably borrowed value\n   |\n43 |     *x = 5;\n   |     +\n\nerror[E0308]: mismatched types\n  --> src_tests//borrower/output/borrow.rs:58:9\n   |\n57 | fn extract_write_use_after_bar(x: &mut i32) {\n   |                                   -------- expected due to this parameter type\n58 |     x = 5;\n   |         ^ expected `&mut i32`, found integer\n   |\nhelp: consider dereferencing here to assign to the mutably borrowed value\n   |\n58 |     *x = 5;\n   |     +\n\nerror[E0308]: mismatched types\n  --> src_tests//borrower/output/borrow.rs:75:9\n   |\n74 | fn extract_read_and_write_bar(x: &mut i32) {\n   |                                  -------- expected due to this parameter type\n75 |     x = 5;\n   |         ^ expected `&mut i32`, found integer\n   |\nhelp: consider dereferencing here to assign to the mutably borrowed value\n   |\n75 |     *x = 5;\n   |     +\n\nerror[E0308]: mismatched types\n  --> src_tests//borrower/output/borrow.rs:76:9\n   |\n74 | fn extract_read_and_write_bar(x: &mut i32) {\n   |                                  -------- expected due to this parameter type\n75 |     x = 5;\n76 |     x = 6;\n   |         ^ expected `&mut i32`, found integer\n   |\nhelp: consider dereferencing here to assign to the mutably borrowed value\n   |\n76 |     *x = 6;\n   |     +\n\nwarning: unused variable: `n`\n  --> src_tests//borrower/output/borrow.rs:30:9\n   |\n30 |     let n = z + x;\n   |         ^ help: if this is intentional, prefix it with an underscore: `_n`\n   |\n   = note: `#[warn(unused_variables)]` on by default\n\nerror: aborting due to 4 previous errors; 1 warning emitted\n\nFor more information about this error, try `rustc --explain E0308`.\n" }
+2024-09-04 21:28:09 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\borrow_no_use_after.rs")
+2024-09-04 21:28:09 [INFO] - Test name: "borrow_no_use_after.rs"
+2024-09-04 21:28:09 [INFO] - Input file name: src_tests//borrower/input/borrow_no_use_after.rs
+2024-09-04 21:28:09 [INFO] - Output file name: src_tests//borrower/output/borrow_no_use_after.rs
+2024-09-04 21:28:09 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/borrow_no_use_after.rs
+2024-09-04 21:28:09 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/borrow_no_use_after.rs
+2024-09-04 21:28:09 [INFO] - Callee function name: bar
+2024-09-04 21:28:09 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:09 [INFO] - Start time captured: SystemTime { intervals: 133699228895960926 }
+2024-09-04 21:28:09 [INFO] - Borrowing process completed with success: false
+2024-09-04 21:28:09 [INFO] - Time elapsed: 10.772ms
+2024-09-04 21:28:09 [INFO] - Compilation arguments: []
+2024-09-04 21:28:09 [INFO] - Compile command created
+2024-09-04 21:28:09 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:09 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\borrow_read_use_after.rs")
+2024-09-04 21:28:09 [INFO] - Test name: "borrow_read_use_after.rs"
+2024-09-04 21:28:09 [INFO] - Input file name: src_tests//borrower/input/borrow_read_use_after.rs
+2024-09-04 21:28:09 [INFO] - Output file name: src_tests//borrower/output/borrow_read_use_after.rs
+2024-09-04 21:28:09 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/borrow_read_use_after.rs
+2024-09-04 21:28:09 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/borrow_read_use_after.rs
+2024-09-04 21:28:09 [INFO] - Callee function name: bar
+2024-09-04 21:28:09 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:09 [INFO] - Start time captured: SystemTime { intervals: 133699228897552470 }
+2024-09-04 21:28:09 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:09 [INFO] - Time elapsed: 98.2934ms
+2024-09-04 21:28:09 [INFO] - Compilation arguments: []
+2024-09-04 21:28:09 [INFO] - Compile command created
+2024-09-04 21:28:10 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "warning: unnecessary parentheses around assigned value\n  --> src_tests//borrower/output/borrow_read_use_after.rs:23:13\n   |\n23 |     let y = (*x);\n   |             ^  ^\n   |\n   = note: `#[warn(unused_parens)]` on by default\nhelp: remove these parentheses\n   |\n23 -     let y = (*x);\n23 +     let y = *x;\n   |\n\nwarning: unnecessary parentheses around function argument\n  --> src_tests//borrower/output/borrow_read_use_after.rs:25:12\n   |\n25 |     helper((*x));\n   |            ^  ^\n   |\nhelp: remove these parentheses\n   |\n25 -     helper((*x));\n25 +     helper(*x);\n   |\n\nwarning: 2 warnings emitted\n\n" }
+2024-09-04 21:28:10 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\borrow_ref_aliased.rs")
+2024-09-04 21:28:10 [INFO] - Test name: "borrow_ref_aliased.rs"
+2024-09-04 21:28:10 [INFO] - Input file name: src_tests//borrower/input/borrow_ref_aliased.rs
+2024-09-04 21:28:10 [INFO] - Output file name: src_tests//borrower/output/borrow_ref_aliased.rs
+2024-09-04 21:28:10 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/borrow_ref_aliased.rs
+2024-09-04 21:28:10 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/borrow_ref_aliased.rs
+2024-09-04 21:28:10 [INFO] - Callee function name: bar
+2024-09-04 21:28:10 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:10 [INFO] - Start time captured: SystemTime { intervals: 133699228900133746 }
+2024-09-04 21:28:10 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:10 [INFO] - Time elapsed: 90.7578ms
+2024-09-04 21:28:10 [INFO] - Compilation arguments: []
+2024-09-04 21:28:10 [INFO] - Compile command created
+2024-09-04 21:28:10 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:10 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\borrow_write_use_after.rs")
+2024-09-04 21:28:10 [INFO] - Test name: "borrow_write_use_after.rs"
+2024-09-04 21:28:10 [INFO] - Input file name: src_tests//borrower/input/borrow_write_use_after.rs
+2024-09-04 21:28:10 [INFO] - Output file name: src_tests//borrower/output/borrow_write_use_after.rs
+2024-09-04 21:28:10 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/borrow_write_use_after.rs
+2024-09-04 21:28:10 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/borrow_write_use_after.rs
+2024-09-04 21:28:10 [INFO] - Callee function name: bar
+2024-09-04 21:28:10 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:10 [INFO] - Start time captured: SystemTime { intervals: 133699228903043178 }
+2024-09-04 21:28:10 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:10 [INFO] - Time elapsed: 66.8706ms
+2024-09-04 21:28:10 [INFO] - Compilation arguments: []
+2024-09-04 21:28:10 [INFO] - Compile command created
+2024-09-04 21:28:10 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:10 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\in_out_lifetimes.rs")
+2024-09-04 21:28:10 [INFO] - Test name: "in_out_lifetimes.rs"
+2024-09-04 21:28:10 [INFO] - Input file name: src_tests//borrower/input/in_out_lifetimes.rs
+2024-09-04 21:28:10 [INFO] - Output file name: src_tests//borrower/output/in_out_lifetimes.rs
+2024-09-04 21:28:10 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/in_out_lifetimes.rs
+2024-09-04 21:28:10 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/in_out_lifetimes.rs
+2024-09-04 21:28:10 [INFO] - Callee function name: bar
+2024-09-04 21:28:10 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:10 [INFO] - Start time captured: SystemTime { intervals: 133699228905091400 }
+2024-09-04 21:28:10 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:10 [INFO] - Time elapsed: 88.1833ms
+2024-09-04 21:28:10 [INFO] - Compilation arguments: []
+2024-09-04 21:28:10 [INFO] - Compile command created
+2024-09-04 21:28:10 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(1)), stdout: "", stderr: "error[E0106]: missing lifetime specifier\n  --> src_tests//borrower/output/in_out_lifetimes.rs:14:42\n   |\n14 | fn bar(x_ref: &i32, z: &i32, y: &i32) -> &i32 {\n   |               ----     ----     ----     ^ expected named lifetime parameter\n   |\n   = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `x_ref`, `z`, or `y`\nhelp: consider introducing a named lifetime parameter\n   |\n14 | fn bar<'a>(x_ref: &'a i32, z: &'a i32, y: &'a i32) -> &'a i32 {\n   |       ++++         ++          ++          ++          ++\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0106`.\n" }
+2024-09-04 21:28:10 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\in_out_lifetimes_aliased.rs")
+2024-09-04 21:28:10 [INFO] - Test name: "in_out_lifetimes_aliased.rs"
+2024-09-04 21:28:10 [INFO] - Input file name: src_tests//borrower/input/in_out_lifetimes_aliased.rs
+2024-09-04 21:28:10 [INFO] - Output file name: src_tests//borrower/output/in_out_lifetimes_aliased.rs
+2024-09-04 21:28:10 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/in_out_lifetimes_aliased.rs
+2024-09-04 21:28:10 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/in_out_lifetimes_aliased.rs
+2024-09-04 21:28:10 [INFO] - Callee function name: bar
+2024-09-04 21:28:10 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:10 [INFO] - Start time captured: SystemTime { intervals: 133699228906674966 }
+2024-09-04 21:28:10 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:10 [INFO] - Time elapsed: 92.2444ms
+2024-09-04 21:28:10 [INFO] - Compilation arguments: []
+2024-09-04 21:28:10 [INFO] - Compile command created
+2024-09-04 21:28:10 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(1)), stdout: "", stderr: "error[E0106]: missing lifetime specifier\n  --> src_tests//borrower/output/in_out_lifetimes_aliased.rs:13:42\n   |\n13 | fn bar(x_ref: &i32, z: &i32, y: &i32) -> &i32 {\n   |               ----     ----     ----     ^ expected named lifetime parameter\n   |\n   = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `x_ref`, `z`, or `y`\nhelp: consider introducing a named lifetime parameter\n   |\n13 | fn bar<'a>(x_ref: &'a i32, z: &'a i32, y: &'a i32) -> &'a i32 {\n   |       ++++         ++          ++          ++          ++\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0106`.\n" }
+2024-09-04 21:28:10 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\paper_borrow.rs")
+2024-09-04 21:28:10 [INFO] - Test name: "paper_borrow.rs"
+2024-09-04 21:28:10 [INFO] - Input file name: src_tests//borrower/input/paper_borrow.rs
+2024-09-04 21:28:10 [INFO] - Output file name: src_tests//borrower/output/paper_borrow.rs
+2024-09-04 21:28:10 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/paper_borrow.rs
+2024-09-04 21:28:10 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/paper_borrow.rs
+2024-09-04 21:28:10 [INFO] - Callee function name: bar
+2024-09-04 21:28:10 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:10 [INFO] - Start time captured: SystemTime { intervals: 133699228908502332 }
+2024-09-04 21:28:10 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:10 [INFO] - Time elapsed: 66.6687ms
+2024-09-04 21:28:10 [INFO] - Compilation arguments: []
+2024-09-04 21:28:10 [INFO] - Compile command created
+2024-09-04 21:28:11 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:11 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\paper_borrow_in_out.rs")
+2024-09-04 21:28:11 [INFO] - Test name: "paper_borrow_in_out.rs"
+2024-09-04 21:28:11 [INFO] - Input file name: src_tests//borrower/input/paper_borrow_in_out.rs
+2024-09-04 21:28:11 [INFO] - Output file name: src_tests//borrower/output/paper_borrow_in_out.rs
+2024-09-04 21:28:11 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/paper_borrow_in_out.rs
+2024-09-04 21:28:11 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/paper_borrow_in_out.rs
+2024-09-04 21:28:11 [INFO] - Callee function name: bar
+2024-09-04 21:28:11 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:11 [INFO] - Start time captured: SystemTime { intervals: 133699228911197836 }
+2024-09-04 21:28:11 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:11 [INFO] - Time elapsed: 90.461ms
+2024-09-04 21:28:11 [INFO] - Compilation arguments: []
+2024-09-04 21:28:11 [INFO] - Compile command created
+2024-09-04 21:28:11 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(1)), stdout: "", stderr: "error[E0106]: missing lifetime specifier\n --> src_tests//borrower/output/paper_borrow_in_out.rs:6:33\n  |\n6 | fn bar(z: &i32, y: &mut i32) -> &i32 {\n  |           ----     --------     ^ expected named lifetime parameter\n  |\n  = help: this function's return type contains a borrowed value, but the signature does not say whether it is borrowed from `z` or `y`\nhelp: consider introducing a named lifetime parameter\n  |\n6 | fn bar<'a>(z: &'a i32, y: &'a mut i32) -> &'a i32 {\n  |       ++++     ++          ++              ++\n\nerror: aborting due to 1 previous error\n\nFor more information about this error, try `rustc --explain E0106`.\n" }
+2024-09-04 21:28:11 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\vec_borrow_assign_op_slice.rs")
+2024-09-04 21:28:11 [INFO] - Test name: "vec_borrow_assign_op_slice.rs"
+2024-09-04 21:28:11 [INFO] - Input file name: src_tests//borrower/input/vec_borrow_assign_op_slice.rs
+2024-09-04 21:28:11 [INFO] - Output file name: src_tests//borrower/output/vec_borrow_assign_op_slice.rs
+2024-09-04 21:28:11 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/vec_borrow_assign_op_slice.rs
+2024-09-04 21:28:11 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/vec_borrow_assign_op_slice.rs
+2024-09-04 21:28:11 [INFO] - Callee function name: bar
+2024-09-04 21:28:11 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:11 [INFO] - Start time captured: SystemTime { intervals: 133699228912870826 }
+2024-09-04 21:28:11 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:11 [INFO] - Time elapsed: 77.2287ms
+2024-09-04 21:28:11 [INFO] - Compilation arguments: []
+2024-09-04 21:28:11 [INFO] - Compile command created
+2024-09-04 21:28:11 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:11 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\vec_borrow_assign_slice.rs")
+2024-09-04 21:28:11 [INFO] - Test name: "vec_borrow_assign_slice.rs"
+2024-09-04 21:28:11 [INFO] - Input file name: src_tests//borrower/input/vec_borrow_assign_slice.rs
+2024-09-04 21:28:11 [INFO] - Output file name: src_tests//borrower/output/vec_borrow_assign_slice.rs
+2024-09-04 21:28:11 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/vec_borrow_assign_slice.rs
+2024-09-04 21:28:11 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/vec_borrow_assign_slice.rs
+2024-09-04 21:28:11 [INFO] - Callee function name: bar
+2024-09-04 21:28:11 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:11 [INFO] - Start time captured: SystemTime { intervals: 133699228915562359 }
+2024-09-04 21:28:11 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:11 [INFO] - Time elapsed: 95.0288ms
+2024-09-04 21:28:11 [INFO] - Compilation arguments: []
+2024-09-04 21:28:11 [INFO] - Compile command created
+2024-09-04 21:28:11 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:11 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\vec_borrow_immut.rs")
+2024-09-04 21:28:11 [INFO] - Test name: "vec_borrow_immut.rs"
+2024-09-04 21:28:11 [INFO] - Input file name: src_tests//borrower/input/vec_borrow_immut.rs
+2024-09-04 21:28:11 [INFO] - Output file name: src_tests//borrower/output/vec_borrow_immut.rs
+2024-09-04 21:28:11 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/vec_borrow_immut.rs
+2024-09-04 21:28:11 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/vec_borrow_immut.rs
+2024-09-04 21:28:11 [INFO] - Callee function name: bar
+2024-09-04 21:28:11 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:11 [INFO] - Start time captured: SystemTime { intervals: 133699228918239521 }
+2024-09-04 21:28:11 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:11 [INFO] - Time elapsed: 88.0504ms
+2024-09-04 21:28:11 [INFO] - Compilation arguments: []
+2024-09-04 21:28:11 [INFO] - Compile command created
+2024-09-04 21:28:12 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "warning: unused return value of `core::slice::<impl [T]>::get` that must be used\n --> src_tests//borrower/output/vec_borrow_immut.rs:5:5\n  |\n5 |     x.get(0);\n  |     ^^^^^^^^\n  |\n  = note: `#[warn(unused_must_use)]` on by default\nhelp: use `let _ = ...` to ignore the resulting value\n  |\n5 |     let _ = x.get(0);\n  |     +++++++\n\nwarning: unused return value of `core::slice::<impl [T]>::get` that must be used\n  --> src_tests//borrower/output/vec_borrow_immut.rs:20:5\n   |\n20 |     x.get(0);\n   |     ^^^^^^^^\n   |\nhelp: use `let _ = ...` to ignore the resulting value\n   |\n20 |     let _ = x.get(0);\n   |     +++++++\n\nwarning: 2 warnings emitted\n\n" }
+2024-09-04 21:28:12 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\vec_borrow_mut.rs")
+2024-09-04 21:28:12 [INFO] - Test name: "vec_borrow_mut.rs"
+2024-09-04 21:28:12 [INFO] - Input file name: src_tests//borrower/input/vec_borrow_mut.rs
+2024-09-04 21:28:12 [INFO] - Output file name: src_tests//borrower/output/vec_borrow_mut.rs
+2024-09-04 21:28:12 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/vec_borrow_mut.rs
+2024-09-04 21:28:12 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/vec_borrow_mut.rs
+2024-09-04 21:28:12 [INFO] - Callee function name: bar
+2024-09-04 21:28:12 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:12 [INFO] - Start time captured: SystemTime { intervals: 133699228920760769 }
+2024-09-04 21:28:12 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:12 [INFO] - Time elapsed: 73.9811ms
+2024-09-04 21:28:12 [INFO] - Compilation arguments: []
+2024-09-04 21:28:12 [INFO] - Compile command created
+2024-09-04 21:28:12 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:12 [INFO] - File entry obtained: DirEntry("src_tests//borrower/input\\vec_borrow_println.rs")
+2024-09-04 21:28:12 [INFO] - Test name: "vec_borrow_println.rs"
+2024-09-04 21:28:12 [INFO] - Input file name: src_tests//borrower/input/vec_borrow_println.rs
+2024-09-04 21:28:12 [INFO] - Output file name: src_tests//borrower/output/vec_borrow_println.rs
+2024-09-04 21:28:12 [INFO] - Method call mut file name: src_tests//borrower/method_call_mut/vec_borrow_println.rs
+2024-09-04 21:28:12 [INFO] - Pre-extract file name: src_tests//borrower/pre_extract/vec_borrow_println.rs
+2024-09-04 21:28:12 [INFO] - Callee function name: bar
+2024-09-04 21:28:12 [INFO] - Caller function name: new_foo
+2024-09-04 21:28:12 [INFO] - Start time captured: SystemTime { intervals: 133699228923017083 }
+2024-09-04 21:28:12 [INFO] - Borrowing process completed with success: true
+2024-09-04 21:28:12 [INFO] - Time elapsed: 75.18ms
+2024-09-04 21:28:12 [INFO] - Compilation arguments: []
+2024-09-04 21:28:12 [INFO] - Compile command created
+2024-09-04 21:28:12 [INFO] - Compilation output: Output { status: ExitStatus(ExitStatus(0)), stdout: "", stderr: "" }
+2024-09-04 21:28:12 [INFO] - Borrower tests successful, 5 tests failed
+2024-09-04 21:28:12 [INFO] - Running tests from directory src_tests/repairer

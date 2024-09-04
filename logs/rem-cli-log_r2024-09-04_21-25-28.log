@@ -1,0 +1,6 @@
+2024-09-04 21:19:12 [INFO] - Application Started
+2024-09-04 21:19:12 [INFO] - Running tests
+2024-09-04 21:19:12 [INFO] - Running tests from path: "src_tests/"
+2024-09-04 21:19:12 [INFO] - Running tests from directory src_tests//controller
+2024-09-04 21:19:15 [INFO] - Controller tests successful, 2 tests failed
+2024-09-04 21:19:15 [INFO] - Running tests from directory src_tests//borrower
