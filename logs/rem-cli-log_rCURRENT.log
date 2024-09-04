@@ -1,7 +1,4 @@
-2024-09-04 22:22:32 [INFO] - Application Started
-2024-09-04 22:22:32 [INFO] - Successfully backed up file from "examples\\input\\controller_1.rs" to "examples\\input\\controller_1_backup_1725452552.rs"
-2024-09-04 22:22:32 [INFO] - Controller was successful, elapsed time in milliseconds: 85
-2024-09-04 22:22:32 [INFO] - Program Controller was successful.
-2024-09-04 22:22:32 [INFO] - Backup file deleted successfully: "examples\\input\\controller_1_backup_1725452552.rs"
-2024-09-04 22:22:32 [INFO] - Backup deleted successfully
-2024-09-04 22:22:32 [INFO] - Refactoring completed successfully
+2024-09-04 22:41:40 [INFO] - Application Started
+2024-09-04 22:41:40 [INFO] - Running tests from GitHub repo: https://github.com/RuleBrittonica/rem-testfiles
+2024-09-04 22:41:41 [INFO] - Running tests from path: "tmp_test_src"
+2024-09-04 22:41:41 [INFO] - Running tests from directory tmp_test_srccontroller
