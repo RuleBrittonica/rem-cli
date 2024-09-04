@@ -1,7 +1,8 @@
 use rem_borrower::borrow;
 use crate::tests::utils::compile_file;
 use log::{
-    debug, error, info
+    error,
+    info,
 };
 
 use colored::Colorize;

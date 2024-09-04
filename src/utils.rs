@@ -21,24 +21,6 @@ use crate::tests::{
 
 use crate::error::TestFailed;
 
-pub enum RepairType {
-    Simple,
-    LoosestBoundsFirst,
-    TightestBoundsFirst,
-}
-
-pub fn parse_repair_type ( num: u8 ) -> RepairType {
-    match num {
-        1 => RepairType::Simple,
-        2 => RepairType::LoosestBoundsFirst,
-        3 => RepairType::TightestBoundsFirst,
-        _ => {
-            error!("Invalid Repair Type Specified, program terminating");
-            exit(1);
-        }
-    }
-}
-
 /// Downloads a repo from a URL.
 /// # Returns
 /// * The path to the git-repo it has cloned.
@@ -184,14 +166,14 @@ pub fn backup_file(original_path: PathBuf) -> Option<PathBuf> {
         }
     };
 
-    let file_name = match original_path.file_name() {
-        Some(name) => name.to_string_lossy(),
-        None => {
-            let err_msg = "No file name found";
-            error!("{}", err_msg);
-            panic!("{}", err_msg);
-        }
-    };
+    // let file_name = match original_path.file_name() {
+    //     Some(name) => name.to_string_lossy(),
+    //     None => {
+    //         let err_msg = "No file name found";
+    //         error!("{}", err_msg);
+    //         panic!("{}", err_msg);
+    //     }
+    // };
 
     let file_stem = match original_path.file_stem() {
         Some(stem) => stem.to_string_lossy(),
