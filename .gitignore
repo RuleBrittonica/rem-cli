@@ -18,9 +18,9 @@ Cargo.lock
 /target
 
 # Ignore test runs of the examples
-/examples/output/*
+examples/output/*
 
 # Ignore the output of tests
-/src_tests/controller/output/*
-/src_tests/borrower/output/*
-/src_tests/repairer/output/*
+src_tests/controller/output/
+src_tests/borrower/output/
+src_tests/repairer/output/

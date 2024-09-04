@@ -4,6 +4,7 @@ use std::{
     fs,
     error::Error,
     process::exit,
+    time::SystemTime,
 };
 use git2::Repository;
 
@@ -152,4 +153,69 @@ pub fn handle_result(success: bool, run: &str, msg: &str) {
         error!("Program {} failed: {}", run, msg);
         exit(1);
     }
+}
+
+pub fn backup_file(original_path: PathBuf) -> Option<PathBuf> {
+    // Check if the path is a file; directories are not supported
+    if !original_path.is_file() {
+        let err_msg = "Path must be a file";
+        error!("{}: {:?}", err_msg, original_path);
+        panic!("{}", err_msg);
+    }
+
+    // Get the current timestamp
+    let now = SystemTime::now();
+    let timestamp = match now.duration_since(SystemTime::UNIX_EPOCH) {
+        Ok(duration) => duration.as_secs(),
+        Err(_) => {
+            let err_msg = "Failed to get timestamp";
+            error!("{}", err_msg);
+            panic!("{}", err_msg);
+        }
+    };
+
+    // Construct the backup path
+    let parent_dir = match original_path.parent() {
+        Some(parent) => parent,
+        None => {
+            let err_msg = "No parent directory found";
+            error!("{}", err_msg);
+            panic!("{}", err_msg);
+        }
+    };
+
+    let file_name = match original_path.file_name() {
+        Some(name) => name.to_string_lossy(),
+        None => {
+            let err_msg = "No file name found";
+            error!("{}", err_msg);
+            panic!("{}", err_msg);
+        }
+    };
+
+    let file_stem = match original_path.file_stem() {
+        Some(stem) => stem.to_string_lossy(),
+        None => {
+            let err_msg = "No file stem found";
+            error!("{}", err_msg);
+            panic!("{}", err_msg);
+        }
+    };
+
+    let extension = match original_path.extension() {
+        Some(ext) => ext.to_string_lossy(),
+        None => String::new().into(), // No extension
+    };
+
+    let backup_file_name = format!("{}_backup_{}.{}", file_stem, timestamp, extension);
+    let backup_path = parent_dir.join(backup_file_name);
+
+    // Attempt to copy the file
+    if let Err(e) = fs::copy(&original_path, &backup_path) {
+        error!("Failed to copy file from {:?} to {:?}: {}", original_path, backup_path, e);
+        panic!("Failed to copy file from {:?} to {:?}: {}", original_path, backup_path, e);
+    }
+
+    info!("Successfully backed up file from {:?} to {:?}", original_path, backup_path);
+    Some(backup_path)
 }
