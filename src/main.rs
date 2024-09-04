@@ -45,6 +45,7 @@ use utils::{
     parse_repair_type,
     run_tests,
     RepairType,
+    backup_file,
 };
 
 mod messages;
@@ -54,6 +55,13 @@ use rem_args::{
     REMArgs,
     REMCommands,
 };
+
+#[derive(Debug, PartialEq, Eq)]
+enum ProgramOptions{
+    Refactoring,
+    Testing,
+    CargoRepairing,
+}
 
 /// The CLI Takes the following arguments:
 fn main() {
@@ -65,6 +73,10 @@ fn main() {
     let args: REMArgs = REMArgs::parse();
     let mut backup_path: Option<PathBuf> = None;
 
+    // Set to refactoring by default. This will be changed by the rest of the
+    // CLI if a non-refactoring program is run.
+    let mut prog_run: ProgramOptions = ProgramOptions::Refactoring;
+
     match &args.command {
         REMCommands::Run {
             file_path,
@@ -72,7 +84,11 @@ fn main() {
             caller_fn_name,
             callee_fn_name
         } => {
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
 
+            let file_path = file_path.to_str().expect("Path is not valid UTF-8");
+            let new_file_path = new_file_path.to_str().expect("Path is not valid UTF-8");
         },
 
         REMCommands::Controller {
@@ -81,6 +97,9 @@ fn main() {
             caller_fn_name,
             callee_fn_name
         } => {
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
+
             let file_path = file_path.to_str().expect("Path is not valid UTF-8");
             let new_file_path = new_file_path.to_str().expect("Path is not valid UTF-8");
 
@@ -113,6 +132,8 @@ fn main() {
             mut_method_file_path,
             pre_extract_file_path
         } => {
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
 
             let file_path: &str = file_path.to_str().expect("Path is not valid UTF-8");
             let new_file_path: &str = new_file_path.to_str().expect("Path is not valid UTF-8");
@@ -150,6 +171,9 @@ fn main() {
             repairer,
             verbose, // TODO Implement this
         } => {
+            // Create our backup
+            backup_path = backup_file(file_path.clone());
+
             let file_path: &str = file_path.to_str().expect("Path is not valid UTF-8");
             let new_file_path: &str = new_file_path.to_str().expect("Path is not valid UTF-8");
             let repair_type: RepairType = parse_repair_type(*repairer);
@@ -184,6 +208,8 @@ fn main() {
             repairer,
             verbose
         } => {
+            prog_run = ProgramOptions::CargoRepairing;
+
             let repair_type: RepairType = parse_repair_type(*repairer);
         },
 
@@ -191,6 +217,8 @@ fn main() {
             folder,
             verbose // NYI
         } => {
+            prog_run = ProgramOptions::Testing;
+
             if *verbose {
                 info!("Running tests in verbose mode");
             } else {
@@ -210,6 +238,8 @@ fn main() {
             repo,
             verbose, // NYI
         } => {
+            prog_run = ProgramOptions::Testing;
+
             if *verbose {
                 info!("Running tests in verbose mode from GitHub repo: {}", repo.clone());
             } else {
@@ -250,8 +280,8 @@ fn main() {
         } else {
             info!("Backup deleted successfully");
         }
-    } else {
-        // Handle backup path being none
+    } else if prog_run != ProgramOptions::Refactoring {
+        // Handle backup path being none -
         // How tf did we end up here
         error!("Backup path was never provided / saved, HOW DID WE GET HERE?");
         exit(1);
