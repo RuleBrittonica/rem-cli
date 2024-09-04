@@ -19,11 +19,6 @@ mod refactor;
 use refactor::{
     non_local_controller::non_local_controller,
     borrow::borrow,
-    repair_lifetime::{
-        repair_lifetime,
-        repair_lifetime_rustc,
-        repair_lifetime_cargo,
-    },
 };
 
 use rem_repairer::{
