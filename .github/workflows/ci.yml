@@ -19,7 +19,7 @@ jobs:
     - name: Set up Rust
       uses: actions-rs/toolchain@v1
       with:
-        toolchain: nightly
+        toolchain: nightly-2024-08-28
         override: true
 
     - name: Set RUSTFLAGS to ignore unused and dead code warnings
