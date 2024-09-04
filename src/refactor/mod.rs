@@ -1,4 +1,4 @@
 pub mod refactor_main;
-mod borrow;
-mod repair_lifetime;
-mod non_local_controller;
+pub mod borrow;
+pub mod repair_lifetime;
+pub mod non_local_controller;

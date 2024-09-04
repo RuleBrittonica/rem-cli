@@ -1,5 +1,5 @@
 [package]
-name = "rem-cli-lsp"
+name = "rem-cli"
 version = "0.1.0"
 edition = "2021"
 authors = ["Matthew Britton <matt.britton@anu.edu.au>"]

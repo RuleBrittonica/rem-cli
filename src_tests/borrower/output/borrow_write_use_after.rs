@@ -17,6 +17,6 @@ pub fn new_foo() {
     }
 }
 fn bar(x: &mut i32) {
-    *x = 5;
+    (*x) = 5;
 }
 fn main() {}

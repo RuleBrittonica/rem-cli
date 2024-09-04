@@ -3,17 +3,15 @@ use log::{
     info,
     error,
 };
-use rem_repairer::{
-    common::{
-        RepairSystem,
-        RepairResult,
-    },
+use rem_repairer::common::{
+    RepairSystem,
+    RepairResult,
 };
 
 pub fn repair_lifetime(
-    file_path:  &str,
+    file_path:     &str,
     new_file_path: &str,
-    fn_name:    &str,
+    fn_name:       &str,
     repair_system: &&dyn RepairSystem,
 
 ) -> bool {
@@ -38,13 +36,13 @@ pub fn repair_lifetime(
 
 }
 
-fn repair_lifetime_rustc(
+pub fn repair_lifetime_rustc(
 
 ) -> bool {
     todo!()
 }
 
-fn repair_lifetime_cargo(
+pub fn repair_lifetime_cargo(
 
 ) -> bool {
     todo!()
