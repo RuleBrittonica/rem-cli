@@ -1,0 +1,69 @@
+2024-09-04 22:50:12 [INFO] - Application Started
+2024-09-04 22:50:12 [INFO] - Running tests from GitHub repo: https://github.com/RuleBrittonica/rem-testfiles
+2024-09-04 22:50:13 [INFO] - Running tests from path: "tmp_test_src/"
+2024-09-04 22:50:13 [INFO] - Running tests from directory tmp_test_src/controller
+2024-09-04 22:50:16 [INFO] - Controller tests successful, 2 tests failed
+2024-09-04 22:50:16 [INFO] - Running tests from directory tmp_test_src/borrower
+2024-09-04 22:50:18 [INFO] - Borrower tests successful, 5 tests failed
+2024-09-04 22:50:18 [INFO] - Running tests from directory tmp_test_src/repairer
+2024-09-04 22:50:19 [INFO] - repair count: 1
+2024-09-04 22:50:19 [INFO] - status: true
+2024-09-04 22:50:19 [INFO] - repair count: 1
+2024-09-04 22:50:19 [INFO] - status: true
+2024-09-04 22:50:19 [INFO] - repair count: 1
+2024-09-04 22:50:19 [INFO] - status: false
+2024-09-04 22:50:19 [INFO] - repair count: 1
+2024-09-04 22:50:19 [INFO] - status: false
+2024-09-04 22:50:19 [INFO] - repair count: 1
+2024-09-04 22:50:19 [INFO] - status: true
+2024-09-04 22:50:20 [INFO] - repair count: 1
+2024-09-04 22:50:20 [INFO] - status: true
+2024-09-04 22:50:20 [INFO] - repair count: 0
+2024-09-04 22:50:20 [INFO] - status: true
+2024-09-04 22:50:20 [INFO] - repair count: 1
+2024-09-04 22:50:20 [INFO] - status: true
+2024-09-04 22:50:21 [INFO] - repair count: 1
+2024-09-04 22:50:21 [INFO] - status: true
+2024-09-04 22:50:21 [INFO] - repair count: 1
+2024-09-04 22:50:21 [INFO] - status: true
+2024-09-04 22:50:21 [INFO] - repair count: 1
+2024-09-04 22:50:21 [INFO] - status: true
+2024-09-04 22:50:22 [INFO] - repair count: 1
+2024-09-04 22:50:22 [INFO] - status: true
+2024-09-04 22:50:22 [INFO] - repair count: 2
+2024-09-04 22:50:22 [INFO] - status: false
+2024-09-04 22:50:22 [INFO] - repair count: 2
+2024-09-04 22:50:22 [INFO] - status: false
+2024-09-04 22:50:22 [INFO] - repair count: 1
+2024-09-04 22:50:22 [INFO] - status: false
+2024-09-04 22:50:22 [INFO] - repair count: 1
+2024-09-04 22:50:22 [INFO] - status: false
+2024-09-04 22:50:22 [INFO] - repair count: 1
+2024-09-04 22:50:22 [INFO] - status: false
+2024-09-04 22:50:22 [INFO] - repair count: 1
+2024-09-04 22:50:22 [INFO] - status: false
+2024-09-04 22:50:23 [INFO] - repair count: 1
+2024-09-04 22:50:23 [INFO] - status: false
+2024-09-04 22:50:23 [INFO] - repair count: 1
+2024-09-04 22:50:23 [INFO] - status: false
+2024-09-04 22:50:23 [INFO] - repair count: 1
+2024-09-04 22:50:23 [INFO] - status: true
+2024-09-04 22:50:23 [INFO] - repair count: 1
+2024-09-04 22:50:23 [INFO] - status: false
+2024-09-04 22:50:23 [INFO] - repair count: 1
+2024-09-04 22:50:23 [INFO] - status: true
+2024-09-04 22:50:24 [INFO] - repair count: 1
+2024-09-04 22:50:24 [INFO] - status: true
+2024-09-04 22:50:24 [INFO] - repair count: 0
+2024-09-04 22:50:24 [INFO] - status: true
+2024-09-04 22:50:24 [INFO] - repair count: 0
+2024-09-04 22:50:24 [INFO] - status: true
+2024-09-04 22:50:25 [INFO] - repair count: 0
+2024-09-04 22:50:25 [INFO] - status: true
+2024-09-04 22:50:25 [INFO] - repair count: 0
+2024-09-04 22:50:25 [INFO] - status: true
+2024-09-04 22:50:25 [INFO] - Repairer tests succesful, 11 tests failed
+2024-09-04 22:50:25 [INFO] - All tests completed. Total failed tests: 18
+2024-09-04 22:50:25 [INFO] - Test running finished, 18 tests failed
+2024-09-04 22:50:25 [INFO] - Successfully deleted folder downloaded from Git
+2024-09-04 22:50:25 [INFO] - Refactoring completed successfully
