@@ -71,9 +71,11 @@ pub enum REMCommands {
         #[arg(help = "The name of the new function that is being extracted", index = 4)]
         callee_fn_name: String,
 
-        mut_method_file_path: String,
+        #[arg(help = "The path to the file where the mutated method will be dumped", index = 5)]
+        mut_method_file_path: PathBuf,
 
-        pre_extract_file_path: String,
+        #[arg(help = "The path to the original file", index = 6)]
+        pre_extract_file_path: PathBuf,
     },
 
     Repairer {
@@ -95,6 +97,14 @@ pub enum REMCommands {
         /// Any other repairer selection will result in an error.
         #[arg(help = "Repairer option (1=Simple, 2=Loosest Bounds First, 3=Tightest Bounds First)", index = 4)]
         repairer: u8,
+
+        /// The repair method to be used:
+        /// * 1 => Default
+        /// * 2 => Rustc
+        /// * 3 => Cargo
+        // TODO Implement this lol
+        // #[arg(help = "Repair Method (1=default, 2=rustc, 3=cargo)", index = 4)]
+        // repair_method: u8,
 
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,

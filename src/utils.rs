@@ -72,38 +72,38 @@ pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
     info!("Running tests from path: {:?}", path);
 
     // Initialize the total number of failed tests
-    let mut total_failed_tests = 0;
+    let mut total_failed_tests: u8 = 0;
 
     // Run controller tests
-    let controller_failed = match controller::test(path.clone()) {
+    let controller_failed: u8 = match controller::test(path.clone()) {
         Ok(failed) => failed,
         Err(e) => {
             error!("Controller tests failed: {:?}", e);
             return Err(TestFailed::ControllerFailed(e));
         }
     };
+    info!("Controller tests successful, {} tests failed", controller_failed);
     total_failed_tests += controller_failed;
 
-    // Uncomment and fix this once the Borrower tests are stabilized
-    /*
-    let borrower_failed = match borrower::test(path.clone()) {
+    let borrower_failed: u8 = match borrower::test(path.clone()) {
         Ok(failed) => failed,
         Err(e) => {
             error!("Borrower tests failed: {:?}", e);
             return Err(TestFailed::BorrowerFailed(e));
         }
     };
+    info!("Borrower tests successful, {} tests failed", borrower_failed);
     total_failed_tests += borrower_failed;
-    */
 
     // Run repairer tests
-    let repairer_failed = match repairer::test(path.clone()) {
+    let repairer_failed: u8 = match repairer::test(path.clone()) {
         Ok(failed) => failed,
         Err(e) => {
             error!("Repairer tests failed: {:?}", e);
             return Err(TestFailed::RepairerFailed(e));
         }
     };
+    info!("Repairer tests succesful, {} tests failed", repairer_failed);
     total_failed_tests += repairer_failed;
 
     info!("All tests completed. Total failed tests: {}", total_failed_tests);
@@ -142,5 +142,14 @@ pub fn delete_backup(backup_path: PathBuf) -> Result<(), io::Error> {
         error!("{}", err_msg); // Output to logs and std err.
         eprintln!("{}", err_msg);
         Err(io::Error::new(io::ErrorKind::InvalidInput, err_msg))
+    }
+}
+
+pub fn handle_result(success: bool, run: &str, msg: &str) {
+    if success {
+        info!("Program {} was successful.", run);
+    } else {
+        error!("Program {} failed: {}", run, msg);
+        exit(1);
     }
 }

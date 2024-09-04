@@ -46,6 +46,14 @@ or
 
 ## Commands
 
+**Currently implemented commands are**
+
+- controller
+- borrower
+- repairer
+- test
+- test-github
+
 **run**
 
 Arguments:
@@ -77,7 +85,7 @@ Arguments:
 Running:
 
 ```bash
-
+cargo run controller examples\input\controller_1.rs examples\output\controller_1.rs new_foo bar
 ```
 
 **borrower**
@@ -94,7 +102,7 @@ Arguments:
 Running:
 
 ```bash
-
+cargo run repairer
 ```
 
 **repairer**
