@@ -26,7 +26,7 @@ use crate::error::TestFailed;
 /// * The path to the git-repo it has cloned.
 pub fn get_from_git(repo_url: String) -> Result<PathBuf, Box<dyn Error>> {
     // Define a path where the repo will be cloned
-    let path: PathBuf = PathBuf::from("tmp_test_src");
+    let path: PathBuf = PathBuf::from("tmp_test_src/");
 
     // Clone the repository
     Repository::clone(&repo_url, &path)?;

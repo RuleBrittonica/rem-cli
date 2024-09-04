@@ -1,0 +1,5 @@
+2024-09-04 22:31:48 [INFO] - Application Started
+2024-09-04 22:31:48 [INFO] - Successfully backed up file from "examples/input/borrow_1.rs" to "examples/input\\borrow_1_backup_1725453108.rs"
+2024-09-04 22:31:49 [ERROR] - Bad exit value, file will be restored
+2024-09-04 22:31:49 [INFO] - Borrower failed, elapsed time in milliseconds: 1
+2024-09-04 22:31:49 [ERROR] - Program Borrower failed: Borrower was run on its own with file_path: examples/input/borrow_1.rs | new_file_path: example/output/borrow_1.rs | caller_fn_name: new_foo | callee_fn_name: bar | mut_method_file_path: examples/mcm/borrow_1.rs | pre_extract_file_path: examples/pe/borrow_1.rs

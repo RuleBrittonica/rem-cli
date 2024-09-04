@@ -1,0 +1,68 @@
+2024-09-04 22:07:11 [INFO] - Application Started
+2024-09-04 22:07:11 [INFO] - Running tests
+2024-09-04 22:07:11 [INFO] - Running tests from path: "src_tests/"
+2024-09-04 22:07:11 [INFO] - Running tests from directory src_tests/controller
+2024-09-04 22:07:13 [INFO] - Controller tests successful, 2 tests failed
+2024-09-04 22:07:13 [INFO] - Running tests from directory src_tests/borrower
+2024-09-04 22:07:16 [INFO] - Borrower tests successful, 5 tests failed
+2024-09-04 22:07:16 [INFO] - Running tests from directory src_tests/repairer
+2024-09-04 22:07:16 [INFO] - repair count: 1
+2024-09-04 22:07:16 [INFO] - status: true
+2024-09-04 22:07:17 [INFO] - repair count: 1
+2024-09-04 22:07:17 [INFO] - status: true
+2024-09-04 22:07:17 [INFO] - repair count: 1
+2024-09-04 22:07:17 [INFO] - status: false
+2024-09-04 22:07:17 [INFO] - repair count: 1
+2024-09-04 22:07:17 [INFO] - status: false
+2024-09-04 22:07:17 [INFO] - repair count: 1
+2024-09-04 22:07:17 [INFO] - status: true
+2024-09-04 22:07:17 [INFO] - repair count: 1
+2024-09-04 22:07:17 [INFO] - status: true
+2024-09-04 22:07:18 [INFO] - repair count: 0
+2024-09-04 22:07:18 [INFO] - status: true
+2024-09-04 22:07:18 [INFO] - repair count: 1
+2024-09-04 22:07:18 [INFO] - status: true
+2024-09-04 22:07:18 [INFO] - repair count: 1
+2024-09-04 22:07:18 [INFO] - status: true
+2024-09-04 22:07:19 [INFO] - repair count: 1
+2024-09-04 22:07:19 [INFO] - status: true
+2024-09-04 22:07:19 [INFO] - repair count: 1
+2024-09-04 22:07:19 [INFO] - status: true
+2024-09-04 22:07:19 [INFO] - repair count: 1
+2024-09-04 22:07:19 [INFO] - status: true
+2024-09-04 22:07:20 [INFO] - repair count: 2
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:20 [INFO] - repair count: 2
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:20 [INFO] - repair count: 1
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:20 [INFO] - repair count: 1
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:20 [INFO] - repair count: 1
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:20 [INFO] - repair count: 1
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:20 [INFO] - repair count: 1
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:20 [INFO] - repair count: 1
+2024-09-04 22:07:20 [INFO] - status: false
+2024-09-04 22:07:21 [INFO] - repair count: 1
+2024-09-04 22:07:21 [INFO] - status: true
+2024-09-04 22:07:21 [INFO] - repair count: 1
+2024-09-04 22:07:21 [INFO] - status: false
+2024-09-04 22:07:21 [INFO] - repair count: 1
+2024-09-04 22:07:21 [INFO] - status: true
+2024-09-04 22:07:22 [INFO] - repair count: 1
+2024-09-04 22:07:22 [INFO] - status: true
+2024-09-04 22:07:22 [INFO] - repair count: 0
+2024-09-04 22:07:22 [INFO] - status: true
+2024-09-04 22:07:22 [INFO] - repair count: 0
+2024-09-04 22:07:22 [INFO] - status: true
+2024-09-04 22:07:22 [INFO] - repair count: 0
+2024-09-04 22:07:22 [INFO] - status: true
+2024-09-04 22:07:23 [INFO] - repair count: 0
+2024-09-04 22:07:23 [INFO] - status: true
+2024-09-04 22:07:23 [INFO] - Repairer tests succesful, 11 tests failed
+2024-09-04 22:07:23 [INFO] - All tests completed. Total failed tests: 18
+2024-09-04 22:07:23 [INFO] - Test running finished, 18 tests failed
+2024-09-04 22:07:23 [INFO] - Refactoring completed successfully
