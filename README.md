@@ -48,7 +48,7 @@ cargo run <COMMAND>
 or
 
 ```bash
-./rem-cli-lsp <COMMNAD>
+./rem-cli <COMMAND>
 ```
 
 ## Commands
