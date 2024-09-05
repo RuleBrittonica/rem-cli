@@ -5,6 +5,7 @@ components = [
     "rustc-dev",
     "llvm-tools-preview",
     "rust-analyzer-preview",
+    "rustfmt",
 ]
 
 profile = "minimal"
