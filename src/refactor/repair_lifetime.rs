@@ -13,7 +13,6 @@ pub fn repair_lifetime(
     new_file_path: &str,
     fn_name:       &str,
     repair_system: &&dyn RepairSystem,
-
 ) -> bool {
     let begin: Instant = Instant::now();
 
