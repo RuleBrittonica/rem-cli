@@ -3,22 +3,27 @@ name = "rem-cli"
 version = "0.1.0"
 edition = "2021"
 authors = ["Matthew Britton <matt.britton@anu.edu.au>"]
-license = "GPL 3.0"
-description = "CLI and potential LSP interface for the REM toolchain. Built to be implemented into the VSCode extension for REM"
+license = "MIT"
+description = "CLI interface for the REM toolchain. Built to be implemented into the VSCode extension for REM"
 repository = "https://github.com/RuleBrittonica/rem-cli"
 categories = ["command-line-utilities", "development-tools"]
 readme = "README.md"
 
 [dependencies]
+
+# Listed here in the order they are used in the program. Because why not?
+rem-extract = "0.1.0"
 rem-controller = "0.1.2"
 rem-borrower   = "0.1.2"
 rem-repairer   = "0.1.2"
-rem-extract = "0.1.0"
+
 clap = { version = "4.5.16", features = ["derive"] }
 log = "0.4.22"
 flexi_logger = "0.29.2"
 colored = "2.1.0"
 git2 = "0.19.0"
+ra_ap_vfs = "0.0.238"
+camino = "1.1.9"
 
 [build-dependencies]
 

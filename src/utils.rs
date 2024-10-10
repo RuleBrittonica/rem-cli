@@ -5,6 +5,7 @@ use std::{
     error::Error,
     process::exit,
     time::SystemTime,
+    env,
 };
 use git2::Repository;
 
@@ -14,12 +15,83 @@ use log::{
 };
 
 use crate::tests::{
+    extract,
     controller,
     borrower,
     repairer,
 };
 
+use ra_ap_vfs::AbsPathBuf;
+
+use camino::Utf8PathBuf;
+
 use crate::error::TestFailed;
+
+// ====================================================================
+//                 Main Program Helper Functions
+// ====================================================================
+
+// Given an `&str` path to a file, returns the `AbsPathBuf` to the file.
+/// The `AbsPathBuf` is used by the `ra_ap` crates to represent file paths.
+/// If the input is not an absolute path, it resulves the path relative to the
+/// current directory.
+/// Will also canonicalize the path before returning it.
+pub fn convert_to_abs_path_buf(path: &str) -> Result<AbsPathBuf, Utf8PathBuf> {
+    if path.is_empty() {
+        return Err(Utf8PathBuf::from_path_buf(PathBuf::new()).unwrap());
+    }
+
+    // Check if the path is valid for a file system
+    if !path.is_ascii() {
+        return Err(Utf8PathBuf::from_path_buf(PathBuf::new()).unwrap());
+    }
+
+    // Attempt to convert it as-is (absolute path).
+    match AbsPathBuf::try_from(path) {
+        Ok(abs_path_buf) => Ok(abs_path_buf),
+        Err(_) => {
+            // Resolve non-absolute path to the current working directory.
+            let current_dir = env::current_dir().expect("Failed to get current directory");
+            let utf8_current_dir = Utf8PathBuf::from_path_buf(current_dir)
+                .expect("Failed to convert current directory to Utf8PathBuf");
+
+            // println!("Current dir: {:?}", utf8_current_dir);
+            // println!("Current path: {:?}", path);
+            let resolved_path = utf8_current_dir.join(path);
+
+            // Normalize the path to eliminate unnecessary components
+            let normalized_path = resolved_path.canonicalize().unwrap_or(resolved_path.clone().into());
+
+            // Create directories leading to the resolved path if they don't exist
+            if let Some(parent) = normalized_path.parent() {
+                fs::create_dir_all(parent).expect("Failed to create directories");
+            }
+
+            // Attempt to convert the normalized path to AbsPathBuf
+            let abs_path = AbsPathBuf::try_from(normalized_path.to_str().unwrap())
+                .map_err(|e| e); // Return the error if the resolved path is still invalid
+            // println!("Resolved path: {:?}", abs_path);
+
+            // If the abs_path as a string starts with either a \ or a ? (or some
+            // combination), strip it out
+
+            let abs_path_str: String = abs_path.unwrap().to_string();
+            let abs_path_str: String = abs_path_str
+                .replace(r"\\?\", "");
+
+            let new_abs_path = AbsPathBuf::try_from(abs_path_str.as_str())
+                .map_err(|e| e);
+
+            // println!("New abs path: {:?}", new_abs_path);
+            new_abs_path
+        }
+    }
+}
+
+
+// ====================================================================
+//                  Test Running Helper Functions
+// ====================================================================
 
 /// Downloads a repo from a URL.
 /// # Returns
@@ -201,3 +273,4 @@ pub fn backup_file(original_path: PathBuf) -> Option<PathBuf> {
     info!("Successfully backed up file from {:?} to {:?}", original_path, backup_path);
     Some(backup_path)
 }
+
