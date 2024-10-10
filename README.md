@@ -5,6 +5,9 @@ CLI for the REM Toolchain. Implemented in the VSCode extension for REM available
 
 **Utilizes**:
 
+-rem-extract:
+  - git = [rem-extract](https://github.com/RuleBrittonica/rem-extract)
+  - crates = [rem-extract](https://crates.io/crates/rem-extract)
 - rem-controller:
   - git = [rem-controller](https://github.com/RuleBrittonica/rem-controller)
   - crates = [rem-controller](https://crates.io/crates/rem-controller)

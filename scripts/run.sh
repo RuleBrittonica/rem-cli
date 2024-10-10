@@ -1,4 +1,7 @@
 #!/bin/bash
 
+# Update the dependencies
+cargo update
+
 # Run the project
-cargo run --release --bin rem-cli test -v 
+cargo run --release --bin rem-cli test -v
