@@ -12,7 +12,7 @@ readme = "README.md"
 [dependencies]
 
 # Listed here in the order they are used in the program. Because why not?
-rem-extract = "0.1.0"
+rem-extract = "0.1.2"
 rem-controller = "0.1.2"
 rem-borrower   = "0.1.2"
 rem-repairer   = "0.1.2"
@@ -28,6 +28,7 @@ camino = "1.1.9"
 [build-dependencies]
 
 [dev-dependencies]
+tempfile = "3.13"
 
 [features]
 default = []

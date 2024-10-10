@@ -9,4 +9,4 @@ cargo cache -a
 cargo update
 
 # Build the project
-cargo lcheck && cargo build --release --bin rem-cli
+cargo lcheck && cargo build --bin rem-cli
