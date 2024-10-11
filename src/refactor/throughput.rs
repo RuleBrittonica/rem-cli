@@ -1,5 +1,10 @@
 use ra_ap_vfs::AbsPathBuf;
 
+use rem_extract::extraction::ExtractionInput;
+use rem_controller::non_local_controller::ControllerInput;
+use rem_borrower::borrow::BorrowerInput;
+
+use rem_repairer::common::RepairerInput;
 use rem_repairer::{
     common::RepairSystem,
     repair_lifetime_simple,
@@ -8,9 +13,9 @@ use rem_repairer::{
     repair_lifetime_tightest_bound_first,
 };
 
-use crate::{
-    utils::convert_to_abs_path_buf
-};
+use crate::error::UpdateError;
+use crate::utils::convert_to_abs_path_buf;
+
 
 /// This module is responsible for managing the inputs and outputs from the
 /// various modules in the refactoring process.
@@ -41,6 +46,12 @@ pub struct Input {
     end_idx: u32,
 }
 
+/// A trait for updating the Throughput struct with the outputs from the various modules
+/// Implemented on Throughput for each of the local structs - Extract, Controller, Borrower, Repairer
+pub trait UpdateThroughput {
+    fn update_throughput(&self, throughput: &mut Throughput);
+}
+
 /// The throughput struct is the main data carrier for the refactoring process.
 /// It contains an (immutable) version of the input code, and mutable versions
 /// of the input and output code. It also contains references to all of the
@@ -56,7 +67,7 @@ pub struct Throughput {
     end_idx: u32,
     original_code: String, // Never changes, always stores a copy of the contained in the input file
     working_code: String, // The code that is being worked on (changes as the process progresses)
-    temporary_code: Option<String>,
+    temporary_code: Option<String>, // Populated before running the borrower module
     output_code: Option<String>,
 }
 
@@ -83,10 +94,10 @@ pub struct Controller {
 pub struct Borrower {
     input_code: String,
     unmodified_code: String,
+    temporary_code: String,
     output_code: Option<String>, // Populated after the module has been run
     caller_fn_name: String,
     new_fn_name: String,
-    temporary_code: Option<String>, // Populated after the module has been run (for the mut_method_call_expr)
 }
 
 #[derive(Clone)]
@@ -151,14 +162,14 @@ impl Controller {
 }
 
 impl Borrower {
-    pub fn new(input_code: String, unmodified_code: String, output_code: Option<String>, caller_fn_name: String, new_fn_name: String, temporary_code: Option<String>) -> Self {
+    pub fn new(input_code: String, unmodified_code: String, output_code: Option<String>, caller_fn_name: String, new_fn_name: String, temporary_code: String) -> Self {
         Self {
             input_code,
             unmodified_code,
+            temporary_code,
             output_code,
             caller_fn_name,
             new_fn_name,
-            temporary_code,
         }
     }
 }
@@ -277,7 +288,7 @@ impl From<Throughput> for Borrower {
             output_code: None,
             caller_fn_name: throughput.caller_fn_name.unwrap(),
             new_fn_name: throughput.new_fn_name,
-            temporary_code: None,
+            temporary_code: throughput.temporary_code.unwrap(),
         }
     }
 }
@@ -291,6 +302,86 @@ impl From<Throughput> for Repairer<'_> {
             output_code: None,
             new_fn_name: throughput.new_fn_name,
             repair_systems: Vec::new(),
+        }
+    }
+}
+
+// From the invdividual module inputs to the structs defined here - just
+// wrappers - the underlyiing structs should be identical minus the output code
+// field
+
+impl From<Controller> for ControllerInput {
+    fn from(controller: Controller) -> Self {
+        Self {
+            input_code: controller.input_code,
+            caller_fn_name: controller.caller_fn_name,
+            callee_fn_name: controller.new_fn_name,
+        }
+    }
+}
+
+impl From<Borrower> for BorrowerInput {
+    fn from(borrower: Borrower) -> Self {
+        Self {
+            input_code: borrower.input_code,
+            unmodified_code: borrower.unmodified_code,
+            mut_methods_code: borrower.temporary_code,
+            caller_fn_name: borrower.caller_fn_name,
+            callee_fn_name: borrower.new_fn_name,
+        }
+    }
+}
+
+impl From<Repairer<'_>> for RepairerInput {
+    fn from(repairer: Repairer) -> Self {
+        Self {
+            input_code: repairer.input_code,
+            fn_name: repairer.new_fn_name,
+            repair_systems: repairer.repair_systems
+                .iter()
+                .map(|system: &&dyn RepairSystem| Box::new(*system) as Box<dyn RepairSystem>)
+                .collect(),
+        }
+    }
+}
+
+// The goal here is pretty straightforward. After the module has been run, we
+// we then update the intial struct with the result of the module.
+// Then we call update_throughput on the struct to update the throughput struct
+// with the new data.
+
+
+/// Throws an error if the output code is None
+/// Also throws and error if the caller_fn_name is None
+impl UpdateThroughput for Extract {
+    fn update_throughput(&self, throughput: &mut Throughput) {
+        let output_code = self.output_code.as_ref();
+        let caller_fn_name = self.caller_fn_name.as_ref();
+        match (output_code, caller_fn_name) {
+            (Some(output_code), Some(caller_fn_name)) => {
+                throughput.working_code = output_code.clone();
+                throughput.caller_fn_name = Some(caller_fn_name.clone());
+            },
+            (None, _) => {
+                Err::<T, UpdateError>(UpdateError::ExtractNoWorkingCode).unwrap();
+            },
+            (_, None) => {
+                Err::<T, UpdateError>(UpdateError::ExtractNoCallerFnName).unwrap();
+            },
+        }
+    }
+}
+
+impl UpdateThroughput for Controller {
+    fn update_throughput(&self, throughput: &mut Throughput) {
+        let output_code = self.output_code.as_ref();
+        match output_code {
+            Some(output_code) => {
+                throughput.working_code = output_code.clone();
+            },
+            None => {
+                Err::<T, UpdateError>(UpdateError::ControllerNoWorkingCode).unwrap();
+            },
         }
     }
 }

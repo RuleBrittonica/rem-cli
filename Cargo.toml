@@ -12,10 +12,15 @@ readme = "README.md"
 [dependencies]
 
 # Listed here in the order they are used in the program. Because why not?
-rem-extract = "0.1.2"
-rem-controller = "0.1.2"
-rem-borrower   = "0.1.2"
-rem-repairer   = "0.1.2"
+# rem-extract = { version = "0.1.2" }
+# rem-controller = { version = "0.1.3" }
+# rem-borrower   = { version = "0.1.3" }
+# rem-repairer   = { version = "0.1.2" }
+
+rem-extract = { path = "../rem-extract/rem-extract" }
+rem-controller = { path = "../rem-controller" }
+rem-borrower = { path = "../rem-borrower" }
+rem-repairer = { path = "../rem-repairer" }
 
 clap = { version = "4.5.16", features = ["derive"] }
 log = "0.4.22"
