@@ -18,6 +18,7 @@ impl fmt::Display for UpdateError {
     }
 }
 
+#[derive(Debug)]
 pub enum RefactoringError {
 
 }

@@ -49,7 +49,7 @@ pub struct Input {
 /// A trait for updating the Throughput struct with the outputs from the various modules
 /// Implemented on Throughput for each of the local structs - Extract, Controller, Borrower, Repairer
 pub trait UpdateThroughput {
-    fn update_throughput(&self, throughput: &mut Throughput);
+    fn update_throughput(&self, throughput: &mut Throughput) -> Result<(), UpdateError>;
 }
 
 /// The throughput struct is the main data carrier for the refactoring process.
@@ -94,18 +94,18 @@ pub struct Controller {
 pub struct Borrower {
     input_code: String,
     unmodified_code: String,
-    temporary_code: String,
+    temporary_code: String, // TODO mutable methods code - need to work out how to handle this
     output_code: Option<String>, // Populated after the module has been run
     caller_fn_name: String,
     new_fn_name: String,
 }
 
 #[derive(Clone)]
-pub struct Repairer<'a> {
+pub struct Repairer {
     input_code: String,
     output_code: Option<String>, // Populated after the module has been run
     new_fn_name: String,
-    repair_systems: Vec<&'a dyn RepairSystem>, // The repair systems that will be attempted to use to fix the code
+    repair_systems: Vec<Box<dyn RepairSystem>>, // The repair systems that will be attempted to use to fix the code
 }
 
 impl Input {
@@ -174,8 +174,8 @@ impl Borrower {
     }
 }
 
-impl Repairer<'_> {
-    pub fn new(input_code: String, output_code: Option<String>, new_fn_name: String, repair_systems: Vec<&'static dyn RepairSystem>) -> Self {
+impl Repairer {
+    pub fn new(input_code: String, output_code: Option<String>, new_fn_name: String, repair_systems: Vec<Box<dyn RepairSystem>>) -> Self {
         Self {
             input_code,
             output_code,
@@ -186,35 +186,35 @@ impl Repairer<'_> {
 
     pub fn add_simple_repsys(&mut self) {
         self.repair_systems.push(
-            &repair_lifetime_simple::Repairer {}
+            Box::new(repair_lifetime_simple::Repairer {})
         );
     }
 
     pub fn add_rustfix_repsys(&mut self) {
         self.repair_systems.push(
-            &repair_rustfix::Repairer {}
+            Box::new(repair_rustfix::Repairer {})
         );
     }
 
     pub fn add_loosest_bound_first_repsys(&mut self) {
         self.repair_systems.push(
-            &repair_lifetime_loosest_bound_first::Repairer {}
+            Box::new(repair_lifetime_loosest_bound_first::Repairer {})
         );
     }
 
     pub fn add_tightest_bound_first_repsys(&mut self) {
         self.repair_systems.push(
-            &repair_lifetime_tightest_bound_first::Repairer {}
+            Box::new(repair_lifetime_tightest_bound_first::Repairer {})
         );
     }
 
     /// Add all repair systems not currently in the repairer
     pub fn add_all_repsys(&mut self) {
         self.repair_systems = vec![
-            &repair_lifetime_simple::Repairer {},
-            &repair_rustfix::Repairer {},
-            &repair_lifetime_loosest_bound_first::Repairer {},
-            &repair_lifetime_tightest_bound_first::Repairer {},
+            Box::new(repair_lifetime_simple::Repairer {}),
+            Box::new(repair_rustfix::Repairer {}),
+            Box::new(repair_lifetime_loosest_bound_first::Repairer {}),
+            Box::new(repair_lifetime_tightest_bound_first::Repairer {}),
         ];
     }
 }
@@ -293,7 +293,7 @@ impl From<Throughput> for Borrower {
     }
 }
 
-impl From<Throughput> for Repairer<'_> {
+impl From<Throughput> for Repairer {
     /// The relevant repair systems will need to be added manually after the
     /// from call. This is to maintain flexibility.
     fn from(throughput: Throughput) -> Self {
@@ -306,8 +306,8 @@ impl From<Throughput> for Repairer<'_> {
     }
 }
 
-// From the invdividual module inputs to the structs defined here - just
-// wrappers - the underlyiing structs should be identical minus the output code
+// From the inidividual module inputs to the structs defined here - just
+// wrappers - the underlying structs should be identical minus the output code
 // field
 
 impl From<Controller> for ControllerInput {
@@ -332,15 +332,12 @@ impl From<Borrower> for BorrowerInput {
     }
 }
 
-impl From<Repairer<'_>> for RepairerInput {
+impl From<Repairer> for RepairerInput {
     fn from(repairer: Repairer) -> Self {
         Self {
             input_code: repairer.input_code,
             fn_name: repairer.new_fn_name,
-            repair_systems: repairer.repair_systems
-                .iter()
-                .map(|system: &&dyn RepairSystem| Box::new(*system) as Box<dyn RepairSystem>)
-                .collect(),
+            repair_systems: repairer.repair_systems,
         }
     }
 }
@@ -354,33 +351,35 @@ impl From<Repairer<'_>> for RepairerInput {
 /// Throws an error if the output code is None
 /// Also throws and error if the caller_fn_name is None
 impl UpdateThroughput for Extract {
-    fn update_throughput(&self, throughput: &mut Throughput) {
+    fn update_throughput(&self, throughput: &mut Throughput) -> Result<(), UpdateError> {
         let output_code = self.output_code.as_ref();
         let caller_fn_name = self.caller_fn_name.as_ref();
         match (output_code, caller_fn_name) {
             (Some(output_code), Some(caller_fn_name)) => {
                 throughput.working_code = output_code.clone();
                 throughput.caller_fn_name = Some(caller_fn_name.clone());
+                Ok(())
             },
             (None, _) => {
-                Err::<T, UpdateError>(UpdateError::ExtractNoWorkingCode).unwrap();
+                Err(UpdateError::ExtractNoWorkingCode)
             },
             (_, None) => {
-                Err::<T, UpdateError>(UpdateError::ExtractNoCallerFnName).unwrap();
+                Err(UpdateError::ExtractNoCallerFnName)
             },
         }
     }
 }
 
 impl UpdateThroughput for Controller {
-    fn update_throughput(&self, throughput: &mut Throughput) {
+    fn update_throughput(&self, throughput: &mut Throughput) -> Result<(), UpdateError> {
         let output_code = self.output_code.as_ref();
         match output_code {
             Some(output_code) => {
                 throughput.working_code = output_code.clone();
+                Ok(())
             },
             None => {
-                Err::<T, UpdateError>(UpdateError::ControllerNoWorkingCode).unwrap();
+                Err(UpdateError::ControllerNoWorkingCode)
             },
         }
     }

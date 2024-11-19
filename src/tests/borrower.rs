@@ -7,19 +7,21 @@ use log::{
 
 use colored::Colorize;
 use std::{
-    time::SystemTime,
-    fs,
+    fs::{self, read_to_string},
+    io,
     path::{
         Path,
         PathBuf,
     },
-    io,
+    time::SystemTime
 };
 
 use crate::tests::utils::{
     cleanup_new_files,
     list_files_in_dir,
 };
+
+use crate::refactor::throughput::Borrower;
 
 pub fn test(path: PathBuf) -> Result<u8, io::Error> {
 
@@ -55,14 +57,25 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
         let callee_fn_name = "bar";
         let caller_fn_name = "new_foo";
         let now = SystemTime::now();
-        let success = borrow::make_borrows(
-            file_name.as_str(),
-            new_file_name.as_str(),
-            mut_method_call_expr_file.as_str(),
-            callee_fn_name,
-            caller_fn_name,
-            pre_extract_file_name.as_str(),
+        let input_borrower: Borrower = Borrower::new(
+            read_to_string(file_name.as_str()).unwrap(),
+            read_to_string(pre_extract_file_name.as_str()).unwrap(),
+            None,
+            caller_fn_name.to_string(),
+            callee_fn_name.to_string(),
+            read_to_string(mut_method_call_expr_file.as_str()).unwrap(),
         );
+        let result  = borrow::make_borrows(
+            input_borrower.into(),
+        );
+        let success: bool = match result {
+            Ok(_) => true,
+            Err(e) => {
+                error!("Borrower failed: {:?}", e);
+                false
+            }
+        };
+
         let time_elapsed = now.elapsed().unwrap();
         let args = vec![];
         let mut compile_cmd = compile_file(new_file_name.as_str(), &args);
