@@ -5,6 +5,8 @@ use log::{
     error,
 };
 
+use crate::error::RefactoringError;
+
 use super::throughput::Controller;
 
 pub fn non_local_controller(

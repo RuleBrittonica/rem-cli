@@ -6,6 +6,7 @@ use log::{
 };
 
 use super::throughput::Borrower;
+use crate::error::RefactoringError;
 
 /// Only takes a file path as the non_local_controller has already setup the
 /// final output filepath.

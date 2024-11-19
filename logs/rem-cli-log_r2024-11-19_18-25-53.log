@@ -1,0 +1,3 @@
+2024-11-19 18:25:23 [INFO] - Application Started
+2024-11-19 18:25:23 [INFO] - Running tests in verbose mode from GitHub repo: https://github.com/RuleBrittonica/rem-testfiles
+2024-11-19 18:25:23 [ERROR] - Failed to fetch from GitHub: 'tmp_test_src/' exists and is not an empty directory; class=Invalid (3); code=Exists (-4)

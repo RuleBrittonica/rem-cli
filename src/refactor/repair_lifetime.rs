@@ -7,6 +7,7 @@ use rem_repairer::common::{
     RepairSystem,
     RepairResult,
 };
+use crate::error::RefactoringError;
 
 use super::throughput::Repairer;
 

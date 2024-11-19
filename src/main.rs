@@ -1,6 +1,5 @@
 use std::{
-    process::exit,
-    path::PathBuf,
+    iter::Successors, path::PathBuf, process::exit
 };
 
 use clap::Parser;
@@ -43,6 +42,13 @@ mod rem_args;
 use rem_args::{
     REMArgs,
     REMCommands,
+};
+
+use crate::refactor::throughput::{
+    Extract,
+    Controller,
+    Borrower,
+    Repairer,
 };
 
 #[derive(Debug, PartialEq, Eq)]
@@ -89,15 +95,23 @@ fn main() {
             // Create our backup
             backup_path = backup_file(file_path.clone());
 
-            let file_path = file_path.to_str().expect("Path is not valid UTF-8");
-            let new_file_path = new_file_path.to_str().expect("Path is not valid UTF-8");
+            let file_path: &str = file_path.to_str().expect("Path is not valid UTF-8");
+            let new_file_path: &str = new_file_path.to_str().expect("Path is not valid UTF-8");
 
-            let success: bool = non_local_controller(
-                file_path,
-                new_file_path,
-                callee_fn_name,
-                caller_fn_name,
+            let controller: Controller = todo!();
+
+            let result: Result<String, error::RefactoringError>  = non_local_controller(
+                controller,
             );
+
+            // TODO Handle the result
+            let success: bool = match result {
+                Ok(_) => true,
+                Err(e) => {
+                    error!("Controller failed: {:?}", e);
+                    false
+                }
+            };
 
             handle_result(
                 success,
@@ -129,14 +143,23 @@ fn main() {
             let mut_method_file_path: &str = mut_method_file_path.to_str().expect("Path is not valid UTF-8");
             let pre_extract_file_path: &str = pre_extract_file_path.to_str().expect("Path is not valid UTF-8");
 
-            let success: bool = borrow(
-                file_path,
-                new_file_path,
-                callee_fn_name,
-                caller_fn_name,
-                mut_method_file_path,
-                pre_extract_file_path,
+            let input_borrower: Borrower = todo!();
+            let result  = borrow(
+                input_borrower,
+                // file_path,
+                // new_file_path,
+                // callee_fn_name,
+                // caller_fn_name,
+                // mut_method_file_path,
+                // pre_extract_file_path,
             );
+            let success: bool = match result {
+                Ok(_) => true,
+                Err(e) => {
+                    error!("Borrower failed: {:?}", e);
+                    false
+                }
+            };
 
             handle_result(success,
                 "Borrower",
