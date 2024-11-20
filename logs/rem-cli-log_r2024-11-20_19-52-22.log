@@ -1,0 +1,5 @@
+2024-11-20 19:51:40 [INFO] - Application Started
+2024-11-20 19:51:40 [INFO] - Running tests in verbose mode
+2024-11-20 19:51:40 [INFO] - Running tests from path: "src_tests"
+2024-11-20 19:51:40 [INFO] - Running tests from directory src_testscontroller
+2024-11-20 19:51:40 [INFO] - File Name: "src_testscontroller/input/break_controller.rs"

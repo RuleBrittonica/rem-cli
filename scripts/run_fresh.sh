@@ -13,4 +13,4 @@ cargo lcheck --release --bin rem-cli
 cargo build --release --bin rem-cli
 
 # Run the project
-cargo run --release --bin rem-cli test -v
+cargo run --release --bin rem-cli test src_tests -v
