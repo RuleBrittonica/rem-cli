@@ -129,6 +129,17 @@ pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
     // Initialize the total number of failed tests
     let mut total_failed_tests: u8 = 0;
 
+    // Run extract tests
+    let extract_failed: u8 = match extract::test(path.clone()) {
+        Ok(failed) => failed,
+        Err(e) => {
+            error!("Extract tests failed: {:?}", e);
+            return Err(TestFailed::ExtractFailed(e));
+        }
+    };
+    info!("Extract tests successful, {} tests failed", extract_failed);
+    total_failed_tests += extract_failed;
+
     // Run controller tests
     let controller_failed: u8 = match controller::test(path.clone()) {
         Ok(failed) => failed,

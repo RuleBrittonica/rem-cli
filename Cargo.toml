@@ -12,15 +12,17 @@ readme = "README.md"
 [dependencies]
 
 # Listed here in the order they are used in the program. Because why not?
-# rem-extract = { version = "0.1.2" }
+# rem-extract    = { version = "0.1.2" }
 # rem-controller = { version = "0.1.3" }
 # rem-borrower   = { version = "0.1.3" }
 # rem-repairer   = { version = "0.1.2" }
+# rem-utils      = { version = "0.1.3" }
 
-rem-extract = { path = "../rem-extract/rem-extract" }
+rem-extract    = { path = "../rem-extract/rem-extract" }
 rem-controller = { path = "../rem-controller" }
-rem-borrower = { path = "../rem-borrower" }
-rem-repairer = { path = "../rem-repairer" }
+rem-borrower   = { path = "../rem-borrower" }
+rem-repairer   = { path = "../rem-repairer" }
+rem-utils      = { path = "../rem-utils" }
 
 clap = { version = "4.5.16", features = ["derive"] }
 log = "0.4.22"
@@ -29,6 +31,7 @@ colored = "2.1.0"
 git2 = "0.19.0"
 ra_ap_vfs = "0.0.238"
 camino = "1.1.9"
+lazy_static = "1.5.0"
 
 [build-dependencies]
 

@@ -26,7 +26,6 @@ use crate::tests::utils::{
 use crate::refactor::throughput::Controller;
 
 pub fn test(path: PathBuf) -> Result<u8, io::Error> {
-
     let folder_path: String = match path.to_str() {
         Some(path_str) => path_str.to_string(),
         None => {
@@ -51,7 +50,7 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
     for file in fs::read_dir(format!("{}/controller/input", folder_path))? {
         let file = file?;
         let test_name = file.file_name().to_owned();
-        let file_name = format!("{}controller/input/{}", folder_path, test_name.to_str().unwrap());
+        let file_name = format!("{}/controller/input/{}", folder_path, test_name.to_str().unwrap());
         let new_file_name = format!("{}/controller/output/{}", folder_path, test_name.to_str().unwrap());
         let callee_fn_name = "bar";
         let caller_fn_name = "new_foo";
