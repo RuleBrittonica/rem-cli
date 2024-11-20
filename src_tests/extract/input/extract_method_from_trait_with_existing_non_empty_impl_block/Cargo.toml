@@ -1,0 +1,18 @@
+[package]
+name = "extract_method_from_trait_with_existing_non_empty_impl_block"
+version = "0.1.0"
+edition = "2021"
+
+rust-version = "1.80"
+
+authors = ["N/A"]
+
+license = "MIT"
+
+repository = "https://github.com/RuleBrittonica/rem-testfiles"
+
+description = "Test Data"
+
+
+[dependencies]
+

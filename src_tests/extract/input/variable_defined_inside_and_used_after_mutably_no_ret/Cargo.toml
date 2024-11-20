@@ -1,0 +1,18 @@
+[package]
+name = "variable_defined_inside_and_used_after_mutably_no_ret"
+version = "0.1.0"
+edition = "2021"
+
+rust-version = "1.80"
+
+authors = ["N/A"]
+
+license = "MIT"
+
+repository = "https://github.com/RuleBrittonica/rem-testfiles"
+
+description = "Test Data"
+
+
+[dependencies]
+

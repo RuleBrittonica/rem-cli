@@ -1,0 +1,239 @@
+2024-11-20 19:45:25 [INFO] - Application Started
+2024-11-20 19:45:25 [INFO] - Running tests in verbose mode
+2024-11-20 19:45:25 [INFO] - Running tests from path: "src_tests"
+2024-11-20 19:45:25 [INFO] - Removing all files in directory: "src_tests\\extract/output"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\argument_and_locals.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\argument_form_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\argument_used_twice_form_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_from_nested_and_outer_loops.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_from_nested_loop.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_loop.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_loop_nested.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_loop_nested_labeled.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_loop_with_if.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_stmt.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_with_value.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_with_value_and_label.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\break_with_value_and_return.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\closure_arguments.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\comments_in_block_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\continue_loop_nested_labeled.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\copy_custom_used_after.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\copy_used_after.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\does_not_add_extra_whitespace.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\does_not_import_control_flow.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\dont_emit_type_with_hidden_lifetime_parameter.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\empty_generic_param_list.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_cast.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_does_not_tear_body_apart.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_does_not_tear_comments_apart.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_does_not_wrap_res_in_res.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_from_nested.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_function_copies_comment_at_end.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_function_copies_comment_at_start.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_function_copies_comment_indented.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_function_copies_comment_in_between.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_function_does_preserve_whitespace.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_function_from_trait_with_existing_non_empty_impl_block.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_function_long_form_comment.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_method_from_trait_impl.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_method_from_trait_with_existing_non_empty_impl_block.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_method_from_trait_with_multiple_existing_impl_blocks.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_method_from_trait_with_multiple_existing_trait_impl_blocks.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_mut_ref_param_has_no_mut_binding_in_loop.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_partial_block.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_partial_block_single_line.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_return_stmt.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_with_await.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_with_await_and_result_producing_match_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\extract_with_await_in_args.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\filters_unused_nested_generics.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\filters_unused_nested_where_clauses.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\filter_unused_generics.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\filter_unused_where_clause.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\function_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\indented_stmts.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\indented_stmts_inside_mod.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\it_should_not_generate_duplicate_function_names.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\method_to_freestanding.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\method_with_mut.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\method_with_reference.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\multi_variables_defined_inside_and_used_after_mutably_no_ret.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\mut_field_from_outer_scope.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\mut_method_call.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\mut_nested_field_from_outer_scope.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\mut_param_because_of_mut_ref.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\mut_param_many_usages_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\mut_param_many_usages_stmt.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\mut_var_from_outer_scope.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\nested_generics.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\nested_where_clauses.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\nontrivial_patterns_define_variables.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\non_tail_expr_of_tail_expr_loop.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\non_tail_expr_of_tail_if_block.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\non_tail_expr_with_comment_of_tail_expr_loop.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_for.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_binary_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_binary_expr_indented.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_binary_expr_in_module.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_loop_unit.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_loop_with_return.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_match.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_stmt_unit.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_from_stmt_with_last_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_if.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_if_else.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_if_let_else.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_match.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\no_args_while.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\param_from_closure.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\part_of_expr_stmt.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\preserve_generics.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\preserve_generics_from_body.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\preserve_where_clause.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\reference_mutable_param_without_further_usages.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\reference_mutable_param_with_further_usages.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\return_from_nested_fn.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\return_from_nested_loop.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\return_to_parent.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\should_increment_suffix_until_it_finds_space.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\struct_with_two_fields_pattern_define_variables.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\tail_expr_no_extra_control_flow.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\tail_expr_of_tail_block_nested.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\try_and_return_ok.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\try_option.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\try_option_unit.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\try_option_with_return.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\try_result.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\try_result_with_return.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\two_arguments_form_expr.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\two_variables_defined_inside_and_used_after_no_ret.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\unresolveable_types_default_to_placeholder.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\variable_defined_inside_and_used_after_mutably_no_ret.rs"
+2024-11-20 19:45:25 [INFO] - Removing file: "src_tests\\extract/output\\variable_defined_inside_and_used_after_no_ret.rs"
+2024-11-20 19:45:25 [INFO] - Running method extraction tests from directory src_tests
+2024-11-20 19:45:26 [INFO] - Test 1 | PASSED | PASSED: argument_and_locals in 878.27ms
+2024-11-20 19:45:43 [INFO] - Test 2 | PASSED | PASSED: argument_form_expr in 17.17s
+2024-11-20 19:45:50 [INFO] - Test 3 | PASSED | PASSED: argument_used_twice_form_expr in 6.61s
+2024-11-20 19:45:56 [INFO] - Test 4 | PASSED | PASSED: break_from_nested_and_outer_loops in 6.13s
+2024-11-20 19:45:59 [INFO] - Test 5 | PASSED | PASSED: break_from_nested_loop in 3.13s
+2024-11-20 19:46:05 [INFO] - Test 6 | PASSED | PASSED: break_loop in 6.49s
+2024-11-20 19:46:07 [INFO] - Test 7 | PASSED | PASSED: break_loop_nested in 1.18s
+2024-11-20 19:46:08 [INFO] - Test 8 | PASSED | PASSED: break_loop_nested_labeled in 1.13s
+2024-11-20 19:46:09 [INFO] - Test 9 | PASSED | PASSED: break_loop_with_if in 1.07s
+2024-11-20 19:46:10 [INFO] - Test 10 | PASSED | PASSED: break_stmt in 1.28s
+2024-11-20 19:46:12 [INFO] - Test 11 | PASSED | PASSED: break_with_value in 1.39s
+2024-11-20 19:46:13 [INFO] - Test 12 | PASSED | PASSED: break_with_value_and_label in 1.61s
+2024-11-20 19:46:14 [INFO] - Test 13 | PASSED | PASSED: break_with_value_and_return in 969.08ms
+2024-11-20 19:46:15 [INFO] - Test 14 | PASSED | PASSED: closure_arguments in 921.76ms
+2024-11-20 19:46:16 [INFO] - Test 15 | PASSED | PASSED: comments_in_block_expr in 980.44ms
+2024-11-20 19:46:17 [INFO] - Test 16 | PASSED | PASSED: continue_loop_nested_labeled in 960.50ms
+2024-11-20 19:46:18 [INFO] - Test 17 | PASSED | FAILED: copy_custom_used_after in 990.56ms
+2024-11-20 19:46:19 [INFO] - Test 18 | PASSED | FAILED: copy_used_after in 1.31s
+2024-11-20 19:46:21 [INFO] - Test 19 | PASSED | PASSED: does_not_add_extra_whitespace in 1.21s
+2024-11-20 19:46:22 [INFO] - Test 20 | PASSED | PASSED: does_not_import_control_flow in 1.25s
+2024-11-20 19:46:23 [INFO] - Test 21 | PASSED | PASSED: dont_emit_type_with_hidden_lifetime_parameter in 1.42s
+2024-11-20 19:46:24 [INFO] - Test 22 | PASSED | PASSED: empty_generic_param_list in 1.00s
+2024-11-20 19:46:30 [INFO] - Test 23 | PASSED | PASSED: extract_cast in 5.37s
+2024-11-20 19:46:31 [INFO] - Test 24 | PASSED | PASSED: extract_does_not_tear_body_apart in 1.09s
+2024-11-20 19:46:32 [INFO] - Test 25 | PASSED | PASSED: extract_does_not_tear_comments_apart in 957.77ms
+2024-11-20 19:46:33 [INFO] - Test 26 | PASSED | FAILED: extract_does_not_wrap_res_in_res in 882.14ms
+2024-11-20 19:46:33 [INFO] - Test 27 | PASSED | Error: expected `,`: extract_from_nested in 898.03ms
+2024-11-20 19:46:34 [INFO] - Test 28 | PASSED | PASSED: extract_function_copies_comment_at_end in 952.32ms
+2024-11-20 19:46:36 [INFO] - Test 29 | PASSED | PASSED: extract_function_copies_comment_at_start in 1.59s
+2024-11-20 19:46:37 [INFO] - Test 30 | PASSED | PASSED: extract_function_copies_comment_in_between in 1.17s
+2024-11-20 19:46:38 [INFO] - Test 31 | PASSED | PASSED: extract_function_copies_comment_indented in 994.19ms
+2024-11-20 19:46:39 [INFO] - Test 32 | PASSED | PASSED: extract_function_does_preserve_whitespace in 1.10s
+2024-11-20 19:46:40 [INFO] - Test 33 | PASSED | PASSED: extract_function_from_trait_with_existing_non_empty_impl_block in 978.43ms
+2024-11-20 19:46:42 [INFO] - Test 34 | PASSED | PASSED: extract_function_long_form_comment in 1.83s
+2024-11-20 19:46:43 [INFO] - Test 35 | PASSED | PASSED: extract_method_from_trait_impl in 959.29ms
+2024-11-20 19:46:44 [INFO] - Test 36 | PASSED | PASSED: extract_method_from_trait_with_existing_non_empty_impl_block in 954.12ms
+2024-11-20 19:46:45 [INFO] - Test 37 | PASSED | PASSED: extract_method_from_trait_with_multiple_existing_impl_blocks in 1.34s
+2024-11-20 19:46:46 [INFO] - Test 38 | PASSED | PASSED: extract_method_from_trait_with_multiple_existing_trait_impl_blocks in 1.12s
+2024-11-20 19:46:48 [INFO] - Test 39 | PASSED | PASSED: extract_mut_ref_param_has_no_mut_binding_in_loop in 1.92s
+2024-11-20 19:46:49 [INFO] - Test 40 | PASSED | PASSED: extract_partial_block in 1.09s
+2024-11-20 19:46:51 [INFO] - Test 41 | PASSED | PASSED: extract_partial_block_single_line in 1.40s
+2024-11-20 19:46:52 [INFO] - Test 42 | PASSED | PASSED: extract_return_stmt in 1.10s
+2024-11-20 19:46:58 [INFO] - Test 43 | PASSED | PASSED: extract_with_await in 6.37s
+2024-11-20 19:47:00 [INFO] - Test 44 | FAILED: No Extract Function Assist found for the given selection of assists [Assist { id: AssistId("extract_variable", RefactorExtract), label: "Extract into variable", group: None, target: 40..54, source_change: None, command: None }] | N/A: extract_with_await_and_result_not_producing_match_expr in 1.82s
+2024-11-20 19:47:01 [INFO] - Test 45 | PASSED | PASSED: extract_with_await_and_result_producing_match_expr in 1.04s
+2024-11-20 19:47:03 [INFO] - Test 46 | PASSED | PASSED: extract_with_await_in_args in 1.39s
+2024-11-20 19:47:04 [INFO] - Test 47 | FAILED: No Extract Function Assist found for the given selection of assists [] | N/A: extract_with_macro_arg in 1.14s
+2024-11-20 19:47:05 [INFO] - Test 48 | PASSED | PASSED: filter_unused_generics in 1.25s
+2024-11-20 19:47:06 [INFO] - Test 49 | PASSED | PASSED: filter_unused_where_clause in 1.02s
+2024-11-20 19:47:13 [INFO] - Test 50 | PASSED | PASSED: filters_unused_nested_generics in 7.16s
+2024-11-20 19:47:14 [INFO] - Test 51 | PASSED | PASSED: filters_unused_nested_where_clauses in 1.21s
+2024-11-20 19:47:16 [INFO] - Test 52 | PASSED | PASSED: function_expr in 1.51s
+2024-11-20 19:47:22 [INFO] - Test 53 | PASSED | PASSED: indented_stmts in 6.17s
+2024-11-20 19:47:23 [INFO] - Test 54 | PASSED | PASSED: indented_stmts_inside_mod in 1.19s
+2024-11-20 19:47:24 [INFO] - Test 55 | PASSED | PASSED: it_should_not_generate_duplicate_function_names in 1.07s
+2024-11-20 19:47:25 [INFO] - Test 56 | PASSED | PASSED: method_to_freestanding in 1.15s
+2024-11-20 19:47:27 [INFO] - Test 57 | PASSED | PASSED: method_with_mut in 1.74s
+2024-11-20 19:47:34 [INFO] - Test 58 | PASSED | PASSED: method_with_reference in 6.65s
+2024-11-20 19:47:35 [INFO] - Test 59 | PASSED | PASSED: multi_variables_defined_inside_and_used_after_mutably_no_ret in 1.14s
+2024-11-20 19:47:36 [INFO] - Test 60 | PASSED | PASSED: mut_field_from_outer_scope in 983.31ms
+2024-11-20 19:47:37 [INFO] - Test 61 | PASSED | PASSED: mut_method_call in 1.07s
+2024-11-20 19:47:38 [INFO] - Test 62 | PASSED | PASSED: mut_nested_field_from_outer_scope in 1.02s
+2024-11-20 19:47:40 [INFO] - Test 63 | PASSED | PASSED: mut_param_because_of_mut_ref in 1.68s
+2024-11-20 19:47:41 [INFO] - Test 64 | PASSED | PASSED: mut_param_many_usages_expr in 992.70ms
+2024-11-20 19:47:42 [INFO] - Test 65 | PASSED | PASSED: mut_param_many_usages_stmt in 1.21s
+2024-11-20 19:47:43 [INFO] - Test 66 | PASSED | PASSED: mut_var_from_outer_scope in 1.03s
+2024-11-20 19:47:44 [INFO] - Test 67 | PASSED | PASSED: nested_generics in 1.21s
+2024-11-20 19:47:46 [INFO] - Test 68 | PASSED | PASSED: nested_where_clauses in 1.54s
+2024-11-20 19:47:47 [INFO] - Test 69 | PASSED | PASSED: no_args_for in 936.85ms
+2024-11-20 19:47:48 [INFO] - Test 70 | PASSED | PASSED: no_args_from_binary_expr in 950.66ms
+2024-11-20 19:47:49 [INFO] - Test 71 | PASSED | PASSED: no_args_from_binary_expr_in_module in 1.05s
+2024-11-20 19:47:50 [INFO] - Test 72 | PASSED | PASSED: no_args_from_binary_expr_indented in 1.15s
+2024-11-20 19:47:51 [INFO] - Test 73 | PASSED | PASSED: no_args_from_loop_unit in 1.16s
+2024-11-20 19:48:07 [INFO] - Test 74 | PASSED | PASSED: no_args_from_loop_with_return in 16.24s
+2024-11-20 19:48:09 [INFO] - Test 75 | PASSED | PASSED: no_args_from_match in 1.76s
+2024-11-20 19:48:10 [INFO] - Test 76 | PASSED | PASSED: no_args_from_stmt_unit in 1.08s
+2024-11-20 19:48:11 [INFO] - Test 77 | PASSED | PASSED: no_args_from_stmt_with_last_expr in 1.36s
+2024-11-20 19:48:13 [INFO] - Test 78 | PASSED | PASSED: no_args_if in 1.28s
+2024-11-20 19:48:14 [INFO] - Test 79 | PASSED | PASSED: no_args_if_else in 1.70s
+2024-11-20 19:48:15 [INFO] - Test 80 | PASSED | PASSED: no_args_if_let_else in 995.44ms
+2024-11-20 19:48:16 [INFO] - Test 81 | PASSED | PASSED: no_args_match in 930.23ms
+2024-11-20 19:48:17 [INFO] - Test 82 | PASSED | PASSED: no_args_while in 1.06s
+2024-11-20 19:48:19 [INFO] - Test 83 | PASSED | FAILED: non_tail_expr_of_tail_expr_loop in 1.60s
+2024-11-20 19:48:20 [INFO] - Test 84 | PASSED | FAILED: non_tail_expr_of_tail_if_block in 1.15s
+2024-11-20 19:48:21 [INFO] - Test 85 | PASSED | FAILED: non_tail_expr_with_comment_of_tail_expr_loop in 1.02s
+2024-11-20 19:48:23 [INFO] - Test 86 | PASSED | PASSED: nontrivial_patterns_define_variables in 1.28s
+2024-11-20 19:48:24 [INFO] - Test 87 | PASSED | PASSED: param_from_closure in 997.73ms
+2024-11-20 19:48:25 [INFO] - Test 88 | FAILED: No Extract Function Assist found for the given selection of assists [] | N/A: param_usage_in_macro in 1.35s
+2024-11-20 19:48:26 [INFO] - Test 89 | FAILED: No Extract Function Assist found for the given selection of assists [] | N/A: param_usage_in_macro_with_nested_tt in 1.07s
+2024-11-20 19:48:27 [INFO] - Test 90 | FAILED: No Extract Function Assist found for the given selection of assists [Assist { id: AssistId("extract_variable", RefactorExtract), label: "Extract into variable", group: None, target: 116..117, source_change: None, command: None }] | N/A: param_usage_in_macro_with_nested_tt_2 in 905.42ms
+2024-11-20 19:48:28 [INFO] - Test 91 | PASSED | PASSED: part_of_expr_stmt in 952.98ms
+2024-11-20 19:48:30 [INFO] - Test 92 | PASSED | PASSED: preserve_generics in 1.73s
+2024-11-20 19:48:32 [INFO] - Test 93 | PASSED | PASSED: preserve_generics_from_body in 2.11s
+2024-11-20 19:48:33 [INFO] - Test 94 | PASSED | PASSED: preserve_where_clause in 1.20s
+2024-11-20 19:48:34 [INFO] - Test 95 | PASSED | PASSED: reference_mutable_param_with_further_usages in 1.00s
+2024-11-20 19:48:35 [INFO] - Test 96 | PASSED | PASSED: reference_mutable_param_without_further_usages in 986.17ms
+2024-11-20 19:48:36 [INFO] - Test 97 | PASSED | PASSED: return_from_nested_fn in 1.03s
+2024-11-20 19:48:37 [INFO] - Test 98 | PASSED | PASSED: return_from_nested_loop in 1.07s
+2024-11-20 19:48:38 [INFO] - Test 99 | PASSED | FAILED: return_to_parent in 1.02s
+2024-11-20 19:48:39 [INFO] - Test 100 | PASSED | PASSED: should_increment_suffix_until_it_finds_space in 1.00s
+2024-11-20 19:48:40 [INFO] - Test 101 | PASSED | Error: expected `;`: struct_with_two_fields_pattern_define_variables in 955.26ms
+2024-11-20 19:48:42 [INFO] - Test 102 | PASSED | FAILED: tail_expr_no_extra_control_flow in 1.68s
+2024-11-20 19:48:43 [INFO] - Test 103 | PASSED | FAILED: tail_expr_of_tail_block_nested in 987.68ms
+2024-11-20 19:48:44 [INFO] - Test 104 | PASSED | FAILED: try_and_return_ok in 1.03s
+2024-11-20 19:48:45 [INFO] - Test 105 | PASSED | FAILED: try_option in 987.20ms
+2024-11-20 19:48:46 [INFO] - Test 106 | PASSED | FAILED: try_option_unit in 950.83ms
+2024-11-20 19:48:47 [INFO] - Test 107 | PASSED | FAILED: try_option_with_return in 1.33s
+2024-11-20 19:48:48 [INFO] - Test 108 | PASSED | FAILED: try_result in 1.05s
+2024-11-20 19:48:54 [INFO] - Test 109 | PASSED | FAILED: try_result_with_return in 6.18s
+2024-11-20 19:48:55 [INFO] - Test 110 | PASSED | PASSED: two_arguments_form_expr in 1.14s
+2024-11-20 19:48:56 [INFO] - Test 111 | PASSED | PASSED: two_variables_defined_inside_and_used_after_no_ret in 967.59ms
+2024-11-20 19:48:57 [INFO] - Test 112 | PASSED | PASSED: unresolveable_types_default_to_placeholder in 1.00s
+2024-11-20 19:49:04 [INFO] - Test 113 | PASSED | PASSED: variable_defined_inside_and_used_after_mutably_no_ret in 6.32s
+2024-11-20 19:49:05 [INFO] - Test 114 | PASSED | PASSED: variable_defined_inside_and_used_after_no_ret in 1.13s
+2024-11-20 19:49:05 [INFO] - ------------------------------------------------------------------
+2024-11-20 19:49:05 [INFO] - Total tests run: 114
+2024-11-20 19:49:05 [INFO] - Tests passed stage 1: 109
+2024-11-20 19:49:05 [INFO] - Tests passed: 92
+2024-11-20 19:49:05 [INFO] - Tests failed: 22
+2024-11-20 19:49:05 [INFO] - Total time: 219.72s
+2024-11-20 19:49:05 [INFO] - Average time per test: 1.92s
+2024-11-20 19:49:05 [INFO] - Shortest test time: 878.27ms
+2024-11-20 19:49:05 [INFO] - Longest test time: 17.17s
+2024-11-20 19:49:05 [INFO] - Extract tests successful, 22 tests failed
+2024-11-20 19:49:05 [INFO] - Running tests from directory src_testscontroller

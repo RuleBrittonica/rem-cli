@@ -1,0 +1,6 @@
+2024-11-19 18:16:02 [INFO] - Application Started
+2024-11-19 18:16:02 [INFO] - Running tests in verbose mode from GitHub repo: https://github.com/RuleBrittonica/rem-testfiles
+2024-11-19 18:16:03 [INFO] - Running tests from path: "tmp_test_src/"
+2024-11-19 18:16:03 [INFO] - Running tests from directory tmp_test_src/controller
+2024-11-19 18:16:13 [INFO] - Controller tests successful, 2 tests failed
+2024-11-19 18:16:13 [INFO] - Running tests from directory tmp_test_src/borrower

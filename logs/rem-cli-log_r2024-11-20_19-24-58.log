@@ -1,0 +1,4 @@
+2024-11-20 19:24:01 [INFO] - Application Started
+2024-11-20 19:24:01 [INFO] - Running tests in verbose mode
+2024-11-20 19:24:01 [INFO] - Running tests from path: "src_tests"
+2024-11-20 19:24:01 [INFO] - Removing all files in directory: "src_tests\\output"
