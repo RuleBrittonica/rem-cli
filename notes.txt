@@ -1,0 +1,4 @@
+There are a few things that we need to do to get the llbc conversion up and
+running.
+
+The first step is to build out the CHARON interface

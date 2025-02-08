@@ -24,3 +24,6 @@ examples/output/*
 src_tests/controller/output/
 src_tests/borrower/output/
 src_tests/repairer/output/
+
+tools/charon
+tools/charon-driver
