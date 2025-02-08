@@ -1,0 +1,130 @@
+2024-11-20 19:35:32 [INFO] - Application Started
+2024-11-20 19:35:32 [INFO] - Running tests in verbose mode
+2024-11-20 19:35:32 [INFO] - Running tests from path: "src_tests"
+2024-11-20 19:35:32 [INFO] - Removing all files in directory: "src_tests\\extract/output"
+2024-11-20 19:35:32 [INFO] - Running method extraction tests from directory src_tests
+2024-11-20 19:35:38 [INFO] - Test 1 | PASSED | Error: lex error: argument_and_locals in 5.78s
+2024-11-20 19:35:39 [INFO] - Test 2 | PASSED | Error: lex error: argument_form_expr in 826.90ms
+2024-11-20 19:35:40 [INFO] - Test 3 | PASSED | Error: lex error: argument_used_twice_form_expr in 1.02s
+2024-11-20 19:35:41 [INFO] - Test 4 | PASSED | Error: lex error: break_from_nested_and_outer_loops in 1.01s
+2024-11-20 19:35:42 [INFO] - Test 5 | PASSED | Error: lex error: break_from_nested_loop in 1.04s
+2024-11-20 19:35:43 [INFO] - Test 6 | PASSED | Error: lex error: break_loop in 1.15s
+2024-11-20 19:35:44 [INFO] - Test 7 | PASSED | Error: lex error: break_loop_nested in 786.51ms
+2024-11-20 19:35:45 [INFO] - Test 8 | PASSED | Error: lex error: break_loop_nested_labeled in 932.40ms
+2024-11-20 19:35:46 [INFO] - Test 9 | PASSED | Error: lex error: break_loop_with_if in 826.17ms
+2024-11-20 19:35:46 [INFO] - Test 10 | PASSED | Error: lex error: break_stmt in 775.28ms
+2024-11-20 19:35:53 [INFO] - Test 11 | PASSED | Error: lex error: break_with_value in 6.15s
+2024-11-20 19:35:54 [INFO] - Test 12 | PASSED | Error: lex error: break_with_value_and_label in 1.12s
+2024-11-20 19:35:55 [INFO] - Test 13 | PASSED | Error: lex error: break_with_value_and_return in 965.77ms
+2024-11-20 19:35:56 [INFO] - Test 14 | PASSED | Error: lex error: closure_arguments in 964.69ms
+2024-11-20 19:35:57 [INFO] - Test 15 | PASSED | Error: lex error: comments_in_block_expr in 1.07s
+2024-11-20 19:35:58 [INFO] - Test 16 | PASSED | Error: lex error: continue_loop_nested_labeled in 1.35s
+2024-11-20 19:36:00 [INFO] - Test 17 | PASSED | Error: lex error: copy_custom_used_after in 1.53s
+2024-11-20 19:36:01 [INFO] - Test 18 | PASSED | Error: lex error: copy_used_after in 1.09s
+2024-11-20 19:36:02 [INFO] - Test 19 | PASSED | Error: lex error: does_not_add_extra_whitespace in 1.19s
+2024-11-20 19:36:03 [INFO] - Test 20 | PASSED | Error: lex error: does_not_import_control_flow in 1.16s
+2024-11-20 19:36:04 [INFO] - Test 21 | PASSED | Error: lex error: dont_emit_type_with_hidden_lifetime_parameter in 1.16s
+2024-11-20 19:36:05 [INFO] - Test 22 | PASSED | Error: lex error: empty_generic_param_list in 1.32s
+2024-11-20 19:36:06 [INFO] - Test 23 | PASSED | Error: lex error: extract_cast in 1.01s
+2024-11-20 19:36:08 [INFO] - Test 24 | PASSED | Error: lex error: extract_does_not_tear_body_apart in 1.10s
+2024-11-20 19:36:09 [INFO] - Test 25 | PASSED | Error: lex error: extract_does_not_tear_comments_apart in 1.07s
+2024-11-20 19:36:15 [INFO] - Test 26 | PASSED | Error: lex error: extract_does_not_wrap_res_in_res in 6.18s
+2024-11-20 19:36:16 [INFO] - Test 27 | PASSED | Error: expected `,`: extract_from_nested in 1.45s
+2024-11-20 19:36:17 [INFO] - Test 28 | PASSED | Error: lex error: extract_function_copies_comment_at_end in 1.06s
+2024-11-20 19:36:18 [INFO] - Test 29 | PASSED | Error: lex error: extract_function_copies_comment_at_start in 946.76ms
+2024-11-20 19:36:19 [INFO] - Test 30 | PASSED | Error: lex error: extract_function_copies_comment_in_between in 1.04s
+2024-11-20 19:36:20 [INFO] - Test 31 | PASSED | Error: lex error: extract_function_copies_comment_indented in 957.04ms
+2024-11-20 19:36:21 [INFO] - Test 32 | PASSED | Error: lex error: extract_function_does_preserve_whitespace in 879.53ms
+2024-11-20 19:36:27 [INFO] - Test 33 | PASSED | Error: lex error: extract_function_from_trait_with_existing_non_empty_impl_block in 5.98s
+2024-11-20 19:36:28 [INFO] - Test 34 | PASSED | Error: lex error: extract_function_long_form_comment in 1.02s
+2024-11-20 19:36:29 [INFO] - Test 35 | PASSED | Error: lex error: extract_method_from_trait_impl in 934.76ms
+2024-11-20 19:36:30 [INFO] - Test 36 | PASSED | Error: lex error: extract_method_from_trait_with_existing_non_empty_impl_block in 877.18ms
+2024-11-20 19:36:31 [INFO] - Test 37 | PASSED | Error: lex error: extract_method_from_trait_with_multiple_existing_impl_blocks in 939.30ms
+2024-11-20 19:36:32 [INFO] - Test 38 | PASSED | Error: lex error: extract_method_from_trait_with_multiple_existing_trait_impl_blocks in 853.10ms
+2024-11-20 19:36:34 [INFO] - Test 39 | PASSED | Error: lex error: extract_mut_ref_param_has_no_mut_binding_in_loop in 1.72s
+2024-11-20 19:36:35 [INFO] - Test 40 | PASSED | Error: lex error: extract_partial_block in 1.83s
+2024-11-20 19:36:37 [INFO] - Test 41 | PASSED | Error: lex error: extract_partial_block_single_line in 1.14s
+2024-11-20 19:36:38 [INFO] - Test 42 | PASSED | Error: lex error: extract_return_stmt in 1.16s
+2024-11-20 19:36:39 [INFO] - Test 43 | PASSED | Error: lex error: extract_with_await in 1.02s
+2024-11-20 19:36:40 [INFO] - Test 44 | FAILED: No Extract Function Assist found for the given selection of assists [Assist { id: AssistId("extract_variable", RefactorExtract), label: "Extract into variable", group: None, target: 40..54, source_change: None, command: None }] | N/A: extract_with_await_and_result_not_producing_match_expr in 1.03s
+2024-11-20 19:36:46 [INFO] - Test 45 | PASSED | Error: lex error: extract_with_await_and_result_producing_match_expr in 6.27s
+2024-11-20 19:36:47 [INFO] - Test 46 | PASSED | Error: lex error: extract_with_await_in_args in 1.02s
+2024-11-20 19:36:58 [INFO] - Test 47 | FAILED: No Extract Function Assist found for the given selection of assists [] | N/A: extract_with_macro_arg in 11.05s
+2024-11-20 19:36:59 [INFO] - Test 48 | PASSED | Error: lex error: filter_unused_generics in 1.35s
+2024-11-20 19:37:01 [INFO] - Test 49 | PASSED | Error: lex error: filter_unused_where_clause in 1.11s
+2024-11-20 19:37:02 [INFO] - Test 50 | PASSED | Error: lex error: filters_unused_nested_generics in 990.81ms
+2024-11-20 19:37:03 [INFO] - Test 51 | PASSED | Error: lex error: filters_unused_nested_where_clauses in 1.06s
+2024-11-20 19:37:04 [INFO] - Test 52 | PASSED | Error: lex error: function_expr in 961.11ms
+2024-11-20 19:37:05 [INFO] - Test 53 | PASSED | Error: lex error: indented_stmts in 1.19s
+2024-11-20 19:37:06 [INFO] - Test 54 | PASSED | Error: lex error: indented_stmts_inside_mod in 908.29ms
+2024-11-20 19:37:07 [INFO] - Test 55 | PASSED | Error: lex error: it_should_not_generate_duplicate_function_names in 981.60ms
+2024-11-20 19:37:08 [INFO] - Test 56 | PASSED | Error: lex error: method_to_freestanding in 1.33s
+2024-11-20 19:37:09 [INFO] - Test 57 | PASSED | Error: lex error: method_with_mut in 991.49ms
+2024-11-20 19:37:15 [INFO] - Test 58 | PASSED | Error: lex error: method_with_reference in 5.90s
+2024-11-20 19:37:16 [INFO] - Test 59 | PASSED | Error: lex error: multi_variables_defined_inside_and_used_after_mutably_no_ret in 887.71ms
+2024-11-20 19:37:17 [INFO] - Test 60 | PASSED | Error: lex error: mut_field_from_outer_scope in 946.06ms
+2024-11-20 19:37:18 [INFO] - Test 61 | PASSED | Error: lex error: mut_method_call in 1.11s
+2024-11-20 19:37:19 [INFO] - Test 62 | PASSED | Error: lex error: mut_nested_field_from_outer_scope in 1.30s
+2024-11-20 19:37:20 [INFO] - Test 63 | PASSED | Error: lex error: mut_param_because_of_mut_ref in 981.96ms
+2024-11-20 19:37:21 [INFO] - Test 64 | PASSED | Error: lex error: mut_param_many_usages_expr in 1.01s
+2024-11-20 19:37:22 [INFO] - Test 65 | PASSED | Error: lex error: mut_param_many_usages_stmt in 958.82ms
+2024-11-20 19:37:23 [INFO] - Test 66 | PASSED | Error: lex error: mut_var_from_outer_scope in 1.11s
+2024-11-20 19:37:24 [INFO] - Test 67 | PASSED | Error: lex error: nested_generics in 880.92ms
+2024-11-20 19:37:25 [INFO] - Test 68 | PASSED | Error: lex error: nested_where_clauses in 1.11s
+2024-11-20 19:37:26 [INFO] - Test 69 | PASSED | Error: lex error: no_args_for in 940.40ms
+2024-11-20 19:37:27 [INFO] - Test 70 | PASSED | Error: lex error: no_args_from_binary_expr in 859.27ms
+2024-11-20 19:37:28 [INFO] - Test 71 | PASSED | Error: lex error: no_args_from_binary_expr_in_module in 937.68ms
+2024-11-20 19:37:29 [INFO] - Test 72 | PASSED | Error: lex error: no_args_from_binary_expr_indented in 1.13s
+2024-11-20 19:37:30 [INFO] - Test 73 | PASSED | Error: lex error: no_args_from_loop_unit in 1.09s
+2024-11-20 19:37:31 [INFO] - Test 74 | PASSED | Error: lex error: no_args_from_loop_with_return in 904.45ms
+2024-11-20 19:37:32 [INFO] - Test 75 | PASSED | Error: lex error: no_args_from_match in 1.03s
+2024-11-20 19:37:33 [INFO] - Test 76 | PASSED | Error: lex error: no_args_from_stmt_unit in 1.06s
+2024-11-20 19:37:34 [INFO] - Test 77 | PASSED | Error: lex error: no_args_from_stmt_with_last_expr in 1.07s
+2024-11-20 19:37:35 [INFO] - Test 78 | PASSED | Error: lex error: no_args_if in 1.02s
+2024-11-20 19:37:37 [INFO] - Test 79 | PASSED | Error: lex error: no_args_if_else in 1.42s
+2024-11-20 19:37:38 [INFO] - Test 80 | PASSED | Error: lex error: no_args_if_let_else in 1.07s
+2024-11-20 19:37:39 [INFO] - Test 81 | PASSED | Error: lex error: no_args_match in 924.92ms
+2024-11-20 19:37:40 [INFO] - Test 82 | PASSED | Error: lex error: no_args_while in 1.01s
+2024-11-20 19:37:41 [INFO] - Test 83 | PASSED | Error: lex error: non_tail_expr_of_tail_expr_loop in 1.34s
+2024-11-20 19:37:42 [INFO] - Test 84 | PASSED | Error: lex error: non_tail_expr_of_tail_if_block in 1.27s
+2024-11-20 19:37:43 [INFO] - Test 85 | PASSED | Error: lex error: non_tail_expr_with_comment_of_tail_expr_loop in 1.13s
+2024-11-20 19:37:44 [INFO] - Test 86 | PASSED | Error: lex error: nontrivial_patterns_define_variables in 1.02s
+2024-11-20 19:37:46 [INFO] - Test 87 | PASSED | Error: lex error: param_from_closure in 1.19s
+2024-11-20 19:37:52 [INFO] - Test 88 | FAILED: No Extract Function Assist found for the given selection of assists [] | N/A: param_usage_in_macro in 5.97s
+2024-11-20 19:37:53 [INFO] - Test 89 | FAILED: No Extract Function Assist found for the given selection of assists [] | N/A: param_usage_in_macro_with_nested_tt in 882.83ms
+2024-11-20 19:37:54 [INFO] - Test 90 | FAILED: No Extract Function Assist found for the given selection of assists [Assist { id: AssistId("extract_variable", RefactorExtract), label: "Extract into variable", group: None, target: 116..117, source_change: None, command: None }] | N/A: param_usage_in_macro_with_nested_tt_2 in 1.38s
+2024-11-20 19:37:55 [INFO] - Test 91 | PASSED | Error: lex error: part_of_expr_stmt in 1.06s
+2024-11-20 19:37:56 [INFO] - Test 92 | PASSED | Error: lex error: preserve_generics in 1.02s
+2024-11-20 19:37:57 [INFO] - Test 93 | PASSED | Error: lex error: preserve_generics_from_body in 852.42ms
+2024-11-20 19:37:58 [INFO] - Test 94 | PASSED | Error: lex error: preserve_where_clause in 855.07ms
+2024-11-20 19:37:59 [INFO] - Test 95 | PASSED | Error: lex error: reference_mutable_param_with_further_usages in 876.54ms
+2024-11-20 19:38:05 [INFO] - Test 96 | PASSED | Error: lex error: reference_mutable_param_without_further_usages in 5.97s
+2024-11-20 19:38:10 [INFO] - Test 97 | PASSED | Error: lex error: return_from_nested_fn in 5.84s
+2024-11-20 19:38:11 [INFO] - Test 98 | PASSED | Error: lex error: return_from_nested_loop in 882.34ms
+2024-11-20 19:38:12 [INFO] - Test 99 | PASSED | Error: lex error: return_to_parent in 895.91ms
+2024-11-20 19:38:13 [INFO] - Test 100 | PASSED | Error: lex error: should_increment_suffix_until_it_finds_space in 891.31ms
+2024-11-20 19:38:14 [INFO] - Test 101 | PASSED | Error: expected `;`: struct_with_two_fields_pattern_define_variables in 1.10s
+2024-11-20 19:38:16 [INFO] - Test 102 | PASSED | Error: lex error: tail_expr_no_extra_control_flow in 1.43s
+2024-11-20 19:38:17 [INFO] - Test 103 | PASSED | Error: lex error: tail_expr_of_tail_block_nested in 1.09s
+2024-11-20 19:38:18 [INFO] - Test 104 | PASSED | Error: lex error: try_and_return_ok in 1.07s
+2024-11-20 19:38:19 [INFO] - Test 105 | PASSED | Error: lex error: try_option in 955.17ms
+2024-11-20 19:38:20 [INFO] - Test 106 | PASSED | Error: lex error: try_option_unit in 1.11s
+2024-11-20 19:38:26 [INFO] - Test 107 | PASSED | Error: lex error: try_option_with_return in 6.48s
+2024-11-20 19:38:37 [INFO] - Test 108 | PASSED | Error: lex error: try_result in 11.16s
+2024-11-20 19:38:39 [INFO] - Test 109 | PASSED | Error: lex error: try_result_with_return in 1.16s
+2024-11-20 19:38:40 [INFO] - Test 110 | PASSED | Error: lex error: two_arguments_form_expr in 998.34ms
+2024-11-20 19:38:41 [INFO] - Test 111 | PASSED | Error: lex error: two_variables_defined_inside_and_used_after_no_ret in 1.14s
+2024-11-20 19:38:42 [INFO] - Test 112 | PASSED | Error: lex error: unresolveable_types_default_to_placeholder in 1.42s
+2024-11-20 19:38:44 [INFO] - Test 113 | PASSED | Error: lex error: variable_defined_inside_and_used_after_mutably_no_ret in 1.40s
+2024-11-20 19:38:51 [INFO] - Test 114 | PASSED | Error: lex error: variable_defined_inside_and_used_after_no_ret in 6.89s
+2024-11-20 19:38:51 [INFO] - ------------------------------------------------------------------
+2024-11-20 19:38:51 [INFO] - Total tests run: 114
+2024-11-20 19:38:51 [INFO] - Tests passed stage 1: 109
+2024-11-20 19:38:51 [INFO] - Tests passed: 0
+2024-11-20 19:38:51 [INFO] - Tests failed: 114
+2024-11-20 19:38:51 [INFO] - Total time: 198.28s
+2024-11-20 19:38:51 [INFO] - Average time per test: 1.74s
+2024-11-20 19:38:51 [INFO] - Shortest test time: 775.28ms
+2024-11-20 19:38:51 [INFO] - Longest test time: 11.16s
+2024-11-20 19:38:51 [INFO] - Extract tests successful, 114 tests failed
+2024-11-20 19:38:51 [INFO] - Running tests from directory src_testscontroller

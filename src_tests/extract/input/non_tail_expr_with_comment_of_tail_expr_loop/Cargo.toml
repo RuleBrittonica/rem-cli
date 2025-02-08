@@ -1,0 +1,18 @@
+[package]
+name = "non_tail_expr_with_comment_of_tail_expr_loop"
+version = "0.1.0"
+edition = "2021"
+
+rust-version = "1.80"
+
+authors = ["N/A"]
+
+license = "MIT"
+
+repository = "https://github.com/RuleBrittonica/rem-testfiles"
+
+description = "Test Data"
+
+
+[dependencies]
+

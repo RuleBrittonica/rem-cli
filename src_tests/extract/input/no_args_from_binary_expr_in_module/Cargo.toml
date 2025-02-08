@@ -1,0 +1,18 @@
+[package]
+name = "no_args_from_binary_expr_in_module"
+version = "0.1.0"
+edition = "2021"
+
+rust-version = "1.80"
+
+authors = ["N/A"]
+
+license = "MIT"
+
+repository = "https://github.com/RuleBrittonica/rem-testfiles"
+
+description = "Test Data"
+
+
+[dependencies]
+

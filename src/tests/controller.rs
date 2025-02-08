@@ -15,14 +15,17 @@ use log::{
 };
 
 use colored::Colorize;
-use std::io;
+use std::{
+    io,
+    fs::read_to_string,
+};
 use crate::tests::utils::{
     list_files_in_dir,
     cleanup_new_files,
 };
+use crate::refactor::throughput::Controller;
 
 pub fn test(path: PathBuf) -> Result<u8, io::Error> {
-
     let folder_path: String = match path.to_str() {
         Some(path_str) => path_str.to_string(),
         None => {
@@ -47,17 +50,29 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
     for file in fs::read_dir(format!("{}/controller/input", folder_path))? {
         let file = file?;
         let test_name = file.file_name().to_owned();
-        let file_name = format!("{}controller/input/{}", folder_path, test_name.to_str().unwrap());
+        let file_name = format!("{}/controller/input/{}", folder_path, test_name.to_str().unwrap());
         let new_file_name = format!("{}/controller/output/{}", folder_path, test_name.to_str().unwrap());
         let callee_fn_name = "bar";
         let caller_fn_name = "new_foo";
         let now = SystemTime::now();
-        let success = non_local_controller::make_controls(
-            file_name.as_str(),
-            new_file_name.as_str(),
-            callee_fn_name,
-            caller_fn_name,
+        let input_controller: Controller = Controller::new(
+            read_to_string(file_name.as_str()).unwrap(),
+            None,
+            caller_fn_name.to_string(),
+            callee_fn_name.to_string(),
         );
+        let result = non_local_controller::make_controls(
+            input_controller.into(),
+        );
+
+        let success: bool = match result {
+            Ok(_) => true,
+            Err(e) => {
+                error!("Controller failed: {:?}", e);
+                false
+            }
+        };
+
         let time_elapsed = now.elapsed().unwrap();
         let args = vec![];
         let mut compile_cmd = compile_file(new_file_name.as_str(), &args);

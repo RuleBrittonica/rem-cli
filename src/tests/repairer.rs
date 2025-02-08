@@ -40,7 +40,7 @@ pub fn test(path: PathBuf) -> Result<u8, io::Error> {
         }
     };
 
-    // Check if the path is a directory
+    // The path provided must be a directory
     if !path.is_dir() {
         error!("The path provided is not a directory: {}", folder_path);
         return Err(io::Error::new(io::ErrorKind::NotFound, "Path is not a directory"));
