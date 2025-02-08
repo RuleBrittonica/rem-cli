@@ -1,4 +1,8 @@
 There are a few things that we need to do to get the llbc conversion up and
 running.
 
-The first step is to build out the CHARON interface
+The first step is to build out the CHARON interface.
+
+
+I also need to make sure all paths point to local installs and that everything
+has been pulled from GIT :(

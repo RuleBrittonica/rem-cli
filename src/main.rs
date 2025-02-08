@@ -1,5 +1,6 @@
 use std::{
-    iter::Successors, path::PathBuf, process::exit
+    path::PathBuf,
+    process::exit,
 };
 
 use clap::Parser;
@@ -58,6 +59,9 @@ use crate::refactor::throughput::{
 mod local_config;
 use local_config::Settings;
 
+mod prefactor;
+use prefactor::convert_to_llbc::convert_to_llbc;
+
 #[derive(Debug, PartialEq, Eq)]
 enum ProgramOptions{
     Refactoring,
@@ -66,7 +70,7 @@ enum ProgramOptions{
 }
 
 /// The CLI Takes the following arguments:
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     logging::init_logging();
 
@@ -248,7 +252,7 @@ fn main() {
 
         },
 
-        REMCommands::ConvertToCoQ {
+        REMCommands::ConvertToCoq {
             original_llbc,
             refactored_llbc,
             out_dir,
@@ -259,9 +263,22 @@ fn main() {
 
         REMCommands::ConvertToLLBC {
             project_path,
-            verbose
+            out_path,
+            verbose,
         } => {
-            todo!("ConvertToLLBC is not yet implemented");
+            if *verbose {
+                info!("Starting conversion to LLBC for project: {:?}", project_path);
+            }
+            // Call the conversion function.
+            match convert_to_llbc(project_path, out_path) {
+                Ok(()) => {
+                    info!("Conversion to LLBC succeeded.");
+                },
+                Err(e) => {
+                    error!("Conversion to LLBC failed: {}", e);
+                    return Err(e);
+                }
+            }
         },
 
         REMCommands::Verify {
@@ -349,5 +366,7 @@ fn main() {
 
     // If we have gotten this far then we know that all previous activities have
     // been successful. Delete the backup and exit successfully if that works
-    info!("Refactoring completed successfully")
+    info!("Refactoring completed successfully");
+
+    Ok(())
 }

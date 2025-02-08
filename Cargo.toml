@@ -25,13 +25,15 @@ rem-repairer   = { path = "../rem-repairer" }
 rem-utils      = { path = "../rem-utils" }
 
 clap = { version = "4.5.16", features = ["derive"] }
-log = "0.4.22"
+log = "0.4.25"
 flexi_logger = "0.29.2"
-colored = "2.1.0"
-git2 = "0.19.0"
-ra_ap_vfs = "0.0.238"
+colored = "3.0.0"
+git2 = "0.20.0"
+ra_ap_vfs = "0.0.262"
 camino = "1.1.9"
 lazy_static = "1.5.0"
+config = "0.15.7"
+serde = "1.0.217"
 
 [build-dependencies]
 
@@ -44,3 +46,8 @@ default = []
 [[bin]]
 name = "rem-cli"
 path = "src/main.rs"
+
+# Despite only rem-extract using ra_ap_rust-analyzer, we must patch it here as
+# well to ensure that we point to the correct file.
+# [patch.crates-io]
+# ra_ap_rust-analyzer = { path = "../rem-extract/patches/ra_ap_rust-analyzer/" }

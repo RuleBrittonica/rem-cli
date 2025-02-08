@@ -155,7 +155,7 @@ pub enum REMCommands {
     },
 
     /// Convert a pair of .llbc files to a pair of .v (CoQ) files.
-    ConvertToCoQ {
+    ConvertToCoq {
         #[arg(help = "Path to the LLBC of the original program.")]
         original_llbc: PathBuf,
 
@@ -170,10 +170,14 @@ pub enum REMCommands {
         verbose: bool,
     },
 
-    /// Convert a single rust project to a single .llbc file using CHARON
+    /// Convert a single rust project to a single .llbc file using CHARON. Can
+    /// optionally take a destination folder for the output.
     ConvertToLLBC {
-        #[arg(help = "Path to the Rust project.")]
+        #[arg(help = "Path to the Rust project / File to be translated.")]
         project_path: PathBuf,
+
+        #[arg(help = "Output path for the generated llbc file")]
+        out_path: PathBuf,
 
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,

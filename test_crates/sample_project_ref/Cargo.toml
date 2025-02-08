@@ -1,0 +1,8 @@
+[workspace]
+
+[package]
+name = "sample_project_ref"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
