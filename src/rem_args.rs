@@ -31,14 +31,36 @@ pub enum REMCommands {
         #[arg(help = "The path to the file that contains just the code that will be refactored", index = 1)]
         file_path: PathBuf,
 
-        #[arg(help = "The path to the output file (where the refactored code ends up)", index = 2)]
-        new_file_path: PathBuf,
+        #[arg(help = "The name of the new function that is being created", index = 2)]
+        new_fn_name: String,
 
-        #[arg(help = "The name of the function that contains the code to be refactored", index = 3)]
-        caller_fn_name: String,
+        #[arg(help = "The start index into the file", index = 3)]
+        start_index: usize,
 
-        #[arg(help = "The name of the new function that is being extracted", index = 4)]
-        callee_fn_name: String,
+        #[arg(help = "The end index into the file", index = 4)]
+        end_index: usize,
+
+        #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
+        verbose: bool,
+    },
+
+    /// Extract a method from a file, using Rust Analyzer only. Then run the
+    /// verification process on the pre and post extract code.
+    RunShort {
+        #[arg(help = "The path to the file that contains just the code that will be refactored", index = 1)]
+        file_path: PathBuf,
+
+        #[arg(help = "The name of the new function that is being created", index = 2)]
+        new_fn_name: String,
+
+        #[arg(help = "The start index into the file", index = 3)]
+        start_index: usize,
+
+        #[arg(help = "The end index into the file", index = 4)]
+        end_index: usize,
+
+        #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
+        verbose: bool,
     },
 
     // Run just the controller
@@ -127,6 +149,46 @@ pub enum REMCommands {
         /// terminating.
         #[arg(help = "Repairer option (1=Simple, 2=Loosest Bounds First, 3=Tightest Bounds First)", index = 4)]
         repairer: u8,
+
+        #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
+        verbose: bool,
+    },
+
+    /// Convert a pair of .llbc files to a pair of .v (CoQ) files.
+    ConvertToCoQ {
+        #[arg(help = "Path to the LLBC of the original program.")]
+        original_llbc: PathBuf,
+
+        #[arg(help = "Path to the LLBC of the refactored program.")]
+        refactored_llbc: PathBuf,
+
+        /// Optional output directory for the generated `.llbc` files
+        #[arg(short, long, help = "Output directory for generated llbc files")]
+        out_dir: Option<PathBuf>,
+
+        #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
+        verbose: bool,
+    },
+
+    /// Convert a single rust project to a single .llbc file using CHARON
+    ConvertToLLBC {
+        #[arg(help = "Path to the Rust project.")]
+        project_path: PathBuf,
+
+        #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
+        verbose: bool,
+    },
+
+    /// Verify that a pair of .v (CoQ) files contain an equivalent method
+    Verify {
+        #[arg(help = "Path to the CoQ of the original program.")]
+        original_coq: PathBuf,
+
+        #[arg(help = "Path to the CoQ of the refactored program.")]
+        refactored_coq: PathBuf,
+
+        #[arg(help = "Top Level Function Name")]
+        top_level_function: String,
 
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,

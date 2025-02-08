@@ -25,7 +25,11 @@ use rem_repairer::{
     common::{
         RepairResult,
         RepairSystem,
-    }, repair_lifetime_loosest_bound_first, repair_lifetime_simple, repair_lifetime_tightest_bound_first, repair_rustfix
+    },
+    repair_lifetime_loosest_bound_first,
+    repair_lifetime_simple,
+    repair_lifetime_tightest_bound_first,
+    repair_rustfix
 };
 
 mod utils;
@@ -70,15 +74,27 @@ fn main() {
     match &args.command {
         REMCommands::Run {
             file_path,
-            new_file_path,
-            caller_fn_name,
-            callee_fn_name
+            new_fn_name,
+            start_index,
+            end_index,
+            verbose,
         } => {
             // Create our backup
             backup_path = backup_file(file_path.clone());
 
             let file_path = file_path.to_str().expect("Path is not valid UTF-8");
-            let new_file_path = new_file_path.to_str().expect("Path is not valid UTF-8");
+
+            todo!("Run is not yet implemented");
+        },
+
+        REMCommands::RunShort {
+            file_path,
+            new_fn_name,
+            start_index,
+            end_index,
+            verbose
+        } => {
+            todo!("RunShort is not yet implemented");
         },
 
         REMCommands::Controller {
@@ -203,7 +219,33 @@ fn main() {
             verbose
         } => {
             prog_run = ProgramOptions::CargoRepairing;
+            todo!("RepairerCargo is not yet implemented");
 
+        },
+
+        REMCommands::ConvertToCoQ {
+            original_llbc,
+            refactored_llbc,
+            out_dir,
+            verbose
+        } => {
+            todo!("ConvertToCoQ is not yet implemented");
+        },
+
+        REMCommands::ConvertToLLBC {
+            project_path,
+            verbose
+        } => {
+            todo!("ConvertToLLBC is not yet implemented");
+        },
+
+        REMCommands::Verify {
+            original_coq,
+            refactored_coq,
+            top_level_function,
+            verbose
+        } => {
+            todo!("Verify is not yet implemented");
         },
 
         REMCommands::Test {
