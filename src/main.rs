@@ -106,6 +106,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             end_index,
             verbose
         } => {
+            // We have a few things to do here
+            // TODO
+            // 1. Create the backup
+            // 2. Create the original llbc file
+            // 3. Extract the method
+            // 4. Write the new code to the original file
+            // 5. Create the new llbc file
+            // 6. Convert the original and new llbc files to CoQ
+            // 7. Verify the original and new CoQ files
+            // 8. Ensure success and cleanup.
+            // 9. Print out the results
             todo!("RunShort is not yet implemented");
         },
 
