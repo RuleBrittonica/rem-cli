@@ -55,6 +55,9 @@ use crate::refactor::throughput::{
     Repairer,
 };
 
+mod local_config;
+use local_config::Settings;
+
 #[derive(Debug, PartialEq, Eq)]
 enum ProgramOptions{
     Refactoring,
