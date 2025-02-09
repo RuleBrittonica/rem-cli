@@ -1,0 +1,21 @@
+2025-02-09 15:02:16 [INFO] - Application Started
+2025-02-09 15:02:16 [INFO] - Verbose Mode: no
+2025-02-09 15:02:17 [INFO] - New Code: fn main() {
+    test_incr();
+}
+
+fn ref_incr(x: &mut i32) {
+    ref_incr(x);
+}
+
+fn ref_incr(x: &mut i32) {
+    *x = *x + 1;
+}
+
+fn test_incr() {
+    let mut y = 0i32;
+    ref_incr(&mut y);
+    assert!(y == 1);
+}
+2025-02-09 15:02:17 [INFO] - Caller Function Name: ref_incr
+2025-02-09 15:02:17 [ERROR] - Backup path was never provided / saved, HOW DID WE GET HERE?

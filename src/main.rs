@@ -61,7 +61,7 @@ mod local_config;
 use local_config::Settings;
 
 mod prefactor;
-use prefactor::convert_to_llbc::{self, convert_to_llbc};
+use prefactor::convert_to_llbc::convert_to_llbc;
 
 #[derive(Debug, PartialEq, Eq)]
 enum ProgramOptions{
@@ -147,6 +147,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     // Verify that there is a file at the output path.
                     if output_path.exists() {
                         info!("Conversion to LLBC succeeded for project: {:?}", file_path);
+                        info!("LLBC file saved at: {:?}", output_path);
                     } else {
                         error!("Conversion to LLBC failed: No file found at output path: {:?}", output_path);
                         return Err("Conversion to LLBC failed: No file found at output path".into());
@@ -158,7 +159,35 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             }
 
-            // 3. Extract the method
+            // Step 3: Extract the method.
+            // This is similar to what we do in REMCommands::Extract.
+            let start_idx: u32 = *start_index as u32;
+            let end_idx: u32 = *end_index as u32;
+            let extraction_input: Extract = Extract::new(
+                file_path.to_path_buf(),
+                None, // output code not yet populated
+                new_fn_name.to_string(),
+                start_idx,
+                end_idx,
+                None, // caller_fn_name not yet populated
+            );
+
+            let (output_code, caller_fn_name) = match local_extract_method(extraction_input) {
+                Ok(result) => {
+                    (
+                        result.get_output_code().unwrap(),
+                        result.get_caller_fn_name().unwrap(),
+                    )
+                },
+                Err(e) => {
+                    error!("Extraction failed: {:?}", e);
+                    return Err(e);
+                }
+            };
+
+            info!("Extraction succeeded. New Code:\n{}", output_code);
+            info!("Caller Function Name: {}", caller_fn_name);
+
             // 4. Write the new code to the original file
             // 5. Create the new llbc file
             // 6. Convert the original and new llbc files to CoQ

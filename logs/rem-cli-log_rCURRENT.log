@@ -1,6 +1,8 @@
-2025-02-09 15:02:16 [INFO] - Application Started
-2025-02-09 15:02:16 [INFO] - Verbose Mode: no
-2025-02-09 15:02:17 [INFO] - New Code: fn main() {
+2025-02-09 15:09:02 [INFO] - Application Started
+2025-02-09 15:09:02 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739074142.rs"
+2025-02-09 15:09:06 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-09 15:09:06 [INFO] - Extraction succeeded. New Code:
+fn main() {
     test_incr();
 }
 
@@ -17,5 +19,4 @@ fn test_incr() {
     ref_incr(&mut y);
     assert!(y == 1);
 }
-2025-02-09 15:02:17 [INFO] - Caller Function Name: ref_incr
-2025-02-09 15:02:17 [ERROR] - Backup path was never provided / saved, HOW DID WE GET HERE?
+2025-02-09 15:09:06 [INFO] - Caller Function Name: ref_incr
