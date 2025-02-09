@@ -1,16 +1,17 @@
-2025-02-09 15:09:02 [INFO] - Application Started
-2025-02-09 15:09:02 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739074142.rs"
-2025-02-09 15:09:06 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
-2025-02-09 15:09:06 [INFO] - Extraction succeeded. New Code:
+2025-02-10 00:33:00 [INFO] - Application Started
+2025-02-10 00:33:00 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739107980.rs"
+2025-02-10 00:33:01 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-10 00:33:01 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-10 00:33:01 [INFO] - Extraction succeeded. New Code:
 fn main() {
     test_incr();
 }
 
 fn ref_incr(x: &mut i32) {
-    ref_incr(x);
+    fun_name(x);
 }
 
-fn ref_incr(x: &mut i32) {
+fn fun_name(x: &mut i32) {
     *x = *x + 1;
 }
 
@@ -19,4 +20,7 @@ fn test_incr() {
     ref_incr(&mut y);
     assert!(y == 1);
 }
-2025-02-09 15:09:06 [INFO] - Caller Function Name: ref_incr
+2025-02-10 00:33:01 [INFO] - Caller Function Name: ref_incr
+2025-02-10 00:33:01 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-10 00:33:01 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-02-10 00:33:01 [ERROR] - Conversion to CoQ failed: missing field `primitives` for key `programs`

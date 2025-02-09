@@ -1,0 +1,25 @@
+2025-02-09 23:21:50 [INFO] - Application Started
+2025-02-09 23:21:50 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739103710.rs"
+2025-02-09 23:21:51 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-09 23:21:51 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-09 23:21:51 [INFO] - Extraction succeeded. New Code:
+fn main() {
+    test_incr();
+}
+
+fn ref_incr(x: &mut i32) {
+    fun_name(x);
+}
+
+fn fun_name(x: &mut i32) {
+    *x = *x + 1;
+}
+
+fn test_incr() {
+    let mut y = 0i32;
+    ref_incr(&mut y);
+    assert!(y == 1);
+}
+2025-02-09 23:21:51 [INFO] - Caller Function Name: ref_incr
+2025-02-09 23:21:51 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-09 23:21:51 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"

@@ -20,6 +20,23 @@ pub fn local_extract_method(
     Ok(extraction_result)
 }
 
+/// Replace the code in the file with the new (refactored) code
+/// and return the path to the file
+/// Is just a blanket replace of all the code in the original file with the new
+/// code passed in.
+/// TODO This is a naiive implementation and should be improved.
+pub fn replace_text_in_file(
+    file_path: &PathBuf,
+    new_code: &String,
+) -> Result<PathBuf, Box<dyn std::error::Error>> {
+    // Write the new code to the file. This will truncate the file if it exists,
+    // or create a new file if it doesn't.
+    std::fs::write(file_path, new_code)?;
+
+    // Return the path of the file that was updated.
+    Ok(file_path.clone())
+}
+
 pub fn test(path: PathBuf) -> Result<u8, Box<dyn std::error::Error>> {
     todo!("Implement tests for local_extract_method");
 }

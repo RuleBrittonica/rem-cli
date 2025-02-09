@@ -177,7 +177,7 @@ pub fn run_tests(path: std::path::PathBuf) -> Result<u8, TestFailed> {
 }
 
 /// Deletes a backup file or directory at the given path.
-pub fn delete_backup(backup_path: PathBuf) -> Result<(), io::Error> {
+pub fn delete_backup(backup_path: PathBuf) -> Result<(), Box<dyn std::error::Error>> {
     if backup_path.is_file() {
         // Delete the file if it's a file
         match fs::remove_file(&backup_path) {
@@ -187,7 +187,7 @@ pub fn delete_backup(backup_path: PathBuf) -> Result<(), io::Error> {
             }
             Err(e) => {
                 error!("Failed to delete backup file: {:?}", e);
-                Err(e)
+                Err(Box::new(e))
             }
         }
     } else if backup_path.is_dir() {
@@ -199,12 +199,65 @@ pub fn delete_backup(backup_path: PathBuf) -> Result<(), io::Error> {
             }
             Err(e) => {
                 error!("Failed to delete backup directory: {:?}", e);
-                Err(e)
+                Err(Box::new(e))
             }
         }
     } else {
         // If the path is neither a file nor a directory, return an error
         let err_msg = format!("The specified backup path is neither a file nor a directory: {:?}", backup_path);
+        error!("{}", err_msg); // Output to logs and std err.
+        eprintln!("{}", err_msg);
+        Err(Box::new(io::Error::new(io::ErrorKind::InvalidInput, err_msg)))
+    }
+}
+
+/// Deletes all the files in the slice. Attempts deletion on each file, logging successes
+/// and failures, and returns an error only after attempting to delete all files.
+pub fn delete_files(files: &[PathBuf]) -> Result<(), Box<dyn Error>> {
+    // A vector to collect error messages.
+    let mut errors = Vec::new();
+
+    for file in files {
+        match delete_file(file) {
+            Ok(_) => info!("File {:?} deleted successfully", file),
+            Err(e) => {
+                let msg = format!("Failed to delete file {:?}: {}", file, e);
+                error!("{}", msg);
+                errors.push(msg);
+            }
+        }
+    }
+
+    // If there were any errors, return them as a single combined error.
+    if !errors.is_empty() {
+        let combined_errors = errors.join("\n");
+        // Create a new io::Error with kind Other and the combined error messages.
+        return Err(Box::new(io::Error::new(io::ErrorKind::Other, combined_errors)));
+    }
+
+    Ok(())
+}
+
+
+
+/// Deletes a file at the given path. Handles errors and exits gracefully
+/// if the file cannot be deleted.
+pub fn delete_file(path: &PathBuf) -> Result<(), io::Error> {
+    if path.is_file() {
+        // Delete the file if it's a file
+        match fs::remove_file(path) {
+            Ok(_) => {
+                info!("File deleted successfully: {:?}", path);
+                Ok(())
+            }
+            Err(e) => {
+                error!("Failed to delete file: {:?}", e);
+                Err(e)
+            }
+        }
+    } else {
+        // If the path is not a file, return an error
+        let err_msg = format!("The specified path is not a file: {:?}", path);
         error!("{}", err_msg); // Output to logs and std err.
         eprintln!("{}", err_msg);
         Err(io::Error::new(io::ErrorKind::InvalidInput, err_msg))

@@ -17,6 +17,7 @@ mod tests;
 mod refactor;
 use refactor::{
     extract_function::local_extract_method,
+    extract_function::replace_text_in_file,
     non_local_controller::non_local_controller,
     borrow::borrow,
 };
@@ -33,9 +34,11 @@ use rem_repairer::{
 };
 
 mod utils;
+use serde::de;
 use utils::{
     delete_backup,
     delete_repo,
+    delete_files,
     get_from_git,
     handle_result,
     run_tests,
@@ -61,7 +64,11 @@ mod local_config;
 use local_config::Settings;
 
 mod prefactor;
-use prefactor::convert_to_llbc::convert_to_llbc;
+use prefactor::{
+    convert_to_llbc::convert_to_llbc,
+    verify::local_coq_conversion,
+    verify::local_coq_verification,
+};
 
 #[derive(Debug, PartialEq, Eq)]
 enum ProgramOptions{
@@ -105,7 +112,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             new_fn_name,
             start_index,
             end_index,
-            verbose
+            verbose,
+            cleanup,
         } => {
             if *verbose {
                 info!("Running RunShort in verbose mode");
@@ -142,12 +150,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             };
 
-            match convert_to_llbc(file_path, &out_path) {
+            let original_llbc_path: PathBuf = match convert_to_llbc(file_path, &out_path) {
                 Ok(output_path) => {
                     // Verify that there is a file at the output path.
                     if output_path.exists() {
                         info!("Conversion to LLBC succeeded for project: {:?}", file_path);
                         info!("LLBC file saved at: {:?}", output_path);
+                        output_path
                     } else {
                         error!("Conversion to LLBC failed: No file found at output path: {:?}", output_path);
                         return Err("Conversion to LLBC failed: No file found at output path".into());
@@ -157,7 +166,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                     error!("Conversion to LLBC failed: {}", e);
                     return Err(e);
                 }
-            }
+            };
 
             // Step 3: Extract the method.
             // This is similar to what we do in REMCommands::Extract.
@@ -189,12 +198,114 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             info!("Caller Function Name: {}", caller_fn_name);
 
             // 4. Write the new code to the original file
-            // 5. Create the new llbc file
+            let refactored_file_path = match replace_text_in_file(file_path, &output_code) {
+                Ok(p) => p,
+                Err(e) => {
+                    error!("Failed to write new code to file: {:?}", e);
+                    return Err(e);
+                }
+            };
+
+            // 5. Create the new llbc file . Same as step 2. The file name will
+            //    end up being the same as original_llbc_path, but with a _ref
+            //    suffix.
+            let mut new_llbc_path: PathBuf = original_llbc_path.clone();
+            let stem: &str = new_llbc_path.file_stem().unwrap().to_str().unwrap();
+            let ext: &str = new_llbc_path.extension().unwrap().to_str().unwrap();
+            new_llbc_path.set_file_name(format!("{}_ref.{}", stem, ext));
+
+            let new_llbc_path: PathBuf = match convert_to_llbc(&refactored_file_path, &new_llbc_path) {
+                Ok(output_path) => {
+                    // Verify that there is a file at the output path.
+                    if output_path.exists() {
+                        info!("Conversion to LLBC succeeded for project: {:?}", file_path);
+                        info!("LLBC file saved at: {:?}", output_path);
+                        output_path
+                    } else {
+                        error!("Conversion to LLBC failed: No file found at output path: {:?}", output_path);
+                        return Err("Conversion to LLBC failed: No file found at output path".into());
+                    }
+                },
+                Err(e) => {
+                    error!("Conversion to LLBC failed: {}", e);
+                    return Err(e);
+                }
+            };
+
             // 6. Convert the original and new llbc files to CoQ
+            let (original_coq_path, refactored_coq_path) = match local_coq_conversion(
+                &original_llbc_path,
+                &new_llbc_path,
+                &None,
+            ) {
+                Ok((original_coq_path, refactored_coq_path)) => {
+                    info!("Conversion to CoQ succeeded for project: {:?}", file_path);
+                    info!("Original CoQ file saved at: {:?}", original_coq_path);
+                    info!("Refactored CoQ file saved at: {:?}", refactored_coq_path);
+                    (original_coq_path, refactored_coq_path)
+                },
+                Err(e) => {
+                    error!("Conversion to CoQ failed: {}", e);
+                    return Err(e);
+                }
+            };
+
             // 7. Verify the original and new CoQ files
+            let top_level_function: String = caller_fn_name;
+            let (coq_project_path, equiv_check_path, primitives_path, result) = match local_coq_verification(
+                &original_coq_path,
+                &refactored_coq_path,
+                &top_level_function,
+            ) {
+                Ok((coq_project_path, equiv_check_path, primitives_path, result)) => {
+                    info!("Verification succeeded for project: {:?}", file_path);
+                    info!("CoQ Project file saved at: {:?}", coq_project_path);
+                    info!("EquivCheck file saved at: {:?}", equiv_check_path);
+                    info!("Primitives file saved at: {:?}", primitives_path);
+                    (coq_project_path, equiv_check_path, primitives_path, result)
+                },
+                Err(e) => {
+                    error!("Verification failed: {}", e);
+                    return Err(e);
+                }
+            };
+
+            if result {
+                info!("Verification succeeded for project: {:?}", file_path);
+                info!("Original code is garunteed to be equivalent to the refactored code!")
+            } else {
+                error!("Verification failed for project: {:?}", file_path);
+                return Err("Verification failed".into());
+            }
+
             // 8. Ensure success and cleanup.
+            // Delete the backup, original llbc, and new llbc files.
+            // Delete the coqproject, EquivCheck, and Primitives files, along
+            // with the original and refactored CoQ files.
+            // If any of these steps fail, log the error and exit with an error
+            // code.
+
+            if *cleanup {
+                info!("Cleaning up after RunShort");
+                info!("Deletingoriginal LLBC: {}, and new LLBC files: {}",
+                    original_llbc_path.to_str().unwrap(),
+                    new_llbc_path.to_str().unwrap(),
+                );
+                let files_to_delete: Vec<PathBuf> = vec![
+                    original_llbc_path,
+                    new_llbc_path,
+                    coq_project_path,
+                    equiv_check_path,
+                    primitives_path,
+                    original_coq_path,
+                    refactored_coq_path,
+                ];
+
+                delete_files(&files_to_delete)?;
+
+            };
             // 9. Print out the results
-            todo!("RunShort is not yet implemented");
+            info!("RunShort completed successfully");
         },
 
         REMCommands::Extract {
