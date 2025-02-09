@@ -16,6 +16,7 @@ mod tests;
 
 mod refactor;
 use refactor::{
+    extract_function::local_extract_method,
     non_local_controller::non_local_controller,
     borrow::borrow,
 };
@@ -60,7 +61,7 @@ mod local_config;
 use local_config::Settings;
 
 mod prefactor;
-use prefactor::convert_to_llbc::convert_to_llbc;
+use prefactor::convert_to_llbc::{self, convert_to_llbc};
 
 #[derive(Debug, PartialEq, Eq)]
 enum ProgramOptions{
@@ -106,10 +107,57 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             end_index,
             verbose
         } => {
+            if *verbose {
+                info!("Running RunShort in verbose mode");
+                info!("File Path: {:?}", file_path);
+                info!("New Function Name: {:?}", new_fn_name);
+                info!("Start Index: {:?}", start_index);
+                info!("End Index: {:?}", end_index);
+            }
+
             // We have a few things to do here
             // TODO
             // 1. Create the backup
+            backup_path = backup_file(file_path.clone());
             // 2. Create the original llbc file
+            // We need to determine where to save the output file. This will
+            // depend on if the user has specified a project path or a file
+            // path. If the user has specified a dir, assume that the output
+            // should go in there under dir/dir_name.llbc
+            // If the user has specified a file, assume that the output should
+            // go in the same directory as the file, with the same name as the
+            // file, but with a .llbc extension.
+
+            let out_path: PathBuf = match file_path.is_dir() {
+                true => {
+                    let mut out_path = file_path.clone();
+                    out_path.push(file_path.file_name().unwrap());
+                    out_path.set_extension("llbc");
+                    out_path
+                },
+                false => {
+                    let mut out_path = file_path.clone();
+                    out_path.set_extension("llbc");
+                    out_path
+                }
+            };
+
+            match convert_to_llbc(file_path, &out_path) {
+                Ok(output_path) => {
+                    // Verify that there is a file at the output path.
+                    if output_path.exists() {
+                        info!("Conversion to LLBC succeeded for project: {:?}", file_path);
+                    } else {
+                        error!("Conversion to LLBC failed: No file found at output path: {:?}", output_path);
+                        return Err("Conversion to LLBC failed: No file found at output path".into());
+                    }
+                },
+                Err(e) => {
+                    error!("Conversion to LLBC failed: {}", e);
+                    return Err(e);
+                }
+            }
+
             // 3. Extract the method
             // 4. Write the new code to the original file
             // 5. Create the new llbc file
@@ -119,6 +167,53 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             // 9. Print out the results
             todo!("RunShort is not yet implemented");
         },
+
+        REMCommands::Extract {
+            file_path,
+            new_fn_name,
+            start_index,
+            end_index,
+            verbose
+        } => {
+            if *verbose {
+                info!("File Path: {:?}", file_path);
+                info!("New Function Name: {}", new_fn_name);
+                info!("Start Index: {}", start_index);
+                info!("End Index: {}", end_index);
+                info!("Verbose Mode: {}", if *verbose { "yes" } else { "no" });
+            } else {
+                info!("Verbose Mode: {}", if *verbose { "yes" } else { "no" });
+            }
+
+            let start_idx: u32 = *start_index as u32;
+            let end_idx: u32 = *end_index as u32;
+
+            let input_extract: Extract = Extract::new(
+                file_path.to_path_buf(),
+                None, // output code not yet populated
+                new_fn_name.to_string(),
+                start_idx,
+                end_idx,
+                None, // caller_fn_name not yet populated
+            );
+
+            let result = local_extract_method(input_extract);
+            // Unwrap the result, if success, log the new code and the
+            // caller_fn_name
+            let success: bool = match result {
+                Ok(result) => {
+                    let output_code: String = result.get_output_code().unwrap();
+                    let caller_fn_name: String = result.get_caller_fn_name().unwrap();
+                    info!("New Code: \n{}", output_code);
+                    info!("Caller Function Name: {}", caller_fn_name);
+                    true
+                }
+                Err(e) => {
+                    error!("Extraction failed: {:?}", e);
+                    false
+                }
+            };
+        }
 
         REMCommands::Controller {
             file_path,
@@ -237,7 +332,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 file_path,
                 new_file_path,
                 fn_name
-                );
+            );
 
             handle_result(success,
                 "Repairer",
@@ -282,14 +377,21 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
             // Call the conversion function.
             match convert_to_llbc(project_path, out_path) {
-                Ok(()) => {
-                    info!("Conversion to LLBC succeeded.");
+                Ok(output_path) => {
+                    // Verify that there is a file at the output path.
+                    if output_path.exists() {
+                        info!("Conversion to LLBC succeeded for project: {:?}", project_path);
+                    } else {
+                        error!("Conversion to LLBC failed: No file found at output path: {:?}", output_path);
+                        return Err("Conversion to LLBC failed: No file found at output path".into());
+                    }
                 },
                 Err(e) => {
                     error!("Conversion to LLBC failed: {}", e);
                     return Err(e);
                 }
             }
+
         },
 
         REMCommands::Verify {

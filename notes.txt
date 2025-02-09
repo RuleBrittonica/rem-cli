@@ -2,7 +2,29 @@ There are a few things that we need to do to get the llbc conversion up and
 running.
 
 The first step is to build out the CHARON interface.
+From there we need to execute the steps outlined in main to fill out RunShort
+1. Create the backup
+2. Create the original llbc file
+    - This may involve determining wether or not we can just compile the file
+    with CHARON or if we need to compile the whole directory.
+    - For now we will assume that the provided file can be compiled using
+    CHARON.
+3. Extract the method
+4. Write the new code to the original file (using the code outputted by rem-extract)
+5. Create the new llbc file
+6. Convert the original and new llbc files to CoQ
+7. Verify the original and new CoQ files
+8. Ensure success and cleanup.
+9. Print out the results
 
+Another thing I need to do is run charon + aeneas on every test file in
+rem-extract, and see what I could potentially be working with in terms of proofs
+etc.
+Then I need to work out how to derive a proof for each of these parts, and
+implement those as methods, along with an algorithm to determine how to pick the
+proof needed
 
-I also need to make sure all paths point to local installs and that everything
-has been pulled from GIT :(
+Finally, I need to experiment a lot more with CHARON, and work out what its
+limits are and how it works. I need to determine the optimal way to compile each
+crate / file, as I don't want the user to have to wait for a whole compilation
+cycle to validate a single operation (especially as CHARON loves to not compile)

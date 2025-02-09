@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use ra_ap_vfs::AbsPathBuf;
 
 use rem_extract::extraction::ExtractionInput;
@@ -74,7 +76,7 @@ pub struct Throughput {
 /// Data needed by the extraction module
 #[derive(Debug, Clone, PartialEq, Hash)]
 pub struct Extract {
-    input_code: String,
+    file_path: PathBuf,
     output_code: Option<String>, // Populated after the module has been run
     new_fn_name: String,
     start_idx: u32,
@@ -138,15 +140,32 @@ impl Throughput {
 }
 
 impl Extract {
-    pub fn new(input_code: String, output_code: Option<String>, new_fn_name: String, start_idx: u32, end_idx: u32, caller_fn_name: Option<String>) -> Self {
+    pub fn new(file_path: PathBuf, output_code: Option<String>, new_fn_name: String, start_idx: u32, end_idx: u32, caller_fn_name: Option<String>) -> Self {
         Self {
-            input_code,
+            file_path,
             output_code,
             new_fn_name,
             start_idx,
             end_idx,
             caller_fn_name,
         }
+    }
+    pub fn set_output_code(mut self, output_code: String) -> Self {
+        self.output_code = Some(output_code);
+        self
+    }
+
+    pub fn set_caller_fn_name(mut self, caller_fn_name: String) -> Self {
+        self.caller_fn_name = Some(caller_fn_name);
+        self
+    }
+
+    pub fn get_output_code(&self) -> Option<String> {
+        self.output_code.clone()
+    }
+
+    pub fn get_caller_fn_name(&self) -> Option<String> {
+        self.caller_fn_name.clone()
     }
 }
 
@@ -259,7 +278,7 @@ impl From<Throughput> for Extract {
     /// extraction module has been run.
     fn from(throughput: Throughput) -> Self {
         Self {
-            input_code: throughput.working_code,
+            file_path: throughput.file_path.into(),
             output_code: None,
             new_fn_name: throughput.new_fn_name,
             start_idx: throughput.start_idx,
@@ -309,6 +328,17 @@ impl From<Throughput> for Repairer {
 // From the inidividual module inputs to the structs defined here - just
 // wrappers - the underlying structs should be identical minus the output code
 // field
+
+impl From<Extract> for ExtractionInput {
+    fn from(extract: Extract) -> Self {
+        Self {
+            file_path: extract.file_path.to_string_lossy().into_owned(),
+            new_fn_name: extract.new_fn_name,
+            start_idx: extract.start_idx,
+            end_idx: extract.end_idx,
+        }
+    }
+}
 
 impl From<Controller> for ControllerInput {
     fn from(controller: Controller) -> Self {

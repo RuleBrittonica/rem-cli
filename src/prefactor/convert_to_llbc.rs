@@ -36,7 +36,7 @@ use log::{
 pub fn convert_to_llbc(
     project_path: &PathBuf, // Alternatively this is the file path.
     output_path: &PathBuf,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> Result<PathBuf, Box<dyn std::error::Error>> {
     // Get the path to the CHARON tool.
     let charon_path = get_charon_path()?;
 
@@ -63,7 +63,8 @@ pub fn convert_to_llbc(
         ).into());
     }
 
-    Ok(())
+    // Return the path to the output file.
+    Ok(output_path.to_path_buf())
 }
 
 /// Gets the path to the CHARON tool. This is done by reading the Config.toml

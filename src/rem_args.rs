@@ -63,6 +63,25 @@ pub enum REMCommands {
         verbose: bool,
     },
 
+    /// Run just the extraction process
+    /// Will print out the extracted code.
+    Extract {
+        #[arg(help = "The path to the file to refactor")]
+        file_path: PathBuf,
+
+        #[arg(help = "The name of the new function to create")]
+        new_fn_name: String,
+
+        #[arg(help = "Index to the start of the function to extract")]
+        start_index: usize,
+
+        #[arg(help = "Index to the end of the function to extract")]
+        end_index: usize,
+
+        #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
+        verbose: bool,
+    },
+
     // Run just the controller
     Controller {
         #[arg(help = "The path to the file that contains just the code that will be refactored", index = 1)]
