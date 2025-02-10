@@ -1,27 +1,9 @@
 //! Local hooks to the conversion and verification processes of
 //! rem-verification.
 
-use std::{
-    path::PathBuf,
-    process::Command,
-};
+use std::path::PathBuf;
 
-use config::{Config, File};
-use rem_verification::{
-    convert::coq_conversion,
-    verify::coq_verification,
-};
-
-use crate::local_config::Settings;
-
-/// Returns the paths to the original and new .v (CoQ) files.
-pub fn local_coq_conversion(
-    original_llbc: &PathBuf,
-    refactored_llbc: &PathBuf,
-    out_dir: &Option<PathBuf>,
-) -> Result<(PathBuf, PathBuf), Box<dyn std::error::Error>> {
-    coq_conversion(original_llbc, refactored_llbc, out_dir)
-}
+use rem_verification::verify::coq_verification;
 
 /// Returns the paths to:
 /// - The _CoQProject file

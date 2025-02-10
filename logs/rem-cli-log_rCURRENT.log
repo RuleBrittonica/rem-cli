@@ -1,22 +1,19 @@
-2025-02-10 14:43:06 [INFO] - Application Started
-2025-02-10 14:43:06 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739158986.rs"
-2025-02-10 14:43:06 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
-2025-02-10 14:43:06 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
-2025-02-10 14:43:06 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
-2025-02-10 14:43:06 [INFO] - Extraction succeeded. New Code:
+2025-02-11 00:58:59 [INFO] - Application Started
+2025-02-11 00:58:59 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739195939.rs"
+2025-02-11 00:58:59 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739195939.rs"
+2025-02-11 00:58:59 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 00:58:59 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:58:59 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 00:59:02 [INFO] - Extraction succeeded. New Code:
 fn main() {
     test_incr();
 }
 
 fn ref_incr(x: &mut i32) {
-    fun_name1(x);
+    refactored_fun(x);
 }
 
-fn fun_name1(x: &mut i32) {
-    fun_name(x);
-}
-
-fn fun_name(x: &mut i32) {
+fn refactored_fun(x: &mut i32) {
     *x = *x + 1;
 }
 
@@ -25,22 +22,22 @@ fn test_incr() {
     ref_incr(&mut y);
     assert!(y == 1);
 }
-2025-02-10 14:43:06 [INFO] - Caller Function Name: ref_incr
-2025-02-10 14:43:07 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
-2025-02-10 14:43:07 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
-2025-02-10 14:43:07 [INFO] - Original LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
-2025-02-10 14:43:07 [INFO] - New LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
-2025-02-10 14:43:07 [INFO] - Converting LLBC files to CoQ files
-2025-02-10 14:43:07 [INFO] - Settings: Settings { programs: Programs { aeneas: "/home/matt/rem-matt/rem-cli/tools/aeneas", charon: "/home/matt/rem-matt/rem-cli/tools/charon" }, files: Files { primitives: "/home/matt/rem-matt/rem-verification/verifyer/src/Primitives.v" } }
-2025-02-10 14:43:07 [INFO] - AENEAS path: "/home/matt/rem-matt/rem-cli/tools/aeneas"
-2025-02-10 14:43:07 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
-2025-02-10 14:43:07 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
-2025-02-10 14:43:07 [INFO] - Conversion to CoQ succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
-2025-02-10 14:43:07 [INFO] - Original CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v"
-2025-02-10 14:43:07 [INFO] - Refactored CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v"
-2025-02-10 14:43:07 [INFO] - Created _CoqProject file
-2025-02-10 14:43:07 [INFO] - Directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
-2025-02-10 14:43:07 [INFO] - Proof script:
+2025-02-11 00:59:02 [INFO] - Caller Function Name: ref_incr
+2025-02-11 00:59:03 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:59:03 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-02-11 00:59:03 [INFO] - Original LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 00:59:03 [INFO] - New LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-02-11 00:59:03 [INFO] - Converting LLBC files to CoQ files
+2025-02-11 00:59:03 [INFO] - Settings: Settings { programs: Programs { aeneas: "tools/aeneas", charon: "tools/charon" }, files: Files { primitives: "src/Primitives.v" } }
+2025-02-11 00:59:03 [INFO] - AENEAS path: "tools/aeneas"
+2025-02-11 00:59:03 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-02-11 00:59:03 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-02-11 00:59:03 [INFO] - Conversion to CoQ succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:59:03 [INFO] - Original CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v"
+2025-02-11 00:59:03 [INFO] - Refactored CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v"
+2025-02-11 00:59:03 [INFO] - Created _CoqProject file
+2025-02-11 00:59:03 [INFO] - Directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-02-11 00:59:03 [INFO] - Proof script:
 Lemma ref_incr_equiv_check : forall (x : i32),
   Main.ref_incr x = MainRef.ref_incr x.
 Proof.
@@ -49,37 +46,37 @@ Proof.
   unfold MainRef.ref_incr.
   reflexivity.
 Qed.
-2025-02-10 14:43:07 [INFO] - Proof generated successfully
-2025-02-10 14:43:07 [INFO] - Created EquivCheck.v file
-2025-02-10 14:43:07 [INFO] - Directory: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src
-2025-02-10 14:43:08 [INFO] - Primitives.v compiled successfully
-2025-02-10 14:43:09 [INFO] - Original Coq file compiled successfully
-2025-02-10 14:43:09 [INFO] - Refactored Coq file compiled successfully
-2025-02-10 14:43:09 [INFO] - EquivCheck.v compiled successfully
-2025-02-10 14:43:09 [INFO] - CoQ verification completed successfully
-2025-02-10 14:43:09 [INFO] - Verification succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
-2025-02-10 14:43:09 [INFO] - CoQ Project file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/_CoqProject"
-2025-02-10 14:43:09 [INFO] - EquivCheck file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/EquivCheck.v"
-2025-02-10 14:43:09 [INFO] - Primitives file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Primitives.v"
-2025-02-10 14:43:09 [INFO] - Verification succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
-2025-02-10 14:43:09 [INFO] - Original code is garunteed to be equivalent to the refactored code!
-2025-02-10 14:43:09 [INFO] - Cleaning up after RunShort
-2025-02-10 14:43:09 [INFO] - Deletingoriginal LLBC: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc, and new LLBC files: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc
-2025-02-10 14:43:09 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
-2025-02-10 14:43:09 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc" deleted successfully
-2025-02-10 14:43:09 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
-2025-02-10 14:43:09 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc" deleted successfully
-2025-02-10 14:43:09 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/_CoqProject"
-2025-02-10 14:43:09 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/_CoqProject" deleted successfully
-2025-02-10 14:43:09 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/EquivCheck.v"
-2025-02-10 14:43:09 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/EquivCheck.v" deleted successfully
-2025-02-10 14:43:09 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Primitives.v"
-2025-02-10 14:43:09 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Primitives.v" deleted successfully
-2025-02-10 14:43:09 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v"
-2025-02-10 14:43:09 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v" deleted successfully
-2025-02-10 14:43:09 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v"
-2025-02-10 14:43:09 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v" deleted successfully
-2025-02-10 14:43:09 [INFO] - RunShort completed successfully
-2025-02-10 14:43:09 [INFO] - Backup file deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739158986.rs"
-2025-02-10 14:43:09 [INFO] - Backup deleted successfully
-2025-02-10 14:43:09 [INFO] - Refactoring completed successfully
+2025-02-11 00:59:03 [INFO] - Proof generated successfully
+2025-02-11 00:59:03 [INFO] - Created EquivCheck.v file
+2025-02-11 00:59:03 [INFO] - Directory: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src
+2025-02-11 00:59:04 [INFO] - Primitives.v compiled successfully
+2025-02-11 00:59:04 [INFO] - Original Coq file compiled successfully
+2025-02-11 00:59:04 [INFO] - Refactored Coq file compiled successfully
+2025-02-11 00:59:04 [INFO] - EquivCheck.v compiled successfully
+2025-02-11 00:59:04 [INFO] - CoQ verification completed successfully
+2025-02-11 00:59:04 [INFO] - Verification succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:59:04 [INFO] - CoQ Project file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/_CoqProject"
+2025-02-11 00:59:04 [INFO] - EquivCheck file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/EquivCheck.v"
+2025-02-11 00:59:04 [INFO] - Primitives file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Primitives.v"
+2025-02-11 00:59:04 [INFO] - Verification succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:59:04 [INFO] - Original code is garunteed to be equivalent to the refactored code!
+2025-02-11 00:59:04 [INFO] - Cleaning up after RunShort
+2025-02-11 00:59:04 [INFO] - Deletingoriginal LLBC: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc, and new LLBC files: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc
+2025-02-11 00:59:04 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 00:59:04 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc" deleted successfully
+2025-02-11 00:59:04 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-02-11 00:59:04 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc" deleted successfully
+2025-02-11 00:59:04 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/_CoqProject"
+2025-02-11 00:59:04 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/_CoqProject" deleted successfully
+2025-02-11 00:59:04 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/EquivCheck.v"
+2025-02-11 00:59:04 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/EquivCheck.v" deleted successfully
+2025-02-11 00:59:04 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Primitives.v"
+2025-02-11 00:59:04 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Primitives.v" deleted successfully
+2025-02-11 00:59:04 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v"
+2025-02-11 00:59:04 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v" deleted successfully
+2025-02-11 00:59:04 [INFO] - File deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v"
+2025-02-11 00:59:04 [INFO] - File "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v" deleted successfully
+2025-02-11 00:59:04 [INFO] - Backup file deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739195939.rs"
+2025-02-11 00:59:04 [INFO] - Backup deleted successfully
+2025-02-11 00:59:04 [INFO] - RunShort completed successfully
+2025-02-11 00:59:04 [INFO] - Refactoring completed successfully

@@ -3,6 +3,10 @@ fn main() {
 }
 
 fn ref_incr(x: &mut i32) {
+    refactored_fun(x);
+}
+
+fn refactored_fun(x: &mut i32) {
     *x = *x + 1;
 }
 

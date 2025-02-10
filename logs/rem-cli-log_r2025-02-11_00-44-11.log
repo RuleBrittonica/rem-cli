@@ -1,0 +1,65 @@
+2025-02-11 00:44:11 [INFO] - Application Started
+2025-02-11 00:44:11 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739195051.rs"
+2025-02-11 00:44:11 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 00:44:13 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:44:13 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 00:44:15 [INFO] - Extraction succeeded. New Code:
+fn main() {
+    test_incr();
+}
+
+fn ref_incr(x: &mut i32) {
+    refactored_fun(x);
+}
+
+fn refactored_fun(x: &mut i32) {
+    *x = *x + 1;
+}
+
+fn test_incr() {
+    let mut y = 0i32;
+    ref_incr(&mut y);
+    assert!(y == 1);
+}
+2025-02-11 00:44:15 [INFO] - Caller Function Name: ref_incr
+2025-02-11 00:44:16 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:44:16 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-02-11 00:44:16 [INFO] - Original LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 00:44:16 [INFO] - New LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-02-11 00:44:16 [INFO] - Converting LLBC files to CoQ files
+2025-02-11 00:44:16 [INFO] - Settings: Settings { programs: Programs { aeneas: "tools/aeneas", charon: "tools/charon" }, files: Files { primitives: "src/Primitives.v" } }
+2025-02-11 00:44:16 [INFO] - AENEAS path: "tools/aeneas"
+2025-02-11 00:44:16 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-02-11 00:44:16 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-02-11 00:44:16 [INFO] - Conversion to CoQ succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:44:16 [INFO] - Original CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v"
+2025-02-11 00:44:16 [INFO] - Refactored CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v"
+2025-02-11 00:44:16 [INFO] - Created _CoqProject file
+2025-02-11 00:44:16 [INFO] - Directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-02-11 00:44:16 [INFO] - Proof script:
+Lemma ref_incr_equiv_check : forall (x : i32),
+  Main.ref_incr x = MainRef.ref_incr x.
+Proof.
+  intros x.
+  unfold Main.ref_incr.
+  unfold MainRef.ref_incr.
+  reflexivity.
+Qed.
+2025-02-11 00:44:16 [INFO] - Proof generated successfully
+2025-02-11 00:44:16 [INFO] - Created EquivCheck.v file
+2025-02-11 00:44:16 [INFO] - Directory: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src
+2025-02-11 00:44:17 [INFO] - Primitives.v compiled successfully
+2025-02-11 00:44:17 [INFO] - Original Coq file compiled successfully
+2025-02-11 00:44:18 [INFO] - Refactored Coq file compiled successfully
+2025-02-11 00:44:18 [INFO] - EquivCheck.v compiled successfully
+2025-02-11 00:44:18 [INFO] - CoQ verification completed successfully
+2025-02-11 00:44:18 [INFO] - Verification succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:44:18 [INFO] - CoQ Project file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/_CoqProject"
+2025-02-11 00:44:18 [INFO] - EquivCheck file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/EquivCheck.v"
+2025-02-11 00:44:18 [INFO] - Primitives file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Primitives.v"
+2025-02-11 00:44:18 [INFO] - Verification succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 00:44:18 [INFO] - Original code is garunteed to be equivalent to the refactored code!
+2025-02-11 00:44:18 [INFO] - RunShort completed successfully
+2025-02-11 00:44:18 [INFO] - Backup file deleted successfully: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739195051.rs"
+2025-02-11 00:44:18 [INFO] - Backup deleted successfully
+2025-02-11 00:44:18 [INFO] - Refactoring completed successfully

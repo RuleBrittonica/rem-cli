@@ -6,21 +6,14 @@ use rem_extract::{
     error::ExtractionError,
     };
 use crate::tests::utils::compile_file;
-use log::{
-    error,
-    info,
-};
+use log::info;
 
 use colored::Colorize;
 use std::{
     fs::{self, read_to_string},
     io,
-    path::{
-        Path,
-        PathBuf,
-    },
+    path::PathBuf,
     time::{
-        SystemTime,
         Instant,
         Duration,
     }
@@ -34,8 +27,6 @@ use rem_utils::{
 };
 
 use lazy_static::lazy_static;
-
-use crate::refactor::throughput::Extract;
 
 struct TestFile<'a> {
     pub input_file: &'a str, // Just the name of the file. It is assumed the file is in ./input/{testname}/src/main.rs, and there is a corresponding file in ./correct_output (./correct_output/{testname}.rs)
