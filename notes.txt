@@ -28,3 +28,7 @@ Finally, I need to experiment a lot more with CHARON, and work out what its
 limits are and how it works. I need to determine the optimal way to compile each
 crate / file, as I don't want the user to have to wait for a whole compilation
 cycle to validate a single operation (especially as CHARON loves to not compile)
+
+One potential way to fix rem-verification is to pass in the path to AENEAS.
+Really I just need to work out how to get the logging to bubble up through the
+program :(

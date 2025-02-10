@@ -1,3 +1,7 @@
 [programs]
 aeneas = "/home/matt/rem-matt/rem-cli/tools/aeneas"
 charon = "/home/matt/rem-matt/rem-cli/tools/charon"
+# rem-verification = "/home/matt/rem-matt/rem-cli/tools/rem-verification"
+
+[files]
+primitives = "/home/matt/rem-matt/rem-verification/verifyer/src/Primitives.v"

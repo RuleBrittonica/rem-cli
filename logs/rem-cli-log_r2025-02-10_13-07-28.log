@@ -1,0 +1,17 @@
+2025-02-10 13:07:28 [INFO] - Application Started
+2025-02-10 13:07:28 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739153248.rs"
+2025-02-10 13:07:28 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-10 13:07:28 [ERROR] - CHARON tool failed:
+stdout: 
+stderr: thread 'main' panicked at src/bin/charon/main.rs:174:13:
+failed to determine underlying rustc version of Charon:
+CommandError { stdout: "", stderr: "error: command failed: '/home/matt/rem-matt/rem-cli/tools/charon-driver': No such file or directory (os error 2)\n" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+2025-02-10 13:07:28 [ERROR] - Conversion to LLBC failed: CHARON tool failed:
+stdout: 
+stderr: thread 'main' panicked at src/bin/charon/main.rs:174:13:
+failed to determine underlying rustc version of Charon:
+CommandError { stdout: "", stderr: "error: command failed: '/home/matt/rem-matt/rem-cli/tools/charon-driver': No such file or directory (os error 2)\n" }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+

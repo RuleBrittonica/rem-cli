@@ -5,6 +5,7 @@ use std::{
 
 use clap::Parser;
 
+use colored::Colorize;
 use log::{
     error,
     info,
@@ -150,6 +151,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }
             };
 
+            info!("Output path: {:?}", out_path);
+
             let original_llbc_path: PathBuf = match convert_to_llbc(file_path, &out_path) {
                 Ok(output_path) => {
                     // Verify that there is a file at the output path.
@@ -233,6 +236,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
 
             // 6. Convert the original and new llbc files to CoQ
+            info!("Original LLBC: {:?}", original_llbc_path);
+            info!("New LLBC: {:?}", new_llbc_path);
             let (original_coq_path, refactored_coq_path) = match local_coq_conversion(
                 &original_llbc_path,
                 &new_llbc_path,
@@ -306,6 +311,13 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
             // 9. Print out the results
             info!("RunShort completed successfully");
+            eprintln!("RESULT: {}", {
+                if result {
+                    "SUCCESS".green()
+                } else {
+                    "FAILURE".red()
+                }
+            });
         },
 
         REMCommands::Extract {

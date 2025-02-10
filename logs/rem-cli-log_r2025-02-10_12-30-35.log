@@ -1,0 +1,3 @@
+2025-02-10 12:30:35 [INFO] - Application Started
+2025-02-10 12:30:35 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739151035.rs"
+2025-02-10 12:30:35 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"

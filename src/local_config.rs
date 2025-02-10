@@ -1,5 +1,3 @@
-//! Local configuration file. Allows for the deserializtion of Config.toml
-
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
@@ -9,6 +7,12 @@ pub struct Programs {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct Settings{
+pub struct Files {
+    pub primitives: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Settings {
     pub programs: Programs,
+    pub files: Files,
 }

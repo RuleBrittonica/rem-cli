@@ -1,0 +1,4 @@
+2025-02-10 14:27:27 [INFO] - Application Started
+2025-02-10 14:27:27 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739158047.rs"
+2025-02-10 14:27:27 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-10 14:27:27 [ERROR] - Conversion to LLBC failed: missing field `rem_verification` for key `programs`
