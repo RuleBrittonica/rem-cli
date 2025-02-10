@@ -1,0 +1,6 @@
+2025-02-11 01:18:03 [INFO] - Application Started
+2025-02-11 01:18:03 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739197083.rs"
+2025-02-11 01:18:03 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1739197083.rs"
+2025-02-11 01:18:03 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-02-11 01:18:04 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-02-11 01:18:04 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
