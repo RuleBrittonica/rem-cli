@@ -25,5 +25,6 @@ src_tests/controller/output/
 src_tests/borrower/output/
 src_tests/repairer/output/
 
-/tools
-/tools
+/tools/aeneas
+/tools/charon
+/tools/charon-driver
