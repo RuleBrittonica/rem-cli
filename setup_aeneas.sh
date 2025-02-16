@@ -40,6 +40,13 @@ opam install ppx_deriving visitors easy_logging zarith yojson core_unix odoc \
 
 # 5. Build Charon
 echo "Setting up Charon..."
+
+# Modify the build scripts for Charon to remove Nix issues
+sed -i.bak '/^rebuild() {/,/^}/c\
+rebuild() {\
+    make test\
+}' scripts/check-charon-install.sh
+
 make setup-charon
 
 # 6. Build AENEAS and run tests
