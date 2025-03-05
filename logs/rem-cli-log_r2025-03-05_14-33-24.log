@@ -1,0 +1,7 @@
+2025-03-05 14:33:24 [INFO] - Application Started
+2025-03-05 14:33:24 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1741145604.rs"
+2025-03-05 14:33:24 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1741145604.rs"
+2025-03-05 14:33:24 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-03-05 14:33:24 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-03-05 14:33:24 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-03-05 14:33:27 [ERROR] - Extraction failed: "Failed to extract method: No Extract Function Assist found for the given selection of assists []"

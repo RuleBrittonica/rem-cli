@@ -62,7 +62,7 @@ pub enum REMCommands {
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,
 
-        #[arg(short, long, help = "Disable the cleanup process", action = ArgAction::SetTrue)]
+        #[arg(short, long, help = "Enable the cleanup process", action = ArgAction::SetTrue)]
         cleanup: bool,
     },
 

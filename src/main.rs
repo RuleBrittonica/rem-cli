@@ -113,7 +113,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             verbose,
             cleanup,
         } => {
-            backup_path = backup_file(file_path.clone());
+            // backup_path = backup_file(file_path.clone());
             commands::run_short::run_short(file_path, new_fn_name, start_index, end_index, verbose, cleanup)?;
 
         },

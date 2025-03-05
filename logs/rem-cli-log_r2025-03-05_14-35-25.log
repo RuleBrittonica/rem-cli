@@ -1,0 +1,54 @@
+2025-03-05 14:35:25 [INFO] - Application Started
+2025-03-05 14:35:25 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1741145725.rs"
+2025-03-05 14:35:25 [INFO] - Successfully backed up file from "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs" to "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_backup_1741145725.rs"
+2025-03-05 14:35:25 [INFO] - Output path: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-03-05 14:35:26 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-03-05 14:35:26 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-03-05 14:35:29 [INFO] - Extraction succeeded. New Code:
+fn main() {
+    test_incr();
+}
+
+fn ref_incr(x: &mut i32) {
+    new_function(x);
+}
+
+fn new_function(x: &mut i32) {
+    *x = *x + 1;
+}
+
+fn test_incr() {
+    let mut y = 0i32;
+    ref_incr(&mut y);
+    assert!(y == 1);
+}
+2025-03-05 14:35:29 [INFO] - Caller Function Name: ref_incr
+2025-03-05 14:35:29 [INFO] - Conversion to LLBC succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-03-05 14:35:29 [INFO] - LLBC file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-03-05 14:35:29 [INFO] - Original LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.llbc"
+2025-03-05 14:35:29 [INFO] - New LLBC: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main_ref.llbc"
+2025-03-05 14:35:29 [INFO] - Converting LLBC files to CoQ files
+2025-03-05 14:35:29 [INFO] - Settings: Settings { programs: Programs { aeneas: "tools/aeneas", charon: "tools/charon" }, files: Files { primitives: "src/Primitives.v" } }
+2025-03-05 14:35:29 [INFO] - AENEAS path: "tools/aeneas"
+2025-03-05 14:35:29 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-03-05 14:35:29 [INFO] - Output directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-03-05 14:35:29 [INFO] - Conversion to CoQ succeeded for project: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/main.rs"
+2025-03-05 14:35:29 [INFO] - Original CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/Main.v"
+2025-03-05 14:35:29 [INFO] - Refactored CoQ file saved at: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src/MainRef.v"
+2025-03-05 14:35:29 [INFO] - Created _CoqProject file
+2025-03-05 14:35:29 [INFO] - Directory: "/home/matt/rem-matt/rem-cli/test_crates/sample_project/src"
+2025-03-05 14:35:29 [INFO] - Proof script:
+Lemma ref_incr_equiv_check : forall (x : i32),
+  Main.ref_incr x = MainRef.ref_incr x.
+Proof.
+  intros x.
+  unfold Main.ref_incr.
+  unfold MainRef.ref_incr.
+  reflexivity.
+Qed.
+2025-03-05 14:35:29 [INFO] - Proof generated successfully
+2025-03-05 14:35:29 [INFO] - Created EquivCheck.v file
+2025-03-05 14:35:29 [INFO] - Directory: /home/matt/rem-matt/rem-cli/test_crates/sample_project/src
+2025-03-05 14:35:30 [INFO] - Primitives.v compiled successfully
+2025-03-05 14:35:30 [INFO] - Original Coq file compiled successfully
+2025-03-05 14:35:30 [INFO] - Refactored Coq file compiled successfully
