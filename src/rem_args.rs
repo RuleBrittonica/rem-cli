@@ -42,6 +42,14 @@ pub enum REMCommands {
 
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,
+
+        /// Optional path to the Charon binary.
+        #[arg(long, help = "Optional path to the Charon binary")]
+        charon_path: Option<PathBuf>,
+
+        /// Optional path to the Aeneas binary.
+        #[arg(long, help = "Optional path to the Aeneas binary")]
+        aeneas_path: Option<PathBuf>,
     },
 
     /// Extract a method from a file, using Rust Analyzer only. Then run the
@@ -64,6 +72,14 @@ pub enum REMCommands {
 
         #[arg(short, long, help = "Enable the cleanup process", action = ArgAction::SetTrue)]
         cleanup: bool,
+
+        /// Optional path to the Charon binary.
+        #[arg(long, help = "Optional path to the Charon binary")]
+        charon_path: Option<PathBuf>,
+
+        /// Optional path to the Aeneas binary.
+        #[arg(long, help = "Optional path to the Aeneas binary")]
+        aeneas_path: Option<PathBuf>,
     },
 
     /// Run just the extraction process
@@ -177,6 +193,7 @@ pub enum REMCommands {
     },
 
     /// Convert a pair of .llbc files to a pair of .v (CoQ) files.
+    /// Relies on AENEAS to do so.
     ConvertToCoq {
         #[arg(help = "Path to the LLBC of the original program.")]
         original_llbc: PathBuf,
@@ -190,6 +207,10 @@ pub enum REMCommands {
 
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,
+
+        /// Optional path to the Aeneas binary.
+        #[arg(long, help = "Optional path to the Aeneas binary")]
+        aeneas_path: Option<PathBuf>,
     },
 
     /// Convert a single rust project to a single .llbc file using CHARON. Can
@@ -203,6 +224,10 @@ pub enum REMCommands {
 
         #[arg(short, long, help = "Enable verbose output", action = ArgAction::SetTrue)]
         verbose: bool,
+
+        /// Optional path to the Charon binary.
+        #[arg(long, help = "Optional path to the Charon binary")]
+        charon_path: Option<PathBuf>,
     },
 
     /// Verify that a pair of .v (CoQ) files contain an equivalent method

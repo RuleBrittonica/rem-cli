@@ -2,6 +2,9 @@
 //! Rust project to a .llbc file. This is done by using the CHARON tool.
 //! The CHARON tool is located in the `tools/charon` directory, as outlined by
 //! the Config.toml file.
+//! The program now relies on cli inputs, then environment variables, then the
+//! paths specified in the Config.toml file to locate the CHARON and AENEAS
+//! tools. This is outlined in rem-utils.
 //!
 //! This process is run both before the refactor process, to generate a .llbc of
 //! the original project, and after the refactor process, to generate a .llbc of
@@ -11,6 +14,13 @@
 //! working first.
 //!
 //! There is the potential to use --input to specify just an input file.
+//! This module is structured a little weirdly. I wanted to have a file that
+//! points to both the conversion and verification functions. However, because
+//! the conversion is very straightforward (and done locally), and the
+//! verification is done externally, this gets a lot more complicated :(
+//! Eventually, I would like to call out to both CHARON and AENEAS as modules
+//! instead of through the CLI. However, they are currently written in ocaml so
+//! this does create some issues 
 
 use std::{
     path::PathBuf,
@@ -26,6 +36,7 @@ use log::{
     error,
 };
 
+use rem_utils::resolve_charon_path;
 use rem_verification::convert::coq_conversion;
 
 /// This is the public method that is called to convert the project to a .llbc
@@ -38,9 +49,10 @@ use rem_verification::convert::coq_conversion;
 pub fn local_llbc_conversion(
     project_path: &PathBuf, // Alternatively this is the file path.
     output_path: &PathBuf,
+    charon_path: &Option<PathBuf>,
 ) -> Result<PathBuf, Box<dyn std::error::Error>> {
     // Get the path to the CHARON tool.
-    let charon_path = get_charon_path()?;
+    let charon_path: PathBuf = resolve_charon_path(charon_path)?;
 
     // Build the command
     let mut cmd = Command::new(&charon_path);
@@ -69,27 +81,13 @@ pub fn local_llbc_conversion(
     Ok(output_path.to_path_buf())
 }
 
-/// Gets the path to the CHARON tool. This is done by reading the Config.toml
-/// file and getting the path to the CHARON tool from there.
-fn get_charon_path() -> Result<PathBuf, Box<dyn std::error::Error>> {
-    let config = Config::builder()
-        // "Config" here means it will look for a file named "Config.toml" by default.
-        .add_source(File::with_name("Config")
-        .required(true))
-        .build()?;
-
-    let s: Settings = config.try_deserialize()?;
-    // Convert the charon field (a String) into a PathBuf in one step.
-    let charon_path = PathBuf::from(s.programs.charon);
-    Ok(charon_path)
-}
-
 /// Returns the paths to the original and new .v (CoQ) files.
 /// Local hook into rem-verifications convert::coq_conversion function.
 pub fn local_coq_conversion(
     original_llbc: &PathBuf,
     refactored_llbc: &PathBuf,
     out_dir: &Option<PathBuf>,
+    aeneas_path: &Option<PathBuf>,
 ) -> Result<(PathBuf, PathBuf), Box<dyn std::error::Error>> {
-    coq_conversion(original_llbc, refactored_llbc, out_dir)
+    coq_conversion(original_llbc, refactored_llbc, out_dir, aeneas_path)
 }

@@ -22,6 +22,8 @@ pub fn run_short(
     end_index: &usize,
     verbose: &bool,
     cleanup: &bool,
+    charon_path: &Option<PathBuf>,
+    aeneas_path: &Option<PathBuf>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if *verbose {
         info!("Running RunShort in verbose mode");
@@ -60,7 +62,11 @@ pub fn run_short(
 
     info!("Output path: {:?}", out_path);
 
-    let original_llbc_path: PathBuf = match local_llbc_conversion(file_path, &out_path) {
+    let original_llbc_path: PathBuf = match local_llbc_conversion(
+        file_path,
+        &out_path,
+        charon_path
+    ) {
         Ok(output_path) => {
             // Verify that there is a file at the output path.
             if output_path.exists() {
@@ -124,7 +130,11 @@ pub fn run_short(
     let ext: &str = new_llbc_path.extension().unwrap().to_str().unwrap();
     new_llbc_path.set_file_name(format!("{}_ref.{}", stem, ext));
 
-    let new_llbc_path: PathBuf = match local_llbc_conversion(&refactored_file_path, &new_llbc_path) {
+    let new_llbc_path: PathBuf = match local_llbc_conversion(
+        &refactored_file_path,
+        &new_llbc_path,
+        charon_path,
+    ) {
         Ok(output_path) => {
             // Verify that there is a file at the output path.
             if output_path.exists() {
@@ -149,6 +159,7 @@ pub fn run_short(
         &original_llbc_path,
         &new_llbc_path,
         &None,
+        aeneas_path,
     ) {
         Ok((original_coq_path, refactored_coq_path)) => {
             info!("Conversion to CoQ succeeded for project: {:?}", file_path);

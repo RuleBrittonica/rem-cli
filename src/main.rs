@@ -96,6 +96,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             start_index,
             end_index,
             verbose,
+            charon_path,
+            aeneas_path,
         } => {
             // Create our backup
             backup_path = backup_file(file_path.clone());
@@ -112,10 +114,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             end_index,
             verbose,
             cleanup,
+            charon_path,
+            aeneas_path,
         } => {
-            // backup_path = backup_file(file_path.clone());
-            commands::run_short::run_short(file_path, new_fn_name, start_index, end_index, verbose, cleanup)?;
-
+            commands::run_short::run_short(file_path, new_fn_name, start_index, end_index, verbose, cleanup, charon_path, aeneas_path)?;
         },
 
         REMCommands::Extract {
@@ -276,17 +278,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             original_llbc,
             refactored_llbc,
             out_dir,
-            verbose
+            verbose,
+            aeneas_path,
         } => {
-            commands::convert::convert_to_coq(original_llbc, refactored_llbc, out_dir, verbose)?;
+            commands::convert::convert_to_coq(original_llbc, refactored_llbc, out_dir, verbose, aeneas_path)?;
         },
 
         REMCommands::ConvertToLLBC {
             project_path,
             out_path,
             verbose,
+            charon_path,
         } => {
-            commands::convert::convert_to_llbc(project_path, out_path, verbose)?;
+            commands::convert::convert_to_llbc(project_path, out_path, verbose, charon_path)?;
         },
 
         REMCommands::Verify {

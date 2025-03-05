@@ -10,12 +10,13 @@ pub fn convert_to_llbc(
     project_path: &PathBuf,
     out_path: &PathBuf,
     verbose: &bool,
+    charon_path: &Option<PathBuf>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if *verbose {
         info!("Starting conversion to LLBC for project: {:?}", project_path);
     }
     // Call the conversion function.
-    match local_llbc_conversion(project_path, out_path) {
+    match local_llbc_conversion(project_path, out_path, charon_path) {
         Ok(output_path) => {
             // Verify that there is a file at the output path.
             if output_path.exists() {
@@ -39,7 +40,8 @@ pub fn convert_to_coq(
     refactored_llbc: &PathBuf,
     out_dir: &Option<PathBuf>,
     verbose: &bool,
+    aeneas_path: &Option<PathBuf>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let _ = local_coq_conversion(original_llbc, refactored_llbc, out_dir)?;
+    let _ = local_coq_conversion(original_llbc, refactored_llbc, out_dir, aeneas_path)?;
     Ok(())
 }

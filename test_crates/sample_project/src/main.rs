@@ -3,10 +3,6 @@ fn main() {
 }
 
 fn ref_incr(x: &mut i32) {
-    new_function(x);
-}
-
-fn new_function(x: &mut i32) {
     *x = *x + 1;
 }
 

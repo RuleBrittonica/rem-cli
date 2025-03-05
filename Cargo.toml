@@ -1,5 +1,5 @@
 [package]
-name = "rem-cli"
+name = "rem-command-line"
 version = "0.1.0"
 edition = "2021"
 authors = ["Matthew Britton <matt.britton@anu.edu.au>"]
@@ -11,7 +11,7 @@ readme = "README.md"
 
 [dependencies]
 
-# Listed here in the order they are used in the program. Because why not?
+# Listed here in the order they are used in the program.
 # rem-extract    = { version = "0.1.2" }
 # rem-controller = { version = "0.1.3" }
 # rem-borrower   = { version = "0.1.3" }
