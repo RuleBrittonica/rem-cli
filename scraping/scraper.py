@@ -17,6 +17,7 @@ from datetime import datetime
 from pathlib import Path
 
 from git import Repo
+from git.exc import GitCommandError
 from tree_sitter import Parser
 from tree_sitter_language_pack import get_language
 #  configuration
@@ -73,7 +74,13 @@ def scrape_repo(full_name: str):
                 continue
             parent = commit.parents[0]
 
-            for d in parent.diff(commit, create_patch=True):
+            # Shallow edge?  Skip & stop if diff fails.
+            try:
+                diffs = parent.diff(commit, create_patch=True)
+            except GitCommandError:
+                break
+
+            for d in diffs:
                 if not (d.b_path and d.b_path.endswith(".rs")):
                     continue
 
@@ -90,8 +97,10 @@ def scrape_repo(full_name: str):
                 rows.append(
                     {
                         "repo":    name,
-                        "sha":     commit.hexsha[:10],
+                        "sha":     commit.hexsha,
                         "author":  commit.author.email,
+
+                          
                         "date":    commit.committed_datetime.isoformat(),
                         "file":    d.b_path,
                         "fn":      fn_name,
@@ -128,7 +137,7 @@ def main():
               f"→ {n_matches:3d} matches  "
               f"({elapsed_repo:5.1f}s)")
 
-    print(f"\n✓ Finished.  {total_matches} matches "
+    print(f"\n !!! Finished.  {total_matches} matches "
           f"written to {CSV_PATH}  "
           f"in {time.time() - start_all:0.1f}s")
 
