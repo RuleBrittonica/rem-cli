@@ -1,4 +1,3 @@
-rust-lang/rust
 denoland/deno
 tauri-apps/tauri
 rustdesk/rustdesk
@@ -16,5 +15,4 @@ meilisearch/meilisearch
 rust-unofficial/awesome-rust
 starship/starship
 dani-garcia/vaultwarden
-fuels-rs/fuels-rs
 typst/typst
